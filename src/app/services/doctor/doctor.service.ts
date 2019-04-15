@@ -4,34 +4,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SearchResult } from '../../model/searchresult';
-import { Address } from 'src/app/model/address';
-
+import { Doctor } from 'src/app/model/doctor';
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
+export class DoctorService {
 
-  private urlSearch = `${environment.apiUrlApi}/booking/search`;
+  private urlDoctor = `${environment.apiUrlApi}/account/profile/doctor`;
 
   constructor(private http: HttpClient) {
   }
 
-  getListDoctor(symptom: any, lat: number, long: number, partOfDay: any): Observable<SearchResult[]> {
-    let url = this.urlSearch;
-    url = url + '?symptom=' + symptom + '&lat=' + lat + '&lng=' + long + '&partOfDay=' + partOfDay;
-    return this.http.get<SearchResult[]>(url)
-      .pipe(
-        map(response => {
-          const data = response;
-          return data;
-        }));
-  }
-
-  getListDoctorByAddress(symptom: any, address: string, partOfDay: any): Observable<SearchResult[]> 
-  {
-    let url = this.urlSearch;
-    url = url + '?symptom=' + symptom + '&address=' + address + '&partOfDay=' + partOfDay;
-    return this.http.get<SearchResult[]>(url)
+  getDoctor(id : number): Observable<Doctor> {
+    let url = this.urlDoctor;
+    url = url + '/' + id ;
+    return this.http.get<Doctor>(url)
       .pipe(
         map(response => {
           const data = response;

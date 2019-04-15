@@ -25,66 +25,76 @@ export class MapComponent implements OnInit {
   address: any;
   marker: google.maps.Marker;
   currentAddress: string;
-  
+
 
   @ViewChild("searchInput")
   public searchElementRef: ElementRef;
 
   constructor(private locateService: LocateService, private elRef: ElementRef, private addressData: AddressDataService,
-    private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private activatedRoute: ActivatedRoute, 
-    private router : Router) {
-      if (this.activatedRoute.snapshot.params['id']) {
-        this.currentAddress = this.activatedRoute.snapshot.params['id'];
-      }
+    private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private activatedRoute: ActivatedRoute,
+    private router: Router) {
+    if (this.activatedRoute.snapshot.params['id']) {
+      this.currentAddress = this.activatedRoute.snapshot.params['id'];
     }
-
-  getAddress(currentLat: number, currentLong: number) {
-    this.locateService.getAddress(currentLat, currentLong)
-      .subscribe(result => {
-        this.currentAddress = result.resultAddress;
-      });
-      let location = new google.maps.LatLng(currentLat, currentLong);
-      if (!this.marker) {
-        this.marker = new google.maps.Marker({
-          position: location,
-          map: this.map,
-        });
-      }
-      else {
-        this.marker.setPosition(location);
-      }
   }
+
+  // getAddress(currentLat: number, currentLong: number) {
+  //   this.locateService.getAddress(currentLat, currentLong)
+  //     .subscribe(result => {
+  //       this.currentAddress = result.resultAddress;
+  //     });
+  //     let location = new google.maps.LatLng(currentLat, currentLong);
+  //     if (!this.marker) {
+  //       this.marker = new google.maps.Marker({
+  //         position: location,
+  //         map: this.map,
+  //       });
+  //     }
+  //     else {
+  //       this.marker.setPosition(location);
+  //     }
+  // }
 
   locateLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.currentLat = position.coords.latitude;
-        this.currentLong = position.coords.longitude;
-        this.getAddress(this.currentLat, this.currentLong);
+    this.locateService.getCoordinate(this.currentAddress)
+      .subscribe(result => {
+        this.currentLat = result.lat;
+        this.currentLong = result.lng;
       });
-    } else {
-      alert("Geolocation is not supported by this browser.");
+    let location = new google.maps.LatLng(this.currentLat, this.currentLong);
+    if (!this.marker) {
+      this.marker = new google.maps.Marker({
+        position: location,
+        map: this.map,
+      });
+    }
+    else {
+      this.marker.setPosition(location);
     }
   }
 
-  btnBack_click()
-  {
+  // onSearchChange(searchValue : string ) {  
+  //   this.locateService.getAutocomple(searchValue)
+  //   .subscribe(result =>
+  //     {
+  //       this.
+  //     })
+
+  // }
+
+  btnBack_click() {
     //this.router.navigate(['/search/list', this.currentAddress]);
     //this.router.navigate(['/search'],{ queryParams: { address2: this.currentAddress } });
     this.router.navigate(['/search/search', this.currentAddress]);
   }
 
   ngOnInit() {
-    if(this.currentAddress == null)
-    {
-      this.locateLocation();
-    }
-    else
+    this.locateLocation();
     console.log("OK");
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: ["address"],
-        componentRestrictions: {country: "vn"}
+        componentRestrictions: { country: "vn" }
       });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {

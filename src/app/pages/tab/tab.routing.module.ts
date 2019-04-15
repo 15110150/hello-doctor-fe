@@ -18,6 +18,10 @@ const routes: Routes = [
                 loadChildren: '../../pages/search/search.module#SearchComponentModule'
             },
             {
+                path: 'user-profile',
+                loadChildren: '../../pages/user-profile/user-profile.module#UserProfileComponentModule'
+            },
+            {
                 path: '',
                 pathMatch: 'full',
                 redirectTo: 'home'

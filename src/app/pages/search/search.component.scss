@@ -7,13 +7,6 @@
     -o-background-size: contain;
     background-size:contain;
   }
-  .scroll-content{
-    
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size:contain;
-  }
   ion-header{
     ion-toolbar { 
       --background: url('../../../assets/img/doctorinfo.png') ;
@@ -39,5 +32,8 @@ ion-item.info{
 ion-label.addresslb
 {text-overflow: inherit;
 white-space: normal;
+}
+ion-title{
+    color: white;
 }
 }

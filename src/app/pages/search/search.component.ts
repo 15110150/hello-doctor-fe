@@ -19,12 +19,14 @@ export class SearchComponent implements OnInit{
   searchResult: SearchResult[];
   currentAddress: string;
   partOfDay: string;
+  public changeAddress = false;
   public address : any;
 
   ngOnInit() {
     //set color tab button search 
     var list = document.querySelectorAll('.paoday');
     list[0].classList.add("clicked");
+    console.log(list[0]);
     //get MORNING default
     this.getPartOfDate();
     console.log(this.currentAddress);
@@ -39,6 +41,7 @@ export class SearchComponent implements OnInit{
     private locateService: LocateService, private activatedRoute: ActivatedRoute) {
       if (this.activatedRoute.snapshot.params['id']) {
         this.currentAddress = this.activatedRoute.snapshot.params['id'];
+        this.changeAddress = true;
       }
   }
 
@@ -63,10 +66,17 @@ export class SearchComponent implements OnInit{
   }
 
   searchDoctors() {
-    this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)
-      .subscribe(result => {
+    //if(this.changeAddress)
+    this.searchService.getListDoctorByAddress(this.symptom, this.currentAddress, this.partOfDay)
+    .subscribe(result =>
+      {
         this.searchResult = result;
-      });
+      }
+    )
+    // this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)
+    //   .subscribe(result => {
+    //     this.searchResult = result;
+   
   }
 
   btnSearch_click() {
@@ -98,8 +108,8 @@ export class SearchComponent implements OnInit{
     console.log(this.partOfDay);
   }
 
-  btnDoctor_click() {
-    this.router.navigateByUrl('/account');
+  btnDoctor_click(id : number) {
+    this.router.navigate(['/doctor-profile/doctor', id]);
   }
 
   btnMap_click()

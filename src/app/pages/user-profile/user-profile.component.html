@@ -1,0 +1,62 @@
+<ion-content>
+  <ion-header no-border>
+    <ion-toolbar>
+      <ion-row>
+        <ion-col size=4>
+        </ion-col>
+        <ion-col size=4>
+          <ion-avatar>
+            <img src="https://scontent.fsgn4-1.fna.fbcdn.net/v/t1.0-9/54206240_1119920651520980_8863493407113216000_n.jpg?_nc_cat=103&_nc_oc=AQn5E-FFSjG3J2xFxlbOWED7MNMzH7DQ25Q5-Vg3oP1RlfMfO1ZWlwi_fXjCj6qZd2bsYvQxfdWBg7cjr9noa6ka&_nc_ht=scontent.fsgn4-1.fna&oh=cf85f99ad22c00cc43c6cc11c4f3b99b&oe=5D2DA63A"
+              style="text-align: center">
+          </ion-avatar>
+        </ion-col>
+        <ion-col size=4>
+        </ion-col>
+      </ion-row>
+      <div text-center style="color: #ffffff"><strong>Đỗ Long</strong></div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card class="cards-pk">
+    <ion-item>
+      <ion-label class="labelInfo" position="stacked"><strong>Họ tên</strong></ion-label>
+      <ion-input readonly=true value="Đỗ long"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelInfo" position="stacked"><strong>Điện thoại</strong></ion-label>
+      <ion-input readonly=true value="098239435"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelInfo" position="stacked"><strong>Email</strong></ion-label>
+      <ion-input readonly=true value="longdeptrai@gmail.com"></ion-input>
+    </ion-item>
+    <ion-item class="datepicker">
+      <ion-label class="labelInfo" position="stacked"><strong>Ngày sinh</strong></ion-label>
+      <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YY"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelInfo" position="stacked"><strong>Giới tính</strong></ion-label>
+      <ion-radio value="nam" checked></ion-radio>
+      <ion-label>Nam</ion-label>
+      <ion-radio value="nu"></ion-radio>
+      <ion-label>Nữ</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="labelInfo" position="stacked"><strong>Cân nặng</strong></ion-label>
+      <ion-input readonly=true value="65kg"></ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-button expand="full" shape="round" class="btn1">
+            <ion-icon name="calendar"></ion-icon>Chỉnh sửa
+          </ion-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button expand="full" shape="round" class="btn2" disabled="true">
+            <ion-icon name="chatboxes"></ion-icon>Lưu
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>

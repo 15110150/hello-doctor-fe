@@ -6,7 +6,7 @@
         <ion-icon slot="icon-only" name="pin" color="danger"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title color="white" ali="center" class="addresslb">
+    <ion-title ali="center" class="addresslb">
       <strong>
         {{currentAddress}}
       </strong>
@@ -63,7 +63,7 @@
           </div>
         </ion-label>
         <ion-buttons slot="end">
-          <ion-button (click)="btnDoctor_click()">
+          <ion-button (click)="btnDoctor_click(result.doctorId)">
             <ion-icon slot="icon-only" name="log-in"></ion-icon>
           </ion-button>
         </ion-buttons>

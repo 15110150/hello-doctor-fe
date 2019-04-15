@@ -27,7 +27,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              {
+                "input": "src/theme/variables.scss"
+              },
+              {
+                "input": "src/styles.scss"
+              }
             ],
             "scripts": [],
             "es5BrowserSupport": true

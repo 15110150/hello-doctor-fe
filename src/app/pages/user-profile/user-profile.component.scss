@@ -1,0 +1,56 @@
+:host
+{
+  ion-content{
+    --ion-background-color: #cfcfcf;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size:cover;
+    
+  }
+ion-label.labelInfo{
+  color: #075698;
+
+}
+ion-header{
+ion-toolbar {
+  --min-height:140px;
+  --background: url('../../../assets/img/userprofilebg.jpg') 0 0/100% 100% no-repeat ;
+  --background-size: cover;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  ion-item{
+  --background : transparent;
+  --padding-top:5px;
+  }
+}
+ion-avatar{
+  margin : auto;
+  text-align: center!important;
+}
+}
+ion-textarea{
+  --padding-top : 150px;
+}
+ion-card{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: white;
+  
+  }
+  ion-item{
+      background-color: white;
+      --background:white;
+  }
+  ion-button.btn1{
+    --background:	#075698;
+    --color: white;
+  }
+  
+  ion-button.btn2{
+    --background:	white;
+    --color: #075698;
+  }
+  
+}

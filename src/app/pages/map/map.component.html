@@ -6,7 +6,8 @@
           </ion-button>
         </ion-buttons>
         <ion-item lines="none">
-          <input class = "ipggplace" #searchInput placeholder="Nhập địa chỉ" color="dark"  value= "{{currentAddress}}" [(ngModel)]="currentAddress" />
+          <input class = "ipggplace" #searchInput placeholder="Nhập địa chỉ" color="dark"  
+          value= "{{currentAddress}}" [(ngModel)]="currentAddress" (input)="onSearchChange($event.target.value)" />
         </ion-item>
   </ion-toolbar>
 </ion-header>
@@ -14,7 +15,7 @@
   <agm-map
   [latitude]="currentLat"
   [longitude]="currentLong"
-  [zoom]="8"
+  [zoom]="15"
   [disableDefaultUI]="false"
   [zoomControl]="false">
   <agm-marker 

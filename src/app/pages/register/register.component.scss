@@ -1,0 +1,27 @@
+:host
+{
+  ion-content{
+    --background: url('../../../assets/img/loginimg.png') 0 0/100% 100% no-repeat ;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size:contain;
+  }
+  .scroll-content{
+    background: url('https://us.123rf.com/450wm/asamask92/asamask921604/asamask92160400081/55517312-stock-vector-white-blue-sky-gradient-background-vector-illustration.jpg?ver=6') no-repeat ;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size:contain;
+  }
+  ion-header{
+    ion-toolbar {
+      --min-height:80px;
+      --background: url('https://us.123rf.com/450wm/asamask92/asamask921604/asamask92160400081/55517312-stock-vector-white-blue-sky-gradient-background-vector-illustration.jpg?ver=6') ;
+      --background-size: cover;
+  }
+}
+ion-item{
+    --background : transparent;
+}
+}

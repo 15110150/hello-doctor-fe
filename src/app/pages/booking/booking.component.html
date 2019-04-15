@@ -1,0 +1,176 @@
+<ion-content>
+  <ion-header no-border>
+    <ion-toolbar>
+      <ion-item lines="none">
+        <ion-buttons slot="start">
+          <ion-button [routerLink]="['/account']">
+            <ion-icon slot="icon-only" name="arrow-round-back" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-row>
+        <ion-col size=4>
+        </ion-col>
+        <ion-col size=4>
+          <ion-card>
+            <img src="https://dwbxi9io9o7ce.cloudfront.net/images/11_07_2016_10_07_11_823522.jpeg" style="text-align: center">
+
+          </ion-card>
+        </ion-col>
+        <ion-col size=4>
+        </ion-col>
+      </ion-row>
+
+      <div text-center style="color: #ffffff"><strong>Dr.Nguyễn Ngọc Thủy</strong></div>
+
+      <div text-center style="color: #ffffff">Chuyên khoa: Xương khớp</div>
+      <div text-center>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <br />
+  <ion-list>
+    <ion-item class="datepicker">
+      <ion-label class="titletext"><strong>Ngày khám</strong></ion-label>
+      <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YY" min="{{currentDate}}" max="{{maxDate}}"
+        placeholder="{{myDate | date:'dd-MM-yyyy'}}"></ion-datetime>
+    </ion-item>
+    <ion-item class="datepicker" lines="none">
+      <ion-label class="titletext"><strong>Giờ khám</strong></ion-label>
+      <ion-text>8:00</ion-text>
+    </ion-item>
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide class="datepicker">
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col col-4 >
+              <ion-button expand="full"> 
+                8:00
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                8:30
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                9:00
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+      <ion-slide>
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <ion-button expand="full">
+                9:30
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                10:00
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                10:30
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+      <ion-slide>
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <ion-button expand="full">
+                11:00
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                11:30
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                13:00
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+      <ion-slide>
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <ion-button expand="full">
+                13:30
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                14:00
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                14:30
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+      <ion-slide>
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <ion-button expand="full">
+                15:00
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                15:30
+              </ion-button>
+            </ion-col>
+            <ion-col col-4>
+              <ion-button expand="full">
+                16:00
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-slide>
+    </ion-slides>
+    <ion-item class="datepicker" lines="none" >
+      <ion-label>
+        <h2><strong>Địa chỉ</strong></h2>
+        <p color="black">484 Lê Văn Việt, Tăng Nhơn Phú A, Q9, HCM</p>
+        <br />
+        <h2><strong>Giá khám</strong></h2>
+        <p color="black">50.000 VND</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col size="3"></ion-col>
+    <ion-col size="6" text center>
+      <ion-button expand="full" shape="round" class="btn1">
+        <ion-icon name="calendar"></ion-icon>Đặt lịch
+      </ion-button>
+    </ion-col>
+    <ion-col size="3"></ion-col>
+  </ion-row>
+
+</ion-content>

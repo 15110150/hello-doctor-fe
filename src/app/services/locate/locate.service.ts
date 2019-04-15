@@ -4,20 +4,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Address } from 'src/app/model/address';
+import { Coordinate } from 'src/app/model/coordinate';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocateService {
 
-  private urlSearch = `${environment.apiUrlApi}/location/geocoding`;
+  private urlSearch = `${environment.apiUrlApi}/location`;
 
   constructor(private http: HttpClient) {
   }
 
   getAddress(lat: number, long: number): Observable<Address> {
     let url = this.urlSearch;
-    url = url + '/toAddress?lat=' + lat + '&lng=' + long;
+    url = url + '/geocoding/toAddress?lat=' + lat + '&lng=' + long;
     return this.http.get<Address>(url)
       .pipe(
         map(response => {
@@ -26,7 +27,28 @@ export class LocateService {
         }));
   }
 
- 
+ getCoordinate(address: string): Observable<Coordinate>{
+  let url = this.urlSearch;
+  url = url + '/geocoding/toCoordinate?address=' + address;
+  return this.http.get<Coordinate>(url)
+    .pipe(
+      map(response => {
+        const data = response;
+        return data;
+      }));
+ }
+
+ getAutocomple(word: string): Observable<[]>
+ {
+  let url = this.urlSearch;
+  url = url + '/autoComplete?word=' + word ;
+  return this.http.get<[]>(url)
+    .pipe(
+      map(response => {
+        const data = response;
+        return data;
+      }));
+ }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

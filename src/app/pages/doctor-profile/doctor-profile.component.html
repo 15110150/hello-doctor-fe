@@ -1,0 +1,112 @@
+<ion-content>
+  <ion-header no-border>
+    <ion-toolbar>
+      <ion-item lines="none">
+        <ion-buttons slot="start">
+          <ion-button (click)="btnBack_click()" >
+            <ion-icon slot="icon-only" name="arrow-round-back" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-row>
+        <ion-col size=4>
+        </ion-col>
+        <ion-col size=4>
+          <ion-card>
+            <img src="{{doctor.avatarImg}}" style="text-align: center">
+
+          </ion-card>
+        </ion-col>
+        <ion-col size=4>
+        </ion-col>
+      </ion-row>
+
+      <div text-center style="color: #ffffff"><strong>{{doctor.name}}</strong></div>
+
+      <div text-center style="color: #ffffff">Chuyên khoa: {{doctor.department}}</div>
+      <div text-center>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon name="star" color="warning"></ion-icon>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="full" shape="round" class="btn1" [routerLink]="['/booking']">
+          <ion-icon name="calendar"></ion-icon>Đặt lịch
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="full" shape="round" class="btn2">
+          <ion-icon name="chatboxes"></ion-icon>Nhắn tin
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card class="cards-pk">
+    <ion-card-header>
+      <strong>
+        PHÒNG KHÁM
+      </strong>
+    </ion-card-header>
+      <ion-item lines="none" color="white">
+        <ion-label color="black">
+          <p>{{doctor.addressTitle}}</p>
+          <p>{{doctor.address}}</p>
+          <p>T2-T6:8h30-9h</p>
+        </ion-label>
+      </ion-item>
+      <div text-right>
+        <ion-button size="small" fill="clear" [routerLink]="['/map']">
+          <ion-icon name="map"></ion-icon>Bản đồ
+        </ion-button>
+      </div>
+  </ion-card>
+  <ion-card class="cards-pk">
+    <ion-card-header>
+      <strong>
+        NƠI LÀM VIỆC HIỆN TẠI
+      </strong>
+    </ion-card-header>
+
+      <ion-item lines="none" color="white">
+        <ion-thumbnail slot="end">
+          <img src="http://minhthanh.com/wp-content/uploads/2017/12/logo-cho-ray.png">
+        </ion-thumbnail>
+        <ion-label>
+          <p>{{doctor.workOffice}}</p>
+          <p>{{doctor.department}}</p>
+        </ion-label>
+      </ion-item>
+  </ion-card>
+  <ion-card class="cards-pk">
+    <ion-card-header>
+      <strong>
+        NHẬN XÉT
+      </strong>
+    </ion-card-header>
+
+    <ion-list *ngFor="let comment of doctor.comments">  
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img src="{{comment.avatarImg}}">
+        </ion-avatar>
+        <ion-label>
+          <p>{{comment.content}}</p>
+          <p>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+</ion-content>
