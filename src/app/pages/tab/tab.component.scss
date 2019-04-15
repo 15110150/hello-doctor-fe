@@ -1,0 +1,19 @@
+:host
+{
+    ion-tab-bar
+    {
+    ion-tab-button.icon-tab1{
+        color: grey;
+    
+    }
+    ion-tab-button.clicked1{
+        color: #075698;
+    }
+
+}
+}
+:root{
+    --ion-tabbar-background-color: #0303ec;                      // already exists
+    --ion-tabbar-color: rgba(var(--ion-text-color-rgb), 0.4);    // suggested
+    --ion-tabbar-color-selected: var(--ion-text-color);  
+}

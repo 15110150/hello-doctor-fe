@@ -1,0 +1,76 @@
+<!-- -->
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="pin" color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="white" ali="center" class="addresslb">
+      <strong>
+        {{currentAddress}}
+      </strong>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="btnMap_click()">
+        <ion-icon slot="icon-only" name="map" color="white"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-item>
+    <ion-input color="dark" placeholder="Tìm kiếm triệu chứng" [(ngModel)]="symptom"></ion-input>
+    <ion-buttons slot="end">
+      <ion-button (click)="searchDoctors()">
+        <ion-icon slot="icon-only" name="search" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+</ion-header>
+
+<ion-content color="light">
+  <ion-row align-items-center>
+    <ion-col col-4>
+      <ion-button expand="full" class="paoday" (click)="chang1($event)">
+        Sáng
+      </ion-button>
+    </ion-col>
+    <ion-col col-4>
+      <ion-button expand="full" class="paoday" (click)="chang1($event)">
+        Trưa
+      </ion-button>
+    </ion-col>
+    <ion-col col-4>
+      <ion-button expand="full" class="paoday" (click)="chang1($event)">
+        Chiều
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-list *ngFor="let result of searchResult">
+    <ion-card>
+      <ion-item class="info">
+        <ion-thumbnail slot="start">
+          <img src="{{result.avatarImg}}">
+        </ion-thumbnail>
+        <ion-label>
+          <strong>{{result.doctorName}}</strong>
+          <p>{{result.department}}</p>
+          <div>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon name="star" color="warning"></ion-icon>
+          </div>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="btnDoctor_click()">
+            <ion-icon slot="icon-only" name="log-in"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-card-content>
+        Cách bạn {{result.distance}} km
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
