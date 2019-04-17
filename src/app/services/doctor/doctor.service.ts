@@ -3,8 +3,8 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { SearchResult } from '../../model/searchresult';
 import { Doctor } from 'src/app/model/doctor';
+
 @Injectable({
   providedIn: 'root'
 })

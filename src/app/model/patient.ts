@@ -1,6 +1,13 @@
 export class Patient {
-    id : number
-    patientName: string;
-    
+    patientId : number
+    name: string;
+    personIdNumber : string;
+    phoneNumber : string;
+    weight : number;
+    height : number;
+    avatarImg : string;
+    dateOfBirth : Date;
+    description : string;
+    gender : string;
   }
   

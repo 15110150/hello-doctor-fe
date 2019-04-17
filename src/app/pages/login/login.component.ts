@@ -24,7 +24,7 @@ export class LoginComponent {
 
   // login and go to home page
   login() {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/main/home');
   }
 
 

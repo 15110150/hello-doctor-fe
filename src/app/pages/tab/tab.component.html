@@ -1,27 +1,26 @@
-
-<ion-tabs #myTabs (ionTabsDidChange)="ionChange()">
+<ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button class="icon-tab1" (click)="chang1($event)" [routerLink]="['/home']">
+    <ion-tab-button tab="home">
       <ion-icon name="home"></ion-icon>
       <ion-label>Trang chủ</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button class="icon-tab1" (click)="chang1($event)" [routerLink]="['/search/search']">
+    <ion-tab-button tab="search">
       <ion-icon name="search"></ion-icon>
       <ion-label>Tìm kiếm</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button class="icon-tab1" (click)="chang1($event)" [routerLink]="['/home']">
+    <ion-tab-button tab="list">
       <ion-icon name="list"></ion-icon>
       <ion-label>Lịch hẹn</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button class="icon-tab1" (click)="chang1($event)" [routerLink]="['/home']">
+    <ion-tab-button tab="chat">
       <ion-icon name="chatboxes"></ion-icon>
       <ion-label>Tin nhắn</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button class="icon-tab1" (click)="chang1($event)" [routerLink]="['/user-profile']">
+    <ion-tab-button tab="profile">
       <ion-icon name="briefcase"></ion-icon>
       <ion-label>Hồ sơ</ion-label>
     </ion-tab-button>
