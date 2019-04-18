@@ -27,7 +27,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDUwcvAMpIYOfTG0ubGL4vgSutoMllyYdA',
+      apiKey: '',
       libraries: ['geometry', 'places']
     })
   ],
