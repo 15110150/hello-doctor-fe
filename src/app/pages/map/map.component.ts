@@ -76,12 +76,12 @@ export class MapComponent implements OnInit {
       this.marker.setPosition(location);
     }
   }
+
   btnBack_click() {
     if (this.previousURL.includes("doctor-profile")) {
       this._location.back();
     }
-    else
-    {
+    else {
       this.router.navigate(['/main/search/search', this.currentAddress]);
     }
   }

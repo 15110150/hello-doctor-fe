@@ -1,6 +1,6 @@
 <!-- -->
 <ion-header no-border>
-  <ion-toolbar>
+  <ion-toolbar class="toolBar">
     <ion-buttons slot="start">
       <ion-button>
         <ion-icon slot="icon-only" name="pin" color="danger"></ion-icon>
@@ -30,17 +30,17 @@
 <ion-content color="light">
   <ion-row align-items-center>
     <ion-col col-4>
-      <ion-button expand="full" class="paoday" (click)="chang1($event)">
+      <ion-button expand="full" (click)="btnMorn_click()" [class.paoday]='!isMorn' [class.clicked]='isMorn'>
         Sáng
       </ion-button>
     </ion-col>
     <ion-col col-4>
-      <ion-button expand="full" class="paoday" (click)="chang1($event)">
+      <ion-button expand="full" (click)="btnAfter_click()" [class.paoday]='!isAfter' [class.clicked]='isAfter'>
         Trưa
       </ion-button>
     </ion-col>
     <ion-col col-4>
-      <ion-button expand="full" class="paoday" (click)="chang1($event)">
+      <ion-button expand="full" (click)="btnEvent_click()" [class.paoday]='!isEven' [class.clicked]='isEven'>
         Chiều
       </ion-button>
     </ion-col>

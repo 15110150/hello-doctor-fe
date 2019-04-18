@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientService } from 'src/app/services/patient/patient.service';
+import { Patient } from 'src/app/model/patient';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  public userProfile : Patient;
+
+  constructor(private patientService: PatientService) { }
 
   ngOnInit() {
   }
-
 }

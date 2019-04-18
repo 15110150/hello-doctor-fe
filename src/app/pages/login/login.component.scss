@@ -15,10 +15,27 @@
   }
 }
 ion-item.logo{
-    --background : transparent;
-    
+    --background : transparent;   
+}
+ion-row.logo
+{
+  padding-top: 20px;
 }
 .login-content {
-  --padding-bottom	: 300px;
+  --padding-bottom	: 250px;
+}
+ion-button.btnFB
+{
+  --background:#3C5A99;
+  --color: white;
+}
+ion-button.btnGG
+{
+  --background: white;
+  --color: black;
+}
+ion-text.txtForget{
+  padding-right: 10px;
+  padding-left: 200px;
 }
 }

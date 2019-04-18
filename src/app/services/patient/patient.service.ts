@@ -10,13 +10,13 @@ import { Patient } from 'src/app/model/patient';
 })
 export class PatientService {
 
-  private urlDoctor = `${environment.apiUrlApi}/account/profile/patient`;
+  private urlPatient = `${environment.apiUrlApi}/account/profile/patient`;
 
   constructor(private http: HttpClient) {
   }
 
   getUser(id : number): Observable<Patient> {
-    let url = this.urlDoctor;
+    let url = this.urlPatient;
     url = url + '/' + id ;
     return this.http.get<Patient>(url)
       .pipe(

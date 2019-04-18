@@ -1,39 +1,25 @@
 :host
 {
-  ion-content{
+  ion-toolbar { 
+    --background: url('../../../assets/img/doctorinfo.png') ;
+  }
 
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size:contain;
+  ion-button.paoday{
+    --background:	#075698;
+    --color: white;
   }
-  ion-header{
-    ion-toolbar { 
-      --background: url('../../../assets/img/doctorinfo.png') ;
-     // --background: url('https://i1.wp.com/www.solidcolore.com/3840/cfecec_background.jpg?ssl=1') 0 0/100% 100%;
-      --min-height:50px;
-      --background-size: cover;
-      ion-searchbar{
-        --background: transparent;
-      }
+  ion-button.clicked{
+    --background : white;
+    --color :	#075698;
   }
-}
-ion-button.paoday{
-  --background:	#075698;
-  --color: white;
-}
-ion-button.clicked{
-  --background : white;
-  --color : #075698;
-}
-ion-item.info{
-  --min-height : 80px;
-}
-ion-label.addresslb
-{text-overflow: inherit;
-white-space: normal;
-}
-ion-title{
-    color: white;
-}
-}
+  ion-item.info{
+    --min-height : 80px;
+  }
+  ion-label.addresslb
+  {text-overflow: inherit;
+  white-space: normal;
+  }
+  ion-title{
+      color: white;
+  }
+    }

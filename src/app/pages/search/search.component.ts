@@ -21,21 +21,17 @@ export class SearchComponent implements OnInit{
   partOfDay: string;
   public changeAddress = false;
   public address : any;
+  isMorn = true;
+  isAfter = false;
+  isEven = false;
 
   ngOnInit() {
-    //set color tab button search 
-    var list = document.querySelectorAll('.paoday');
-    list[0].classList.add("clicked");
-    console.log(list[0]);
-    //get MORNING default
-    this.getPartOfDate();
-    console.log(this.currentAddress);
     if(this.currentAddress == null)
     {
       this.locateLocation();
     }
+    this.partOfDay = "MORNING";
   }
-
 
   constructor(private router: Router, private searchService: SearchService, 
     private locateService: LocateService, private activatedRoute: ActivatedRoute) {
@@ -43,6 +39,27 @@ export class SearchComponent implements OnInit{
         this.currentAddress = this.activatedRoute.snapshot.params['id'];
         this.changeAddress = true;
       }
+  }
+
+  btnMorn_click(){
+    this.isMorn = true;
+    this.isEven =! this.isMorn;
+    this.isAfter =! this.isMorn;
+    this.partOfDay = "MORNING";
+  }
+
+  btnAfter_click(){
+    this.isAfter = true;
+    this.isEven =! this.isAfter;
+    this.isMorn =! this.isAfter;
+    this.partOfDay = "AFTERNOON";
+  }
+
+  btnEvent_click(){
+    this.isEven = true;
+    this.isAfter =! this.isEven;
+    this.isMorn =! this.isEven;
+    this.partOfDay = "EVENING";
   }
 
   getAddress(currentLat: number, currentLong: number) {
@@ -81,31 +98,6 @@ export class SearchComponent implements OnInit{
 
   btnSearch_click() {
     this.searchDoctors();
-  }
-
-  chang1(event) {
-    var list = document.querySelectorAll('.paoday');
-    list.forEach(element => {
-      element.classList.remove("clicked");
-    })
-    event.srcElement.classList.add("clicked");
-    this.getPartOfDate();
-  }
-
-  getPartOfDate()
-  {
-    var selected = document.querySelectorAll('.clicked');
-    let textInside = selected[0].textContent;
-    let morning = 'Sáng';
-    let afternoon = 'Trưa';
-    if (textInside.trim() === morning)
-      this.partOfDay = "MORNING";
-    else if (textInside.trim() === afternoon)
-      this.partOfDay = "AFTERNOON";
-    else
-      this.partOfDay = "EVENING";
-    console.log(textInside);
-    console.log(this.partOfDay);
   }
 
   btnDoctor_click(id : number) {
