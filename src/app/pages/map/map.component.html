@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
     <ion-item lines="none">
-      <input class = "ipggplace" #searchInput placeholder="Nhập địa chỉ" color="dark"  value= "{{currentAddress}}" [(ngModel)]="currentAddress" />
+      <input class = "ipggplace" [readonly]="isReadOnly" #searchInput placeholder="Nhập địa chỉ" color="dark"  value= "{{currentAddress}}" [(ngModel)]="currentAddress" />
     </ion-item>
   </ion-toolbar>
 </ion-header>

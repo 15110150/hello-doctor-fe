@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Doctor } from 'src/app/model/doctor';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -14,7 +15,7 @@ export class DoctorProfileComponent implements OnInit {
   public doctor : Doctor;
 
   constructor( private router: Router, private doctorService : DoctorService,
-    private activatedRoute : ActivatedRoute) {
+    private activatedRoute : ActivatedRoute, private _location: Location) {
     if (this.activatedRoute.snapshot.params['id']) {
       this.doctorId = this.activatedRoute.snapshot.params['id'];
     }
@@ -34,6 +35,12 @@ export class DoctorProfileComponent implements OnInit {
 
   btnBack_click()
   {
-    this.router.navigateByUrl('');
+    this._location.back();
   }
+
+  btnMap_click()
+  {
+    this.router.navigate(['/map/address', this.doctor.address]);
+  }
+
 }
