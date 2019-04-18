@@ -1,26 +1,18 @@
 <ion-header no-border>
-  <ion-toolbar >
-      <ion-buttons slot="start">
-          <ion-button (click)="btnBack_click()">
-            <ion-icon slot="icon-only" name="arrow-round-back" color="dark"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-        <ion-item lines="none">
-          <input class = "ipggplace" #searchInput placeholder="Nhập địa chỉ" color="dark"  
-          value= "{{currentAddress}}" [(ngModel)]="currentAddress" (input)="onSearchChange($event.target.value)" />
-        </ion-item>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="btnBack_click()">
+        <ion-icon slot="icon-only" name="arrow-round-back" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-item lines="none">
+      <input class = "ipggplace" #searchInput placeholder="Nhập địa chỉ" color="dark"  value= "{{currentAddress}}" [(ngModel)]="currentAddress" />
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 <div class="container">
-  <agm-map
-  [latitude]="currentLat"
-  [longitude]="currentLong"
-  [zoom]="15"
-  [disableDefaultUI]="false"
-  [zoomControl]="false">
-  <agm-marker 
-      [latitude]="currentLat"
-      [longitude]="currentLong">   
-  </agm-marker>
-    </agm-map>
+  <agm-map [latitude]="currentLat" [longitude]="currentLong" [zoom]="15" [disableDefaultUI]="false" [zoomControl]="false">
+    <agm-marker [latitude]="currentLat" [longitude]="currentLong">
+    </agm-marker>
+  </agm-map>
 </div>
