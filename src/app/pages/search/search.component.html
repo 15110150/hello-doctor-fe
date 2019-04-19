@@ -45,32 +45,102 @@
       </ion-button>
     </ion-col>
   </ion-row>
-  <ion-list *ngFor="let result of searchResult">
-    <ion-card>
-      <ion-item class="info">
-        <ion-thumbnail slot="start">
-          <img src="{{result.avatarImg}}">
-        </ion-thumbnail>
-        <ion-label>
-          <strong>{{result.doctorName}}</strong>
-          <p>{{result.department}}</p>
-          <div>
-            <ion-icon name="star" color="warning"></ion-icon>
-            <ion-icon name="star" color="warning"></ion-icon>
-            <ion-icon name="star" color="warning"></ion-icon>
-            <ion-icon name="star" color="warning"></ion-icon>
-            <ion-icon name="star" color="warning"></ion-icon>
-          </div>
-        </ion-label>
-        <ion-buttons slot="end">
-          <ion-button (click)="btnDoctor_click(result.doctorId)">
-            <ion-icon slot="icon-only" name="log-in"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
-      <ion-card-content>
-        Cách bạn {{result.distance}} km
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
+  <div *ngIf="searchResult">
+    <ion-list *ngFor="let result of searchResult">
+      <ion-card>
+        <ion-item class="info">
+          <ion-thumbnail slot="start">
+            <img src="{{result.avatarImg}}">
+          </ion-thumbnail>
+          <ion-label>
+            <strong>{{result.doctorName}}</strong>
+            <p>{{result.department}}</p>
+            <div>
+              <ion-icon name="star" color="warning"></ion-icon>
+              <ion-icon name="star" color="warning"></ion-icon>
+              <ion-icon name="star" color="warning"></ion-icon>
+              <ion-icon name="star" color="warning"></ion-icon>
+              <ion-icon name="star" color="warning"></ion-icon>
+            </div>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button (click)="btnDoctor_click(result.doctorId)">
+              <ion-icon slot="icon-only" name="log-in"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+        <ion-card-content>
+          Cách bạn {{result.distance}} km
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
+  <!-- Skeleton screen -->
+  <div *ngIf="(isShow && !searchResult)">
+    <ion-list>
+      <ion-card>
+        <ion-item class="info">
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+        <ion-card-content>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-item class="info">
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+        <ion-card-content>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-item class="info">
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+        <ion-card-content>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
 </ion-content>

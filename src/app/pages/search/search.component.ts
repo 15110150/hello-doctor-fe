@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit{
   isMorn = true;
   isAfter = false;
   isEven = false;
+  isShow = false;
 
   ngOnInit() {
     if(this.currentAddress == null)
@@ -83,7 +84,7 @@ export class SearchComponent implements OnInit{
   }
 
   searchDoctors() {
-    //if(this.changeAddress)
+    this.isShow = true;
     this.searchService.getListDoctorByAddress(this.symptom, this.currentAddress, this.partOfDay)
     .subscribe(result =>
       {

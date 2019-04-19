@@ -3,7 +3,7 @@ api_version: 1
 threadsafe: true
 handlers:
 - url: /
-  static_files: dist/index.html
-  upload: dist/index.html
+  static_files: dist/hello-doctor/index.html
+  upload: dist/hello-doctor/index.html
 - url: /
-  static_dir: dist
+  static_dir: dist/hello-doctor
