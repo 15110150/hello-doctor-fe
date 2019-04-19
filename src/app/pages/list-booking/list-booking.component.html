@@ -1,0 +1,122 @@
+<ion-toolbar>
+  <ion-segment color="primary">
+    <ion-segment-button value="camera" checked>
+      <ion-label>Chưa khám</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="bookmark">
+      <ion-label>Đã khám</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-content color="light">
+  <div>
+    <ion-card>
+      <ion-item class="info">
+        <ion-thumbnail slot="start">
+          <img src="https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg">
+        </ion-thumbnail>
+        <ion-label>
+          <strong>BS. Đỗ Hữu Thành</strong>
+          <p>Phòng khám Hữu Thành</p>
+          <p>T2: 8h</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button>
+            <ion-icon name="arrow-round-forward"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item class="info">
+        <ion-thumbnail slot="start">
+          <img src="https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg">
+        </ion-thumbnail>
+        <ion-label>
+          <strong>BS. Đỗ Hữu Thành</strong>
+          <p>Phòng khám Hữu Thành</p>
+          <p>T2: 8h</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button>
+            <ion-icon name="arrow-round-forward"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item class="info">
+        <ion-thumbnail slot="start">
+          <img src="https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg">
+        </ion-thumbnail>
+        <ion-label>
+          <strong>BS. Đỗ Hữu Thành</strong>
+          <p>Phòng khám Hữu Thành</p>
+          <p>T2: 8h</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button>
+            <ion-icon name="arrow-round-forward"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-card>
+  </div>
+  <div *ngIf="isShow">
+    <ion-card>
+      <ion-item class="info">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item class="info">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item class="info">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

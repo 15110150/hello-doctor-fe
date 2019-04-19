@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { TabComponent } from './pages/tab/tab.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -17,12 +17,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   ],
   imports: [
     HttpClientModule,
-    BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }), ],
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: APP_BASE_HREF, useValue : '/' }
+    { provide: APP_BASE_HREF, useValue: '/' }
   ],
   bootstrap: [AppComponent]
 })

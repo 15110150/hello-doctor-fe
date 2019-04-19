@@ -18,8 +18,8 @@ const routes: Routes = [
         loadChildren: '../../pages/search/search.module#SearchComponentModule'
       },
       {
-        path: 'list',
-        loadChildren: '../../pages/search/search.module#SearchComponentModule'
+        path: 'list-booking',
+        loadChildren: '../../pages/list-booking/list-booking.module#ListBookingComponentModule'
       },
       {
         path: 'chat',
