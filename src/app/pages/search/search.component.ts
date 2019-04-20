@@ -85,7 +85,7 @@ export class SearchComponent implements OnInit{
 
   searchDoctors() {
     this.isShow = true;
-    this.searchService.getListDoctorByAddress(this.symptom, this.currentAddress, this.partOfDay)
+    this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom,)
     .subscribe(result =>
       {
         this.searchResult = result;

@@ -27,10 +27,10 @@ export class SearchService {
         }));
   }
 
-  getListDoctorByAddress(symptom: any, address: string, partOfDay: any): Observable<SearchResult[]> 
+  getListDoctorByAddress(address: string, partOfDay: any, symptom: any): Observable<SearchResult[]> 
   {
     let url = this.urlSearch;
-    url = url + '?symptom=' + symptom + '&address=' + address + '&partOfDay=' + partOfDay;
+    url = url + '?address=' + address + '&partOfDay=' + partOfDay  + '&symptom=' + symptom ;
     return this.http.get<SearchResult[]>(url)
       .pipe(
         map(response => {

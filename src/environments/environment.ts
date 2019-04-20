@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://35.240.206.74:8080',
-  apiUrlApi: 'http://35.240.206.74:8080/api'
+  apiUrl: 'http://35.240.201.202:8080',
+  apiUrlApi: 'http://35.240.201.202:8080/api'
 };
 /*
  * For easier debugging in development mode, you can import the following file
