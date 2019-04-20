@@ -1,47 +1,46 @@
 :host
 {
-  ion-content{
-    --background: url('../../../assets/img/homebg.jpg') 0 0/100% 100% no-repeat ;
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size:contain;
-    background-attachment: scroll;
+  ion-content.bg-class{
+    --background: linear-gradient(#004d99 3%, #0066cc 10.5%,  #e6f5ff 33.33%, #ffffff 100%) !important;
   }
-  ion-header{
-    ion-toolbar {
-      --min-height:80px;
-      --background-size: cover;
+  ion-toolbar {
+    --background: transparent;
+    --background-size: cover;
+    --min-height: 100px;
   }
-}
-
-ion-toolbar {
-  //--min-height:80px;
-  --background: transparent;
-  --background-size: cover;
-}
-ion-card-content.cardcontent{
-  background-color: white;
-  color:black;
-}
-ion-card.op1{
-  background-color: #3d6eff;
-  background-image: linear-gradient(to bottom right, #6685e0, #0d3dcf);
-  color: white;
-}
-ion-card.op2{
-  background-color: #0099ff;
-  background-image: linear-gradient(to bottom right, #80ccff, #0099ff);
-  color: white;
-}
-ion-card.op3{
-  background-color: #ff9900;
-  background-image: linear-gradient(to bottom right, #ffc266, #ff9900);
-  color: white;
-}
-ion-card.op4{
-  background-color: #ff2626;
-  background-image: linear-gradient(to bottom right, #ff5c5c, #ff2626);
-  color: white;
-}
+  ion-card-content.cardcontent{
+    background-color: white;
+    color:black;
+  }
+  ion-card.op0{
+    margin: 5px;
+  }
+  ion-card.op1{
+    background-color: #3d6eff;
+    background-image: linear-gradient(to bottom right, #6685e0, #0d3dcf);
+    color: white;
+    margin: 5px 5px;
+  }
+  ion-card.op2{
+    background-color: #0099ff;
+    background-image: linear-gradient(to bottom right, #99ddff, #33bbff);
+    color: white;
+    margin: 5px 5px;
+  }
+  ion-card.op3{
+    background-color: #ff9900;
+    background-image: linear-gradient(to bottom right, #ffc266, #ff9900);
+    color: white;
+    margin: 5px 5px;
+  }
+  ion-card.op4{
+    background-color: #ff2626;
+    background-image: linear-gradient(to bottom right, #ff5c5c, #ff2626);
+    color: white;
+    margin: 5px 5px;
+  }
+  .imgSale 
+  {
+  height: 160px;
+  }
 }

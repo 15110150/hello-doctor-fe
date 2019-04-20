@@ -8,6 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  sliderConfig = {
+    slidesPerView: 1.4,
+    spaceBetween: 10
+  };
 ngOnInit(): void {
 }
 
