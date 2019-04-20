@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 
 @Component({
   selector: 'app-booking',
@@ -13,7 +13,8 @@ export class BookingComponent implements OnInit {
   currentDate : any;
   maxDateTemp = new Date();
   maxDate : any;
-  constructor(private datePipe: DatePipe){
+  
+  constructor(private datePipe: DatePipe, private _location: Location){
       
   }
   ngOnInit() {
@@ -24,5 +25,8 @@ export class BookingComponent implements OnInit {
     console.log(this.maxDate); 
   }
 
+  btnBack_click(){
+    this._location.back();
+  }
 
 }

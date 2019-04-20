@@ -1,56 +1,40 @@
 :host
 {
-  ion-content{
-    --ion-background-color : #ffffff;
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size:cover;
-    
+  ion-label.labelInfo{
+    color: #075698;
   }
-ion-label.labelInfo{
-  color: #075698;
-
-}
-ion-header{
-ion-toolbar {
-  --min-height:140px;
-  --background: url('../../../assets/img/userprofilebg.jpg') 0 0/100% 100% no-repeat ;
-  --background-size: cover;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  ion-toolbar {
+    --min-height:140px;
+    --background: url('https://cdn.pixabay.com/photo/2016/06/02/02/38/mesh-1430108_960_720.png') 0 0/100% 100% no-repeat ;
+  }
   ion-item{
   --background : transparent;
   --padding-top:5px;
   }
-}
-ion-avatar{
-  margin : auto;
-  text-align: center!important;
-}
-}
-ion-textarea{
-  --padding-top : 150px;
-}
-ion-card{
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    background-color: white;
-  
+
+  ion-avatar{
+    margin : auto;
+    text-align: center!important;
   }
+  ion-textarea{
+    --padding-top : 150px;
+  }
+  ion-card{
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      background-color: white;
+    }
   ion-item{
       background-color: white;
       --background:white;
   }
   ion-button.btn1{
-    --background:	#075698;
+    --background:	#4d6081;
     --color: white;
   }
   
   ion-button.btn2{
     --background:	white;
-    --color: #075698;
+    --color: #4d6081;
   }
-  
 }

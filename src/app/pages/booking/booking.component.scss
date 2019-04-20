@@ -1,59 +1,50 @@
 :host
 {
+  ion-toolbar.bg-class{
+    --background: linear-gradient( #09548e, #0e80d8) !important;
+  }
   ion-content{
-    --ion-background-color: #cfcfcf;
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size:cover;
+  --background:#f2f2f2;
   }
-ion-label.titletext{
-    --color: #075698;
-}
-ion-header{
-ion-toolbar {
-  --min-height:250px;
-  --background: url('../../../assets/img/doctorinfo.png') 0 0/100% 100% no-repeat ;
-  --background-size: cover;
-  ion-item{
-  --background : transparent;
-  --padding-top:5px;
+  ion-item.iteTool{
+    --background: transparent;
   }
-}
-ion-avatar{
-  margin : auto;
-  text-align: center!important;
-}
-}
-ion-textarea{
-  --padding-top : 150px;
-}
-ion-card {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  background-color: white;
-
-}
-ion-button.btn1{
-  --background:	#075698;
-  --color: white;
-}
-
-ion-button.btn2{
-  --background:	white;
-  --color: #075698;
-}
-
-ion-card.cards-pk ion-card-header {
-  color: #075698;
-}
-ion-item.datepicker {
-   --background: white;
-}
-ion-slide.datepicker {
-    --background-color: white;
- }
-ion-grid{
+  ion-label.titletext{
+      --color: #075698;
+  }
+  ion-avatar{
+    margin : auto;
+    text-align: center!important;
+  }
+  ion-textarea{
+    --padding-top : 150px;
+  }
+  ion-card {
+    -webkit-box-shadow: none;
+    box-shadow: none;
     background-color: white;
-}
+
+  }
+  ion-button.btn1{
+    --background:	#075698;
+    --color: white;
+  }
+
+  ion-button.btn2{
+    --background:	white;
+    --color: #075698;
+  }
+
+  ion-card.cards-pk ion-card-header {
+    color: #075698;
+  }
+  ion-item.datepicker {
+    --background: white;
+  }
+  ion-slide.datepicker {
+      --background-color: white;
+  }
+  ion-grid{
+      background-color: white;
+  }
 }

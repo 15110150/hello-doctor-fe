@@ -1,16 +1,16 @@
 :host
 {
   ion-toolbar { 
-    --background: url('../../../assets/img/doctorinfo.png') ;
+    --background: linear-gradient( #09548e, #0b64a8) !important;
   }
 
   ion-button.paoday{
-    --background:	#075698;
-    --color: white;
+    --background:	#b3b3b3;
+    --color: black;
   }
   ion-button.clicked{
-    --background : white;
-    --color :	#075698;
+    --background : #e6e6e6;
+    --color :	black;
   }
   ion-item.info{
     --min-height : 80px;

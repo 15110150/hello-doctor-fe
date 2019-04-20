@@ -1,9 +1,9 @@
 <ion-content>
   <ion-header no-border>
-    <ion-toolbar>
-      <ion-item lines="none">
+    <ion-toolbar class="bg-class">
+      <ion-item lines="none" class="iteTool">
         <ion-buttons slot="start">
-          <ion-button [routerLink]="['/account']">
+          <ion-button (click)="btnBack_click()">
             <ion-icon slot="icon-only" name="arrow-round-back" color="dark"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -49,8 +49,8 @@
       <ion-slide class="datepicker">
         <ion-grid>
           <ion-row align-items-center>
-            <ion-col col-4 >
-              <ion-button expand="full"> 
+            <ion-col col-4>
+              <ion-button expand="full">
                 8:00
               </ion-button>
             </ion-col>
@@ -152,7 +152,7 @@
         </ion-grid>
       </ion-slide>
     </ion-slides>
-    <ion-item class="datepicker" lines="none" >
+    <ion-item class="datepicker" lines="none">
       <ion-label>
         <h2><strong>Địa chỉ</strong></h2>
         <p color="black">484 Lê Văn Việt, Tăng Nhơn Phú A, Q9, HCM</p>
