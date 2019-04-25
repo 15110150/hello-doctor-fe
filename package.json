@@ -22,6 +22,7 @@
     "@angular/pwa": "^0.12.4",
     "@angular/router": "~7.2.0",
     "@angular/service-worker": "~7.2.0",
+    "@auth0/angular-jwt": "^2.1.0",
     "@ionic/angular": "^4.2.0",
     "@types/google-maps": "^3.2.0",
     "@types/googlemaps": "^3.30.19",

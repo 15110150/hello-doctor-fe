@@ -10,6 +10,11 @@ import { environment } from '../environments/environment';
 import { APP_BASE_HREF } from '@angular/common';
 import { TabComponent } from './pages/tab/tab.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import {JwtModule} from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('currentUser');
+}
 
 @NgModule({
   declarations: [
@@ -19,6 +24,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:8080', 'http://steel-citizen-193608.appspot.com']
+      }
+    }),
     AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

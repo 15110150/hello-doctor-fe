@@ -1,5 +1,5 @@
 export class Doctor {
-    doctorId: number;
+    userId : number;
     name: string
     gender : string
     phoneNumber :string

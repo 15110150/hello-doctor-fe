@@ -6,6 +6,11 @@
         <ion-icon slot="icon-only" name="pin" color="danger"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <!-- <div class="a">
+      <div class="b play">
+        <p>&nbsp;{{currentAddress}}</p>
+      </div>
+    </div> -->
     <ion-title ali="center" class="addresslb">
       <strong>
         {{currentAddress}}
@@ -17,7 +22,7 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-item>
+  <ion-item lines="none">
     <ion-input color="dark" placeholder="Tìm kiếm triệu chứng" [(ngModel)]="symptom"></ion-input>
     <ion-buttons slot="end">
       <ion-button (click)="searchDoctors()">
@@ -64,7 +69,7 @@
             </div>
           </ion-label>
           <ion-buttons slot="end">
-            <ion-button (click)="btnDoctor_click(result.doctorId)">
+            <ion-button (click)="btnDoctor_click(result.userId)">
               <ion-icon slot="icon-only" name="log-in"></ion-icon>
             </ion-button>
           </ion-buttons>

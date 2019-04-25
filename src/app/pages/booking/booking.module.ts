@@ -9,7 +9,7 @@ import { BookingComponent } from './booking.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'doctor/:id',
     component: BookingComponent
   }
 ];

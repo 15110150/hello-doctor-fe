@@ -14,5 +14,14 @@ export class UserProfileComponent implements OnInit {
   constructor(private patientService: PatientService) { }
 
   ngOnInit() {
+    this.getProfile();
+  }
+
+  getProfile(){
+    this.patientService.getUser() 
+    .subscribe(result => {
+      this.userProfile = result;
+      console.log(this.userProfile);
+    });
   }
 }

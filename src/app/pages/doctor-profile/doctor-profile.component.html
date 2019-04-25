@@ -22,7 +22,6 @@
       </ion-row>
 
       <div text-center style="color: #ffffff"><strong>{{doctor.name}}</strong></div>
-
       <div text-center style="color: #ffffff">Chuyên khoa: {{doctor.department}}</div>
       <div text-center>
         <ion-icon name="star" color="warning"></ion-icon>
@@ -36,7 +35,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6">
-        <ion-button expand="full" shape="round" class="btn1" [routerLink]="['/booking']">
+        <ion-button expand="full" shape="round" class="btn1" (click)="btnBooking_click(doctor.userId)">
           <ion-icon name="calendar"></ion-icon>Đặt lịch
         </ion-button>
       </ion-col>

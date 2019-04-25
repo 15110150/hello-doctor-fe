@@ -15,11 +15,13 @@
   ion-item.info{
     --min-height : 80px;
   }
-  ion-label.addresslb
-  {text-overflow: inherit;
-  white-space: normal;
+  ion-title.addresslb{
+    text-overflow: inherit;
+    white-space: normal; 
+    animation: ma 10s 3s infinite linear;
   }
   ion-title{
       color: white;
   }
+
     }

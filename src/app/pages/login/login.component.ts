@@ -1,6 +1,7 @@
-import {Component} from "@angular/core";
-import {NavController, AlertController, ToastController, MenuController,Platform, LoadingController} from "@ionic/angular";
+import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Account } from 'src/app/model/account';
 
 
 @Component({
@@ -8,15 +9,17 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  constructor(public nav: NavController, public forgotCtrl: AlertController,
-     public menu: MenuController, public toastCtrl: ToastController, public router: Router,
-     private platform: Platform, public alertController: AlertController, 
-     public loadingController: LoadingController,) {
-    this.menu.swipeEnable(false);
+  account: Account;
+
+  constructor(private router: Router, private authService: AuthService) {
+
   }
 
+  ngOnInit() {
+    this.account = new Account();
+  }
   // go to register page
   register() {
     this.router.navigateByUrl('/register');
@@ -24,9 +27,18 @@ export class LoginComponent {
 
   // login and go to home page
   login() {
-    this.router.navigateByUrl('/main/home');
+    this.authService.login(this.account)
+      .subscribe(data => {
+        if (data != null) {
+          this.router.navigateByUrl('/main/home');
+        }
+      },
+        error => {
+          if (error.status = 404) {
+            alert('Tài khoản không tồn tại');
+          }
+          else
+            alert('Tên đăng nhập hoặc mật khẩu không đúng');
+        });
   }
-
-
-
 }

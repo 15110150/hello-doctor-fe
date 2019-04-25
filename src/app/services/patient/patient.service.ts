@@ -10,15 +10,19 @@ import { Patient } from 'src/app/model/patient';
 })
 export class PatientService {
 
-  private urlPatient = `${environment.apiUrlApi}/account/profile/patient`;
+  private urlPatient = `${environment.apiUrlApi}/account/profile`;
 
   constructor(private http: HttpClient) {
   }
 
-  getUser(id : number): Observable<Patient> {
+  getUser(): Observable<Patient> {
+    let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+    let header = new HttpHeaders()
+    .set('Authorization',  'Bearer ' + accessToken.token);
     let url = this.urlPatient;
-    url = url + '/' + id ;
-    return this.http.get<Patient>(url)
+    return this.http.get<Patient>(url, {
+      headers: header
+    })
       .pipe(
         map(response => {
           const data = response;
