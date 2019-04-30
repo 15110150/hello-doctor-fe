@@ -47,6 +47,7 @@ export class SearchComponent implements OnInit{
     this.isEven =! this.isMorn;
     this.isAfter =! this.isMorn;
     this.partOfDay = "MORNING";
+    
   }
 
   btnAfter_click(){
@@ -94,7 +95,12 @@ export class SearchComponent implements OnInit{
     // this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)
     //   .subscribe(result => {
     //     this.searchResult = result;
-   
+    this.searchResult.forEach(element => {
+     if(element.avatarImg = undefined)
+     {
+       element.avatarImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBVfFEaY5gc0TjuhyTd6GDEidZB6hYncLS08Rf7jiuOQOIAwrq";
+     }
+   });
   }
 
   btnSearch_click() {

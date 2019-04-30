@@ -1,69 +1,55 @@
 <ion-toolbar>
-  <ion-segment color="primary">
-    <ion-segment-button value="camera" checked>
+  <ion-segment color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="waiting" checked>
       <ion-label>Chưa khám</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="bookmark">
+    <ion-segment-button value="done">
       <ion-label>Đã khám</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="cancel">
+      <ion-label>Đã hủy</ion-label>
     </ion-segment-button>
   </ion-segment>
 </ion-toolbar>
 
 <ion-content color="light">
-  <div>
-    <ion-card>
-      <ion-item class="info">
-        <ion-thumbnail slot="start">
-          <img src="https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg">
-        </ion-thumbnail>
-        <ion-label>
-          <strong>BS. Đỗ Hữu Thành</strong>
-          <p>Phòng khám Hữu Thành</p>
-          <p>T2: 8h</p>
-        </ion-label>
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon name="arrow-round-forward"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
-    </ion-card>
-    <ion-card>
-      <ion-item class="info">
-        <ion-thumbnail slot="start">
-          <img src="https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg">
-        </ion-thumbnail>
-        <ion-label>
-          <strong>BS. Đỗ Hữu Thành</strong>
-          <p>Phòng khám Hữu Thành</p>
-          <p>T2: 8h</p>
-        </ion-label>
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon name="arrow-round-forward"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
-    </ion-card>
-    <ion-card>
-      <ion-item class="info">
-        <ion-thumbnail slot="start">
-          <img src="https://dwbxi9io9o7ce.cloudfront.net/images/18_05_2016_07_42_38_508966.jpeg">
-        </ion-thumbnail>
-        <ion-label>
-          <strong>BS. Đỗ Hữu Thành</strong>
-          <p>Phòng khám Hữu Thành</p>
-          <p>T2: 8h</p>
-        </ion-label>
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon name="arrow-round-forward"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
-    </ion-card>
+  <div *ngIf="listBoooking">
+    <ion-list *ngIf="listwaiting">
+      <ion-card *ngFor="let element of listBoooking" class="info">
+        <ion-item>
+          <ion-button slot="end">{{element.status}}</ion-button>
+          <ion-label><strong>{{element.dateTime}}</strong></ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img src="{{element.doctor.avatarImg}}">
+          </ion-thumbnail>
+          <ion-label>
+            <strong class="DTname">{{element.doctor.name}}</strong>
+            <p>484 Hàm Nghi, Q1</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+    <ion-list *ngIf="listdone">
+        <ion-card *ngFor="let element of listBoooking" class="info">
+            <ion-item>
+              <ion-button slot="end">{{element.status}}</ion-button>
+              <ion-label><strong>{{element.dateTime}}</strong></ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-thumbnail slot="start">
+                <img src="{{element.doctor.avatarImg}}">
+              </ion-thumbnail>
+              <ion-label>
+                <strong class="DTname">{{element.doctor.name}}</strong>
+                <p>484 Hàm Nghi, Q1</p>
+              </ion-label>
+            </ion-item>
+          </ion-card>
+      </ion-list>
   </div>
-  <div *ngIf="isShow">
+  <div *ngIf="(isShow && !listBoooking)">
     <ion-card>
       <ion-item class="info">
         <ion-thumbnail slot="start">
