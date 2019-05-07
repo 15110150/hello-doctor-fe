@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './pages/register/register.module#RegisterModule' },
   { path: 'map', loadChildren: './pages/map/map.module#MapComponentModule' },
   { path: 'booking', loadChildren: './pages/booking/booking.module#BookingComponentModule' },
+  { path: 'profile', loadChildren: './pages/user-profile/user-profile.module#UserProfileComponentModule' },
   { path: 'doctor-profile', loadChildren: './pages/doctor-profile/doctor-profile.module#DoctorProfileComponentModule' },
   { path: '', loadChildren: './pages/tab/tab.module#TabComponentModule' },
 

@@ -26,8 +26,8 @@ const routes: Routes = [
         loadChildren: '../../pages/search/search.module#SearchComponentModule'
       },
       {
-        path: 'profile',
-        loadChildren: '../../pages/user-profile/user-profile.module#UserProfileComponentModule'
+        path: 'account',
+        loadChildren: '../../pages/menu-account/menu-account.module#MenuAccountComponentModule'
       },
       {
         path: '',
