@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { ListBooking } from 'src/app/model/list-booking';
+import { ActivatedRoute, Router, NavigationEnd  } from '@angular/router';
 
 @Component({
   selector: 'app-list-booking',
   templateUrl: './list-booking.component.html',
   styleUrls: ['./list-booking.component.scss']
 })
-export class ListBookingComponent implements OnInit {
+export class ListBookingComponent implements OnInit, OnDestroy {
 
   public isShow = false;
   public listwaiting = true;
@@ -15,10 +16,26 @@ export class ListBookingComponent implements OnInit {
   public listcancel = false;
   public status: any;
   public listBoooking: ListBooking[];
+  navigationSubscription;
 
-  constructor(private bookingService: BookingService) { }
+  constructor(private bookingService: BookingService, private router: Router) { 
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationEnd) {
+        this.getListBooking(Status.WAITING + ',' + Status.ACCEPTED);
+      }
+    });
+  }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    // avoid memory leaks here by cleaning up after ourselves. If we  
+    // don't then we will continue to run our initialiseInvites()   
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {  
+       this.navigationSubscription.unsubscribe();
+    }
   }
 
   segmentChanged(ev: any) {

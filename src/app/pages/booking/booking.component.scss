@@ -1,7 +1,11 @@
 :host
 {
   ion-toolbar.bg-class{
-    --background: linear-gradient( #09548e, #0e80d8) !important;
+    --min-height:140px;
+    --background: #09548E; 
+    --background: -moz-linear-gradient(-45deg, #09548E 17%,#7DB9E8 100%); 
+    --background: -webkit-linear-gradient(-45deg, #09548E 17%,#7DB9E8 100%); 
+    --background: linear-gradient(135deg, #09548E 17%,#7DB9E8 100%); 
   }
   ion-content{
   --background:#f2f2f2;

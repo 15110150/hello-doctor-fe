@@ -33,6 +33,20 @@ export class AuthService {
         }));
   }
 
+  register(account: any): Observable<any> {
+    let urlRegis = "http://35.240.201.202:8080/api/account/user/register"
+    account.id = 0;
+    return this.http.post<any>( urlRegis, JSON.stringify(account), {
+      headers: this.header
+    })
+      .pipe(
+        map(response => {
+          const data = response;
+          return data;
+        }));
+  }
+
+
   checkToken() {
     return this.jwtHeader.isTokenExpired(localStorage.getItem('currentUser'));
   }

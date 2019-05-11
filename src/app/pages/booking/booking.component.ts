@@ -80,7 +80,7 @@ export class BookingComponent implements OnInit {
     this.bookingService.createBooking(this.newBooking)
       .subscribe(result => {
         alert("Bạn đã đặt lịch")
-        this.router.navigateByUrl('/main/list-booking');
+        this.router.navigate(['/main/list-booking']);
       });
   }
 
