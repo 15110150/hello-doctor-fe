@@ -47,7 +47,23 @@ export class BookingService {
         const data = response.content;
         return data;
       }));
-
-
   }
+
+  updateBooking(booking: any): Observable<Booking> {
+    let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+    let url = this.urlBooking + '/book';
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json; charset=utf-8')
+      .set('Authorization', 'Bearer ' + accessToken.token);
+    return this.http.post<Booking>(url, JSON.stringify(booking), {
+      headers: headers
+    })
+      .pipe(
+        map(response => {
+          const data = response;
+          console.log(data);
+          return data;
+        }));
+  }
+
 }

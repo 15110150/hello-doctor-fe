@@ -31,10 +31,6 @@ export class DoctorProfileComponent implements OnInit {
         this.doctor = result;
         console.log(this.doctor);
       });
-      if(this.doctor.avatarImg = undefined)
-      {
-        this.doctor.avatarImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBVfFEaY5gc0TjuhyTd6GDEidZB6hYncLS08Rf7jiuOQOIAwrq";
-      }
   }
 
   btnBack_click()

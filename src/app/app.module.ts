@@ -10,11 +10,28 @@ import { environment } from '../environments/environment';
 import { APP_BASE_HREF } from '@angular/common';
 import { TabComponent } from './pages/tab/tab.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import {JwtModule} from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
+// import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+// import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+
+// let config = new AuthServiceConfig([
+//   {
+//     id: GoogleLoginProvider.PROVIDER_ID,
+//     provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
+//   },
+//   {
+//     id: FacebookLoginProvider.PROVIDER_ID,
+//     provider: new FacebookLoginProvider("2261774144141733")
+//   }
+// ]);
 
 export function tokenGetter() {
   return localStorage.getItem('currentUser');
 }
+
+// export function provideConfig() {
+//   return config;
+// }
 
 @NgModule({
   declarations: [
@@ -23,6 +40,7 @@ export function tokenGetter() {
   imports: [
     HttpClientModule,
     BrowserModule,
+    // SocialLoginModule,
     IonicModule.forRoot(),
     JwtModule.forRoot({
       config: {
@@ -33,7 +51,8 @@ export function tokenGetter() {
     AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: APP_BASE_HREF, useValue: '/' }
+    { provide: APP_BASE_HREF, useValue: '/' },
+    // { provide: AuthServiceConfig, useFactory: provideConfig}
   ],
   bootstrap: [AppComponent]
 })

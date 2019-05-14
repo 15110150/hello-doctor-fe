@@ -25,4 +25,18 @@
   .lsContent{
     background : #f4f4f4;
   }
+  ion-thumbnail.avatar{
+    width: 70px;
+    height: 70px;
+  }
+  .address{
+    -webkit-animation: left_to_right 5s infinite; /* Safari 4.0 - 8.0 */
+    animation: left_to_right 5s infinite;
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+  }
+  @keyframes left_to_right {
+    from {margin-left: 0px;}
+    to {margin-left: -150px;}
+  }
 }

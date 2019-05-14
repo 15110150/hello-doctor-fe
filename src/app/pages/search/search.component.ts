@@ -11,7 +11,7 @@ import { Address } from 'src/app/model/address';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit{
+export class SearchComponent implements OnInit {
 
   symptom: any;
   currentLat: any;
@@ -20,47 +20,46 @@ export class SearchComponent implements OnInit{
   currentAddress: string;
   partOfDay: string;
   public changeAddress = false;
-  public address : any;
+  public address: any;
   isMorn = true;
   isAfter = false;
   isEven = false;
   isShow = false;
 
   ngOnInit() {
-    if(this.currentAddress == null)
-    {
+    if (this.currentAddress == null) {
       this.locateLocation();
     }
     this.partOfDay = "MORNING";
   }
 
-  constructor(private router: Router, private searchService: SearchService, 
+  constructor(private router: Router, private searchService: SearchService,
     private locateService: LocateService, private activatedRoute: ActivatedRoute) {
-      if (this.activatedRoute.snapshot.params['id']) {
-        this.currentAddress = this.activatedRoute.snapshot.params['id'];
-        this.changeAddress = true;
-      }
+    if (this.activatedRoute.snapshot.params['id']) {
+      this.currentAddress = this.activatedRoute.snapshot.params['id'];
+      this.changeAddress = true;
+    }
   }
 
-  btnMorn_click(){
+  btnMorn_click() {
     this.isMorn = true;
-    this.isEven =! this.isMorn;
-    this.isAfter =! this.isMorn;
+    this.isEven = !this.isMorn;
+    this.isAfter = !this.isMorn;
     this.partOfDay = "MORNING";
-    
+
   }
 
-  btnAfter_click(){
+  btnAfter_click() {
     this.isAfter = true;
-    this.isEven =! this.isAfter;
-    this.isMorn =! this.isAfter;
+    this.isEven = !this.isAfter;
+    this.isMorn = !this.isAfter;
     this.partOfDay = "AFTERNOON";
   }
 
-  btnEvent_click(){
+  btnEvent_click() {
     this.isEven = true;
-    this.isAfter =! this.isEven;
-    this.isMorn =! this.isEven;
+    this.isAfter = !this.isEven;
+    this.isMorn = !this.isEven;
     this.partOfDay = "EVENING";
   }
 
@@ -86,35 +85,28 @@ export class SearchComponent implements OnInit{
 
   searchDoctors() {
     this.isShow = true;
-    this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom,)
-    .subscribe(result =>
-      {
+    this.currentAddress = "484 Lê Văn Việt, phường Tăng Nhơn Phú A, Quận 9, Hồ Chí Minh";
+    this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
+      .subscribe(result => {
         this.searchResult = result;
       }
-    )
+      )
     // this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)
     //   .subscribe(result => {
     //     this.searchResult = result;
-    this.searchResult.forEach(element => {
-     if(element.avatarImg = undefined)
-     {
-       element.avatarImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBVfFEaY5gc0TjuhyTd6GDEidZB6hYncLS08Rf7jiuOQOIAwrq";
-     }
-   });
   }
 
   btnSearch_click() {
     this.searchDoctors();
   }
 
-  btnDoctor_click(id : number) {
+  btnDoctor_click(id: number) {
     this.router.navigate(['/doctor-profile/doctor', id]);
   }
 
-  btnMap_click()
-  {
+  btnMap_click() {
     this.router.navigate(['/map/address', this.currentAddress]);
-   //this.router.navigate(['/map'],{ queryParams: { address: this.currentAddress } });
+    //this.router.navigate(['/map'],{ queryParams: { address: this.currentAddress } });
   }
 
 }

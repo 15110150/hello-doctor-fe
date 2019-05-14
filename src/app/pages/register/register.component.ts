@@ -3,7 +3,7 @@ import { NavController } from "@ionic/angular";
 import { LoginComponent } from "../login/login.component";
 import { Router } from '@angular/router';
 import { Account } from 'src/app/model/account';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { Auth2Service } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   public account: Account;
   public password2: any;
 
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(public authService: Auth2Service, private router: Router) {
   }
 
   ngOnInit(){

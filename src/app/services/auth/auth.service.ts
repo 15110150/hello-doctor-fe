@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import {first, map} from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Account } from 'src/app/model/account';
 import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class Auth2Service {
 
   header: HttpHeaders;
   private urlLogin = `${environment.apiUrlApi}/auth2/login`;

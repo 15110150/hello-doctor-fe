@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'booking', loadChildren: './pages/booking/booking.module#BookingComponentModule' },
   { path: 'profile', loadChildren: './pages/user-profile/user-profile.module#UserProfileComponentModule' },
   { path: 'doctor-profile', loadChildren: './pages/doctor-profile/doctor-profile.module#DoctorProfileComponentModule' },
+  { path: 'feedback', loadChildren: './pages/feedback/feedback.module#FeedbackComponentModule' },
   { path: '', loadChildren: './pages/tab/tab.module#TabComponentModule' },
 
 ];

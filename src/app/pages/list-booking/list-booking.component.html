@@ -17,7 +17,7 @@
     <ion-list *ngIf="listwaiting">
       <ion-card *ngFor="let element of listBoooking" class="info">
         <ion-item>
-          <ion-button slot="end">{{element.status}}</ion-button>
+          <ion-button fill="outline" slot="end" [color]="(element.status === 'ACCEPTED') ? 'success' : 'primary'" >{{element.status}}</ion-button>
           <ion-label><strong>{{element.dateTime}}</strong></ion-label>
         </ion-item>
         <ion-item>
@@ -26,28 +26,51 @@
           </ion-thumbnail>
           <ion-label>
             <strong class="DTname">{{element.doctor.name}}</strong>
-            <p>484 Hàm Nghi, Q1</p>
+            <p>{{element.doctor.address}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-button slot="end" [disabled]="(element.status === 'ACCEPTED')" size="small" color="medium" (click)="btnCancel_click(element)">Hủy</ion-button>
+         </ion-item>
+      </ion-card>
+    </ion-list>
+    <ion-list *ngIf="listdone">
+      <ion-card *ngFor="let element of listBoooking" class="info">
+        <ion-item>
+          <ion-button fill="clear" slot="end">{{element.status}}</ion-button>
+          <ion-label><strong>{{element.dateTime}}</strong></ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img src="{{element.doctor.avatarImg}}">
+          </ion-thumbnail>
+          <ion-label>
+            <strong class="DTname">{{element.doctor.name}}</strong>
+            <p>{{element.doctor.address}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-card-content>
+          <ion-button size="small" color="medium" (click)="btnFeedback_click(element.doctor.userId)">Đánh giá</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+    <ion-list *ngIf="listcancel">
+      <ion-card *ngFor="let element of listBoooking" class="info">
+        <ion-item>
+          <ion-button color="danger" fill="clear" slot="end">{{element.status}}</ion-button>
+          <ion-label><strong>{{element.dateTime}}</strong></ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img src="{{element.doctor.avatarImg}}">
+          </ion-thumbnail>
+          <ion-label>
+            <strong class="DTname">{{element.doctor.name}}</strong>
+            <p>{{element.doctor.address}}</p>
           </ion-label>
         </ion-item>
       </ion-card>
     </ion-list>
-    <ion-list *ngIf="listdone">
-        <ion-card *ngFor="let element of listBoooking" class="info">
-            <ion-item>
-              <ion-button slot="end">{{element.status}}</ion-button>
-              <ion-label><strong>{{element.dateTime}}</strong></ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-thumbnail slot="start">
-                <img src="{{element.doctor.avatarImg}}">
-              </ion-thumbnail>
-              <ion-label>
-                <strong class="DTname">{{element.doctor.name}}</strong>
-                <p>484 Hàm Nghi, Q1</p>
-              </ion-label>
-            </ion-item>
-          </ion-card>
-      </ion-list>
   </div>
   <div *ngIf="(isShow && !listBoooking)">
     <ion-card>

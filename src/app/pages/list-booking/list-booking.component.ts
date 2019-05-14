@@ -71,6 +71,19 @@ export class ListBookingComponent implements OnInit, OnDestroy {
       )
   }
 
+  btnFeedback_click(id: number){
+    this.router.navigate(['/feedback/feedback', id]);
+  }
+
+  btnCancel_click(booking: any){
+    booking.status = Status.PATIENT_CANCEL;
+    this.bookingService.updateBooking(booking)
+    .subscribe(result=> {
+      alert("Bạn đã hủy thành công")
+      this.getListBooking(Status.WAITING + ',' + Status.ACCEPTED);
+    })
+  }
+
 }
 export enum Status {
   WAITING = "WAITING",

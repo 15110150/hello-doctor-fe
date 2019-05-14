@@ -1,0 +1,75 @@
+<ion-content>
+  <ion-header no-border>
+    <ion-toolbar class="bg-class">
+      <ion-item lines="none" class="iteTool">
+        <ion-buttons slot="start">
+          <ion-button (click)="btnBack_click()">
+            <ion-icon slot="icon-only" name="arrow-round-back" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-row>
+        <ion-col size=4>
+        </ion-col>
+        <ion-col size=4>
+          <ion-card>
+            <img src="{{doctor.avatarImg}}" style="text-align: center">
+          </ion-card>
+        </ion-col>
+        <ion-col size=4>
+        </ion-col>
+      </ion-row>
+
+      <div text-center style="color: #ffffff"><strong>{{doctor.name}}</strong></div>
+      <div text-center style="color: #ffffff">Chuyên khoa: {{doctor.department}}</div>
+      <div text-center>
+        <!-- <ion-buttons>
+          <ion-button (click)="btnstar1_click()">
+            <ion-icon slot="icon-only" class="star" [class.select]='isSelected1' [class.unselect]='!isSelected1'
+              (click)=btnstar1_click()></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons>
+          <ion-button (click)="btnstar2_click()">
+            <ion-icon slot="icon-only" class="star" [class.select]='isSelected2' [class.unselect]='!isSelected2'
+              (click)=btnstar2_click()></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons>
+          <ion-button (click)="btnstar3_click()">
+            <ion-icon slot="icon-only" class="star" [class.select]='isSelected3' [class.unselect]='!isSelected3'
+              (click)=btnstar3_click()></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons>
+          <ion-button (click)="btnstar4_click()">
+            <ion-icon slot="icon-only" class="star" [class.select]='isSelected4' [class.unselect]='!isSelected4'
+              (click)=btnstar4_click()></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons>
+          <ion-button (click)="btnstar5_click()">
+            <ion-icon slot="icon-only" class="star" [class.select]='isSelected5' [class.unselect]='!isSelected5'
+              (click)=btnstar5_click()></ion-icon>
+          </ion-button>
+        </ion-buttons> -->
+        <ion-icon name="star" class="star" (click)="btnstar1_click()" [class.select]='isSelected1' [class.unselect]='!isSelected1' ></ion-icon>
+        <ion-icon name="star" class="star" (click)="btnstar2_click()" [class.select]='isSelected2' [class.unselect]='!isSelected2' ></ion-icon>
+        <ion-icon name="star" class="star" (click)="btnstar3_click()" [class.select]='isSelected3' [class.unselect]='!isSelected3' ></ion-icon>
+        <ion-icon name="star" class="star" (click)="btnstar4_click()" [class.select]='isSelected4' [class.unselect]='!isSelected4' ></ion-icon>
+        <ion-icon name="star" class="star" (click)="btnstar5_click()" [class.select]='isSelected5' [class.unselect]='!isSelected5' ></ion-icon>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-textarea rows="7" placeholder="Viết đánh giá ..."></ion-textarea>
+  </ion-card>
+  <div text-center>
+    <ion-button class="btn1" (click)="btnBooking_click(doctor.userId)">
+      Gửi đánh giá
+      <span>
+        <ion-icon name="paper-plane"></ion-icon>
+      </span>
+    </ion-button>
+  </div>
+</ion-content>

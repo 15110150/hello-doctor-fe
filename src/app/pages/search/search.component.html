@@ -52,24 +52,36 @@
   </ion-row>
   <div *ngIf="searchResult">
     <ion-card *ngFor="let result of searchResult">
-      <ion-item class="info" (click)="btnDoctor_click(result.userId)">
-        <ion-thumbnail slot="start">
+      <ion-item class="info" (click)="btnDoctor_click(result.userId)" lines="none">
+        <ion-thumbnail slot="start" class="avatar">
           <img src="{{result.avatarImg}}">
         </ion-thumbnail>
         <ion-label>
           <strong>{{result.doctorName}}</strong>
           <p>{{result.department}}</p>
+          <p class="address">{{result.address}}</p>
           <div>
-            <ion-icon name="star" color="warning"></ion-icon>
-            <ion-icon name="star" color="warning"></ion-icon>
-            <ion-icon name="star" color="warning"></ion-icon>
-            <ion-icon name="star" color="warning"></ion-icon>
-            <ion-icon name="star" color="warning"></ion-icon>
+            <ion-icon [ngStyle]="{'color': (result.rateSummary >= 1)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+            <ion-icon [ngStyle]="{'color': (result.rateSummary >= 2)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+            <ion-icon [ngStyle]="{'color': (result.rateSummary >= 3)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+            <ion-icon [ngStyle]="{'color': (result.rateSummary >= 4)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+            <ion-icon [ngStyle]="{'color': (result.rateSummary >= 5)? '#ffce00' : 'grey'}" name="star"></ion-icon>
           </div>
         </ion-label>
       </ion-item>
       <ion-card-content>
-        Cách bạn {{result.distance}} km
+        <ion-row>
+          <ion-col>
+            <div text-left>
+              Giá khám: {{result.basePrice}}
+            </div>
+          </ion-col>
+          <ion-col>
+            <div text-right>
+              Cách bạn {{result.distance}} km
+            </div>
+          </ion-col>
+        </ion-row>
       </ion-card-content>
     </ion-card>
   </div>
