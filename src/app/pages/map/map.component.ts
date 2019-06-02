@@ -78,16 +78,17 @@ export class MapComponent implements OnInit {
   }
 
   btnBack_click() {
-    if (this.previousURL.includes("doctor-profile")) {
-      this._location.back();
+    if (this.previousURL.includes("search")) {
+      this.router.navigate(['/main/search/search', this.currentAddress]);     
     }
     else {
-      this.router.navigate(['/main/search/search', this.currentAddress]);
+      this._location.back();
     }
   }
 
   ngOnInit() {
     this.previousURL = this.previousRouteService.getPreviousUrl();
+    console.log(this.previousURL);
     if (this.previousURL.includes("doctor-profile")) {
       this.isReadOnly = true;
     }

@@ -23,41 +23,36 @@
       <div text-center style="color: #ffffff"><strong>{{doctor.name}}</strong></div>
       <div text-center style="color: #ffffff">Chuyên khoa: {{doctor.department}}</div>
       <div text-center>
-        <ion-icon name="star" color="warning"></ion-icon>
-        <ion-icon name="star" color="warning"></ion-icon>
-        <ion-icon name="star" color="warning"></ion-icon>
-        <ion-icon name="star" color="warning"></ion-icon>
-        <ion-icon name="star" color="warning"></ion-icon>
+        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 1)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 2)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 3)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 4)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 5)? '#ffce00' : 'grey'}" name="star"></ion-icon>
       </div>
     </ion-toolbar>
   </ion-header>
-
   <br />
   <ion-list>
     <ion-item class="datepicker">
       <ion-label class="titletext"><strong>Ngày khám</strong></ion-label>
-      <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YY" min="{{currentDate}}" max="{{maxDate}}"
-        [(ngModel)]="myDate" 
-        doneText="Chọn" cancelText="Hủy"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YY" [(ngModel)]="myDate" doneText="Chọn"
+        cancelText="Hủy" monthValues="{{monthValue}}" yearValues="{{yearValue}}"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label class="titletext"><strong>Giờ khám</strong></ion-label>
-      <ion-datetime displayFormat="HH:mm" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
-      doneText="Chọn" cancelText="Hủy" [(ngModel)]="bokingTime"></ion-datetime>
+      <ion-datetime displayFormat="HH:mm" [(ngModel)]="bookingTime" 
+      minuteValues="0,15,30,45" doneText="Chọn" cancelText="Hủy"></ion-datetime>
     </ion-item>
-
-
     <ion-item class="datepicker" lines="none">
       <ion-label>
         <h2><strong>Địa chỉ</strong></h2>
-        <p color="black">484 Lê Văn Việt, Tăng Nhơn Phú A, Q9, HCM</p>
+        <p color="black">{{doctor.address}}</p>
         <br />
         <h2><strong>Giá khám</strong></h2>
-        <p color="black">50.000 VND</p>
+        <p color="black">{{doctor.basePrice | number}} VND</p>
       </ion-label>
     </ion-item>
   </ion-list>
-
   <ion-row>
     <ion-col size="3"></ion-col>
     <ion-col size="6" text center>

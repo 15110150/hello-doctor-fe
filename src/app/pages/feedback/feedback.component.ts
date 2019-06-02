@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { Doctor } from 'src/app/model/doctor';
 import { Location } from '@angular/common';
+import { BookingService } from 'src/app/services/booking/booking.service';
+import { Feedback } from 'src/app/model/feedback';
+import { Auth2Service } from 'src/app/services/auth/auth.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-feedback',
@@ -12,6 +16,8 @@ import { Location } from '@angular/common';
 export class FeedbackComponent implements OnInit {
 
   doctorId: number;
+  bookId: number;
+  feedback: Feedback;
   doctor: Doctor;
   rateSumary: number;
   isSelected1 = false;
@@ -21,14 +27,19 @@ export class FeedbackComponent implements OnInit {
   isSelected5 = false;
 
   constructor(private router: Router, private doctorService: DoctorService,
-    private activatedRoute: ActivatedRoute, private _location: Location) {
-    if (this.activatedRoute.snapshot.params['id']) {
-      this.doctorId = this.activatedRoute.snapshot.params['id'];
+    private activatedRoute: ActivatedRoute, private _location: Location, 
+    private bookingService: BookingService, private patientService: PatientService) {
+    if (this.activatedRoute.snapshot.params['doctorid']) {
+      this.doctorId = this.activatedRoute.snapshot.params['doctorid'];
+    }
+    if (this.activatedRoute.snapshot.params['bookid']) {
+      this.bookId = this.activatedRoute.snapshot.params['bookid'];
     }
   }
 
   ngOnInit() {
     this.getDoctor();
+    this.feedback = new Feedback();
   }
 
   getDoctor() {
@@ -72,4 +83,25 @@ export class FeedbackComponent implements OnInit {
     this.changeState(true, true, true, true, true);
   }
 
+  btnBack_click(){
+    this._location.back();
+  }
+
+  getUser(){
+    this.patientService.getUser()
+    .subscribe(result=> 
+      {
+        this.feedback.patient = result;
+      });
+  }
+
+  btnFeedback_click(){
+    this.feedback.bookId = this.bookId;
+    this.feedback.rate = this.rateSumary;
+    this.bookingService.createdFeedback(this.feedback)
+    .subscribe(result=>{
+      alert("Cảm ơn bạn đã phản hồi")
+      this._location.back();
+    });
+  }
 }

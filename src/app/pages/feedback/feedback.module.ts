@@ -8,7 +8,7 @@ import { FeedbackComponent } from './feedback.component';
 
 const routes: Routes = [
   {
-    path: 'feedback/:id',
+    path: 'feedback/:doctorid/:bookid',
     component: FeedbackComponent
   }
 ];

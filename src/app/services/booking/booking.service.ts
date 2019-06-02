@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Booking } from 'src/app/model/booking';
 import { ListBooking } from 'src/app/model/list-booking';
+import { Feedback } from 'src/app/model/feedback';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,38 @@ export class BookingService {
           console.log(data);
           return data;
         }));
+  }
+
+  createdFeedback(feedback: Feedback): Observable<Feedback> {
+    let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+    let url = this.urlBooking + "/comment/save";
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json; charset=utf-8')
+      .set('Authorization', 'Bearer ' + accessToken.token);
+    return this.http.post<Feedback>(url, JSON.stringify(feedback), {
+      headers: headers
+    })
+      .pipe(
+        map(response => {
+          const data = response;
+          console.log(data);
+          return data;
+        }));
+  }
+
+  getListBookingAtTime(time: any): Observable<ListBooking[]> {
+    let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+    let header = new HttpHeaders()
+      .set('Authorization', 'Bearer ' + accessToken.token);
+    let url = this.urlBooking;
+    url = url + '/book/list-booked-at-time?dateTime=' + time;
+    return this.http.get<any>(url, {
+      headers: header
+    }).pipe(
+      map(response => {
+        const data = response;
+        return data;
+      }));
   }
 
 }

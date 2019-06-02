@@ -21,7 +21,7 @@ export class ListBookingComponent implements OnInit, OnDestroy {
   constructor(private bookingService: BookingService, private router: Router) { 
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
-        this.getListBooking(Status.WAITING + ',' + Status.ACCEPTED);
+        this.getListBooking(this.status);
       }
     });
   }
@@ -71,8 +71,8 @@ export class ListBookingComponent implements OnInit, OnDestroy {
       )
   }
 
-  btnFeedback_click(id: number){
-    this.router.navigate(['/feedback/feedback', id]);
+  btnFeedback_click(doctorid: number, bookid: number){
+    this.router.navigate(['/feedback/feedback', doctorid, bookid]);
   }
 
   btnCancel_click(booking: any){
@@ -82,6 +82,10 @@ export class ListBookingComponent implements OnInit, OnDestroy {
       alert("Bạn đã hủy thành công")
       this.getListBooking(Status.WAITING + ',' + Status.ACCEPTED);
     })
+  }
+
+  btnDoctor_click(id: number) {
+    this.router.navigate(['/doctor-profile/doctor', id]);
   }
 
 }

@@ -25,39 +25,39 @@
   <ion-card class="cards-pk">
     <ion-item>
       <ion-label class="labelInfo" position="stacked"><strong>Họ tên</strong></ion-label>
-      <ion-input readonly=true value="{{userProfile.name}}"></ion-input>
+      <ion-input [readonly]="isEdit" [autofocus]="!isEdit" [(ngModel)]="userProfile.name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label class="labelInfo" position="stacked"><strong>Điện thoại</strong></ion-label>
-      <ion-input readonly=true value="{{userProfile.phoneNumber}}"></ion-input>
+      <ion-input [readonly]="isEdit" [(ngModel)]="userProfile.phoneNumber"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label class="labelInfo" position="stacked"><strong>Email</strong></ion-label>
-      <ion-input readonly=true value="{{userProfile.phoneNumber}}"></ion-input>
+      <ion-input [readonly]="isEdit" [(ngModel)]="userProfile.phoneNumber"></ion-input>
     </ion-item>
     <ion-item class="datepicker">
       <ion-label class="labelInfo" position="stacked"><strong>Ngày sinh</strong></ion-label>
-      <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YY" value="10/2/1997"></ion-datetime>
+      <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YY" [(ngModel)]="userProfile.dateOfBirth"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label class="labelInfo" position="stacked"><strong>Giới tính</strong></ion-label>
-      <ion-input readonly=true value="Nam"></ion-input>
+      <ion-input [readonly]="isEdit" [(ngModel)]="userProfile.gender"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label class="labelInfo" position="stacked"><strong>Cân nặng</strong></ion-label>
-      <ion-input readonly=true value="65kg"></ion-input>
+      <ion-input [readonly]="isEdit" [(ngModel)]="userProfile.weight"></ion-input>
     </ion-item>
   </ion-card>
   <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <ion-button expand="full" shape="round" class="btn1">
-            <ion-icon name="calendar"></ion-icon>Chỉnh sửa
+          <ion-button expand="full" shape="round" class="btn1" (click)="btnEdit_click()" [disabled]="!isEdit">
+              <ion-icon name="create"></ion-icon>Chỉnh sửa
           </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button expand="full" shape="round" class="btn2" disabled="true">
-            <ion-icon name="chatboxes"></ion-icon>Lưu
+          <ion-button expand="full" shape="round" class="btn2" (click)="btnSave_click(userProfile)" [disabled]="isEdit">
+              <ion-icon name="save"></ion-icon>Lưu
           </ion-button>
         </ion-col>
       </ion-row>

@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 export class UserProfileComponent implements OnInit {
 
   public userProfile : Patient;
+  isEdit = true;
 
   constructor(private patientService: PatientService, private _location: Location) { }
 
@@ -28,5 +29,19 @@ export class UserProfileComponent implements OnInit {
 
   btnBack_click(){
     this._location.back();
+  }
+
+  btnEdit_click(){
+    this.isEdit = false;
+    console.log(this.isEdit);
+  }
+
+  btnSave_click(userProfile: Patient){
+    this.patientService.updateUser(userProfile)
+    .subscribe(result=> {
+      alert("Cập nhật hồ sơ thành công")
+      this.getProfile(); 
+    })
+    this.isEdit = true;
   }
 }

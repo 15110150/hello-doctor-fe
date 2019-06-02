@@ -89,6 +89,8 @@ export class SearchComponent implements OnInit {
     this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
       .subscribe(result => {
         this.searchResult = result;
+        // this.searchResult.forEach(x=>
+        //   x.basePrice = parseFloat(x.basePrice).toFixed(3));
       }
       )
     // this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)

@@ -62,10 +62,10 @@
     </ion-toolbar>
   </ion-header>
   <ion-card>
-    <ion-textarea rows="7" placeholder="Viết đánh giá ..."></ion-textarea>
+    <ion-textarea rows="7" placeholder="Viết đánh giá ..." [(ngModel)]="feedback.content"></ion-textarea>
   </ion-card>
   <div text-center>
-    <ion-button class="btn1" (click)="btnBooking_click(doctor.userId)">
+    <ion-button class="btn1" (click)="btnFeedback_click()">
       Gửi đánh giá
       <span>
         <ion-icon name="paper-plane"></ion-icon>
