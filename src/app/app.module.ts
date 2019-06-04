@@ -12,7 +12,7 @@ import { TabComponent } from './pages/tab/tab.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './guards/auth.guard';
-import { ImageModalModule } from './pages/image-modal/image-modal.module';
+import { ImageModalComponent } from './pages/image-modal/image-modal.component';
 // import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 // import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
@@ -38,11 +38,12 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
+    ImageModalComponent
   ],
+  entryComponents: [ImageModalComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
-    ImageModalModule,
     // SocialLoginModule,
     IonicModule.forRoot(),
     JwtModule.forRoot({

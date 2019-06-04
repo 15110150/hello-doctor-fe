@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, NavParams } from '@ionic/angular';
 
 import { ImageModalComponent } from './image-modal.component';
 
@@ -11,7 +11,6 @@ const routes: Routes = [
     {
         path: '',
         component: ImageModalComponent,
-        
     }
 ];
 
@@ -22,6 +21,7 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
+    providers: [NavParams],
     declarations: [ImageModalComponent]
 })
 export class ImageModalModule { }

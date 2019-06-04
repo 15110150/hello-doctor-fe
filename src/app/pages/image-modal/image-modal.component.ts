@@ -4,7 +4,7 @@ import { NavParams, ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-image-modal',
   templateUrl: './image-modal.component.html',
-  styleUrls: ['./image-modal.component.scss']
+  styleUrls: ['./image-modal.component.scss'],
 })
 export class ImageModalComponent implements OnInit {
 
