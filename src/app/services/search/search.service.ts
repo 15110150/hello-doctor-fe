@@ -15,7 +15,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) {
   }
-
+/* 
   getListDoctor(symptom: any, lat: number, long: number, partOfDay: any): Observable<SearchResult[]> {
     let url = this.urlSearch;
     url = url + '?symptom=' + symptom + '&lat=' + lat + '&lng=' + long + '&partOfDay=' + partOfDay;
@@ -25,12 +25,11 @@ export class SearchService {
           const data = response;
           return data;
         }));
-  }
+  } */
 
-  getListDoctorByAddress(address: string, partOfDay: any, symptom: any): Observable<SearchResult[]> 
-  {
+  getListDoctor(symptom: any, lat: number, long: number): Observable<SearchResult[]> {
     let url = this.urlSearch;
-    url = url + '?address=' + address + '&partOfDay=' + partOfDay  + '&symptom=' + symptom ;
+    url = url + '?symptom=' + symptom + '&lat=' + lat + '&lng=' + long;
     return this.http.get<SearchResult[]>(url)
       .pipe(
         map(response => {
@@ -39,7 +38,29 @@ export class SearchService {
         }));
   }
 
- 
+  // getListDoctorByAddress(address: string, partOfDay: any, symptom: any): Observable<SearchResult[]> 
+  // {
+  //   let url = this.urlSearch;
+  //   url = url + '?address=' + address + '&partOfDay=' + partOfDay  + '&symptom=' + symptom ;
+  //   return this.http.get<SearchResult[]>(url)
+  //     .pipe(
+  //       map(response => {
+  //         const data = response;
+  //         return data;
+  //       }));
+  // }
+
+  getListDoctorByAddress(address: string, symptom: any): Observable<SearchResult[]> 
+  {
+    let url = this.urlSearch;
+    url = url + '?address=' + address + '&symptom=' + symptom ;
+    return this.http.get<SearchResult[]>(url)
+      .pipe(
+        map(response => {
+          const data = response;
+          return data;
+        }));
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

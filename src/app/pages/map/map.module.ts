@@ -10,11 +10,7 @@ import {} from 'googlemaps';
 const routes: Routes = [
   { path: '', redirectTo: 'address', pathMatch: 'full' },
   {
-    path: 'address',
-    component: MapComponent
-  },
-  {
-    path: 'address/:id',
+    path: 'address/:c/:id',
     //component: SearchComponent
     component: MapComponent
   }

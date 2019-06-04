@@ -85,30 +85,51 @@ export class BookingComponent implements OnInit {
   btnBooking_click() {
     this.newBooking.doctorId = this.doctor.userId;
     this.newBooking.patientId = this.userBooking.userId;
-
     this.newBooking.commentable = true;
     this.newBooking.status = "WAITING";
 
     this.timeBooking = this.datePipe.transform(this.bookingTime, 'HH:mm');
     this.dateBooking = this.datePipe.transform(this.myDate, 'dd/MM/yyyy');
-
     this.newBooking.dateTime = this.dateBooking + ' ' + this.timeBooking;
-    console.log(this.newBooking.dateTime);
 
+    var tempDate = new Date(this.myDate);
+    var tempTime = new Date(this.bookingTime);
+    var today = new Date();
+    if(tempDate.getDate() < today.getDate()){
+      alert("Xin quí khách không chọn ngày quá khứ")
+    }
+    else{
+      if(tempDate.getDate() === today.getDate()){
+        if(tempTime.getHours() < (today.getHours() + 4)){
+          alert("Xin quí khách đặt thời gian cách hiện tại ít nhất 4 giờ")
+        }
+        else{
+          this.createBooking();
+        }
+      }
+      else{
+        this.createBooking();
+      }
+    }
+
+   
+  }
+
+  createBooking(){
     this.bookingService.getListBookingAtTime(this.newBooking.dateTime + ":00")
-      .subscribe(result => {
-        if (result.length != 0) {
-          alert("Bạn đã có lịch hẹn vào thời gian này, vui lòng chọn thời gian khác")
-          console.log(this.myDate);
-        }
-        else {
-          this.bookingService.createBooking(this.newBooking)
-            .subscribe(result => {
-              alert("Bạn đã đặt lịch thành công")
-              this.router.navigate(['/main/list-booking']);
-            });
-        }
-      });
+    .subscribe(result => {
+      if (result.length != 0) {
+        alert("Bạn đã có lịch hẹn vào thời gian này, vui lòng chọn thời gian khác")
+        console.log(this.myDate);
+      }
+      else {
+        this.bookingService.createBooking(this.newBooking)
+          .subscribe(result => {
+            alert("Bạn đã đặt lịch thành công")
+            this.router.navigate(['/main/list-booking']);
+          });
+      }
+    });
   }
 
 }

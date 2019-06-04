@@ -1,0 +1,49 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-buttons slot="start">
+        <ion-button (click)="btnBack_click()">
+          <ion-icon slot="icon-only" name="arrow-round-back" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-label color="white" class="center">
+        <strong>
+          Hồ sơ khám bệnh
+        </strong>
+      </ion-label>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card class="cards-pk">
+    <ion-card-header>
+      <strong>
+        Thông tin buổi khám
+      </strong>
+    </ion-card-header>
+    <ion-item lines="none">
+      <ion-label>Bác sĩ</ion-label>
+      <ion-input readonly></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Thời gian</ion-label>
+      <ion-input readonly></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Chẩn đoán</ion-label>
+      <ion-input readonly></ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-card class="cards-pk">
+    <ion-card-header>
+      <strong>
+        Toa thuốc
+      </strong>
+    </ion-card-header>
+    <ion-input type="file" accept="image/*" (change)="onFileSelected($event)"></ion-input>
+    <span style="color:red;" *ngIf="message">{{message}}</span>
+    <ion-card>
+        <img src="{{selectedFile}}" style="text-align: center" (click)="openPreview(selectedFile)">
+    </ion-card>
+  </ion-card>
+</ion-content>

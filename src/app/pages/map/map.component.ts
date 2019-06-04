@@ -30,6 +30,7 @@ export class MapComponent implements OnInit {
   currentAddress: string;
   public isReadOnly = false;
 
+  lastComponent: string;
 
   @ViewChild("searchInput")
   public searchElementRef: ElementRef;
@@ -39,6 +40,9 @@ export class MapComponent implements OnInit {
     private router: Router, private previousRouteService: PreviousRouteService, private _location: Location) {
     if (this.activatedRoute.snapshot.params['id']) {
       this.currentAddress = this.activatedRoute.snapshot.params['id'];
+    }
+    if (this.activatedRoute.snapshot.params['c']) {
+      this.lastComponent = this.activatedRoute.snapshot.params['c'];
     }
   }
 
@@ -78,7 +82,7 @@ export class MapComponent implements OnInit {
   }
 
   btnBack_click() {
-    if (this.previousURL.includes("search")) {
+    if (this.lastComponent.includes("search")) {
       this.router.navigate(['/main/search/search', this.currentAddress]);     
     }
     else {
@@ -87,9 +91,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.previousURL = this.previousRouteService.getPreviousUrl();
-    console.log(this.previousURL);
-    if (this.previousURL.includes("doctor-profile")) {
+    if (this.lastComponent.includes("doctor")) {
       this.isReadOnly = true;
     }
     this.mapsAPILoader.load().then(() => {

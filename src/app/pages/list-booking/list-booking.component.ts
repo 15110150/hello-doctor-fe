@@ -75,6 +75,10 @@ export class ListBookingComponent implements OnInit, OnDestroy {
     this.router.navigate(['/feedback/feedback', doctorid, bookid]);
   }
 
+  btnDetail_click(bookId: number){
+    this.router.navigate(['/health-record/record/', bookId]);
+  }
+
   btnCancel_click(booking: any){
     booking.status = Status.PATIENT_CANCEL;
     this.bookingService.updateBooking(booking)

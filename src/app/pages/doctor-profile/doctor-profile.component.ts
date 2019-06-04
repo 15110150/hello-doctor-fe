@@ -40,7 +40,7 @@ export class DoctorProfileComponent implements OnInit {
 
   btnMap_click()
   {
-    this.router.navigate(['/map/address', this.doctor.address]);
+    this.router.navigate(['/map/address', "doctor", this.doctor.address]);
   }
 
   btnBooking_click(id : number) {

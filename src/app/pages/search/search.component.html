@@ -33,7 +33,7 @@
 </ion-header>
 
 <ion-content color="light">
-  <ion-row align-items-center>
+  <!-- <ion-row align-items-center>
     <ion-col col-4>
       <ion-button expand="full" (click)="btnMorn_click()" [class.paoday]='!isMorn' [class.clicked]='isMorn'>
         Sáng
@@ -49,7 +49,7 @@
         Chiều
       </ion-button>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
   <div *ngIf="searchResult">
     <ion-card *ngFor="let result of searchResult">
       <ion-item class="info" (click)="btnDoctor_click(result.userId)" lines="none">

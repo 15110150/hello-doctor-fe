@@ -18,19 +18,22 @@ export class SearchComponent implements OnInit {
   currentLong: any;
   searchResult: SearchResult[];
   currentAddress: string;
-  partOfDay: string;
+  //partOfDay: string;
   public changeAddress = false;
   public address: any;
-  isMorn = true;
-  isAfter = false;
-  isEven = false;
+  // isMorn = true;
+  // isAfter = false;
+  // isEven = false;
   isShow = false;
 
   ngOnInit() {
     if (this.currentAddress == null) {
       this.locateLocation();
     }
-    this.partOfDay = "MORNING";
+    if(this.currentAddress == null){
+    this.currentAddress = "484 Lê Văn Việt, phường Tăng Nhơn Phú A, Quận 9, Hồ Chí Minh";
+  }
+  //  this.partOfDay = "MORNING";
   }
 
   constructor(private router: Router, private searchService: SearchService,
@@ -41,27 +44,27 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  btnMorn_click() {
-    this.isMorn = true;
-    this.isEven = !this.isMorn;
-    this.isAfter = !this.isMorn;
-    this.partOfDay = "MORNING";
+  // btnMorn_click() {
+  //   this.isMorn = true;
+  //   this.isEven = !this.isMorn;
+  //   this.isAfter = !this.isMorn;
+  //   this.partOfDay = "MORNING";
 
-  }
+  // }
 
-  btnAfter_click() {
-    this.isAfter = true;
-    this.isEven = !this.isAfter;
-    this.isMorn = !this.isAfter;
-    this.partOfDay = "AFTERNOON";
-  }
+  // btnAfter_click() {
+  //   this.isAfter = true;
+  //   this.isEven = !this.isAfter;
+  //   this.isMorn = !this.isAfter;
+  //   this.partOfDay = "AFTERNOON";
+  // }
 
-  btnEvent_click() {
-    this.isEven = true;
-    this.isAfter = !this.isEven;
-    this.isMorn = !this.isEven;
-    this.partOfDay = "EVENING";
-  }
+  // btnEvent_click() {
+  //   this.isEven = true;
+  //   this.isAfter = !this.isEven;
+  //   this.isMorn = !this.isEven;
+  //   this.partOfDay = "EVENING";
+  // }
 
   getAddress(currentLat: number, currentLong: number) {
     this.locateService.getAddress(currentLat, currentLong)
@@ -85,8 +88,8 @@ export class SearchComponent implements OnInit {
 
   searchDoctors() {
     this.isShow = true;
-    this.currentAddress = "484 Lê Văn Việt, phường Tăng Nhơn Phú A, Quận 9, Hồ Chí Minh";
-    this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
+    //this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
+    this.searchService.getListDoctorByAddress(this.currentAddress, this.symptom)
       .subscribe(result => {
         this.searchResult = result;
         // this.searchResult.forEach(x=>
@@ -107,7 +110,7 @@ export class SearchComponent implements OnInit {
   }
 
   btnMap_click() {
-    this.router.navigate(['/map/address', this.currentAddress]);
+    this.router.navigate(['/map/address', "search", this.currentAddress]);
     //this.router.navigate(['/map'],{ queryParams: { address: this.currentAddress } });
   }
 

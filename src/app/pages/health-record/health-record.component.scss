@@ -1,0 +1,16 @@
+:host
+{
+    ion-label.center { 
+        left: 50%;
+        position: fixed;
+        transform: translate(-50%, -50%);
+    }
+    ion-toolbar{
+        --background : white;
+        --color: black;
+    }
+    ion-card.cards-pk ion-card-header {
+        color: #075698;
+        --min-height:10px;
+      }
+}

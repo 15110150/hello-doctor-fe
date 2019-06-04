@@ -11,6 +11,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { TabComponent } from './pages/tab/tab.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './guards/auth.guard';
+import { ImageModalModule } from './pages/image-modal/image-modal.module';
 // import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 // import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
@@ -40,6 +42,7 @@ export function tokenGetter() {
   imports: [
     HttpClientModule,
     BrowserModule,
+    ImageModalModule,
     // SocialLoginModule,
     IonicModule.forRoot(),
     JwtModule.forRoot({
@@ -52,6 +55,7 @@ export function tokenGetter() {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: APP_BASE_HREF, useValue: '/' },
+    AuthGuard,
     // { provide: AuthServiceConfig, useFactory: provideConfig}
   ],
   bootstrap: [AppComponent]

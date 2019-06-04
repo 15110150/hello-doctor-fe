@@ -9,18 +9,16 @@
         </ion-buttons>
       </ion-item>
       <ion-row>
-        <ion-col size=4>
+        <ion-col size="4">
         </ion-col>
-        <ion-col size=4>
+        <ion-col size="4">
           <ion-card>
             <img src="{{doctor.avatarImg}}" style="text-align: center">
-
           </ion-card>
         </ion-col>
-        <ion-col size=4>
+        <ion-col size="4">
         </ion-col>
       </ion-row>
-
       <div text-center style="color: #ffffff"><strong>{{doctor.name}}</strong></div>
       <div text-center style="color: #ffffff">Chuyên khoa: {{doctor.department}}</div>
       <div text-center>
@@ -88,24 +86,21 @@
         NHẬN XÉT
       </strong>
     </ion-card-header>
-
-    <ion-list *ngFor="let comment of doctor.comments">
-      <ion-item lines="none">
-        <ion-avatar slot="start">
-          <img src="{{comment.avatarImg}}">
-        </ion-avatar>
-        <ion-label>
-          <p>{{comment.content}}</p>
-          <p>
-            <ion-icon [ngStyle]="{'color': (comment.rate >= 1)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-            <ion-icon [ngStyle]="{'color': (comment.rate >= 2)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-            <ion-icon [ngStyle]="{'color': (comment.rate >= 3)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-            <ion-icon [ngStyle]="{'color': (comment.rate >= 4)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-            <ion-icon [ngStyle]="{'color': (comment.rate >= 5)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-          </p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-
+    <ion-item lines="none" *ngFor="let comment of doctor.comments">
+      <ion-thumbnail slot="start" class="avatarComment">
+        <img src="{{comment.avatarImg}}">
+      </ion-thumbnail >
+      <ion-label>
+        <p><strong>{{comment.patientName}}</strong></p>
+        <p>
+          <ion-icon [ngStyle]="{'color': (comment.rate >= 1)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+          <ion-icon [ngStyle]="{'color': (comment.rate >= 2)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+          <ion-icon [ngStyle]="{'color': (comment.rate >= 3)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+          <ion-icon [ngStyle]="{'color': (comment.rate >= 4)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+          <ion-icon [ngStyle]="{'color': (comment.rate >= 5)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        </p>
+        <p>{{comment.content}}</p>
+      </ion-label>
+    </ion-item>
   </ion-card>
 </ion-content>
