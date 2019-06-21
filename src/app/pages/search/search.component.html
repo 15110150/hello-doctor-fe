@@ -18,18 +18,24 @@
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="btnMap_click()">
-        <ion-icon slot="icon-only" name="map" color="white"></ion-icon>
+        <ion-icon slot="icon-only" name="map" class="ion-map"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-item lines="none">
+  <!-- <ion-item lines="none">
     <ion-input color="dark" placeholder="Tìm kiếm triệu chứng" [(ngModel)]="symptom"></ion-input>
     <ion-buttons slot="end">
       <ion-button (click)="searchDoctors()">
         <ion-icon slot="icon-only" name="search" color="dark"></ion-icon>
       </ion-button>
     </ion-buttons>
-  </ion-item>
+  </ion-item> -->
+  <form [formGroup]="myForm" (ngSubmit)="submit()" novalidate>
+  <div class="ion-form-group">
+    <ion-auto-complete [dataProvider]="completeTestService"
+    (itemSelected)="searchDoctors()" [options]="{ placeholder : 'Nhập triệu chứng' }"></ion-auto-complete>
+  </div>
+</form>
 </ion-header>
 
 <ion-content color="light">

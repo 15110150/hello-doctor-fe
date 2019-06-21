@@ -50,7 +50,7 @@ export class BookingService {
       }));
   }
 
-  updateBooking(booking: any): Observable<Booking> {
+  updateBooking(booking: Booking): Observable<Booking> {
     let accessToken = JSON.parse(localStorage.getItem('currentUser'));
     let url = this.urlBooking + '/book';
     const headers = new HttpHeaders()

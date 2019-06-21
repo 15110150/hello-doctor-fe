@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "@ionic/angular";
+import { NavController, AlertController } from "@ionic/angular";
 import { LoginComponent } from "../login/login.component";
 import { Router } from '@angular/router';
 import { Account } from 'src/app/model/account';
@@ -15,7 +15,8 @@ export class RegisterComponent implements OnInit {
   public account: Account;
   public password2: any;
 
-  constructor(public authService: Auth2Service, private router: Router) {
+  constructor(public authService: Auth2Service, private router: Router,
+    public alertController: AlertController) {
   }
 
   ngOnInit(){
@@ -25,16 +26,16 @@ export class RegisterComponent implements OnInit {
   // register and go to home page
   btnRegister_click() {
     if (this.account.password != this.password2) {
-      alert("2 mật khẩu không khớp")
+      this.notSamePassAlert();
     }
     else {
       this.authService.register(this.account)
         .subscribe(data => {
-          alert("Tạo tài khoản thành công")
+          this.okAlert();
           this.router.navigateByUrl('/login');
         },
           error => {
-            alert('Tạo tài khoản thất bại');
+            this.errorAlert();
           }
         );
     }
@@ -43,6 +44,34 @@ export class RegisterComponent implements OnInit {
   // go to login page
   login() {
     this.router.navigateByUrl('/login');
+  }
+
+  async notSamePassAlert() {
+    const alert = await this.alertController.create({
+      header: 'Tạo tài khoản thất bại',
+      message: 'Hai mật khẩu không khớp. Xin quí khách kiểm tra lại',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async okAlert() {
+    const alert = await this.alertController.create({
+      header: 'Tạo tài khoản thành công',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async errorAlert() {
+    const alert = await this.alertController.create({
+      header: 'Tạo tài khoản thất bại',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

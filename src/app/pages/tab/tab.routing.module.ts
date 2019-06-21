@@ -24,8 +24,8 @@ const routes: Routes = [
         loadChildren: '../../pages/list-booking/list-booking.module#ListBookingComponentModule'
       },
       {
-        path: 'chat',
-        loadChildren: '../../pages/search/search.module#SearchComponentModule'
+        path: 'mail-box',
+        loadChildren: '../../pages/mail-box/mail-box.module#MailBoxModule'
       },
       {
         path: 'account',

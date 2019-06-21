@@ -7,6 +7,7 @@ import { BookingService } from 'src/app/services/booking/booking.service';
 import { Booking } from 'src/app/model/booking';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { Patient } from 'src/app/model/patient';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-booking',
@@ -22,8 +23,7 @@ export class BookingComponent implements OnInit {
   bookingTime = new Date("2019-01-01T07:00:00").toISOString();
   dateBooking: any;
   timeBooking: any;
-  maxDateTemp = new Date();
-  maxDate: any;
+  minDate: any;
   newBooking: Booking;
   userBooking: Patient;
 
@@ -33,7 +33,7 @@ export class BookingComponent implements OnInit {
   constructor(private datePipe: DatePipe, private _location: Location,
     private router: Router, private doctorService: DoctorService,
     private activatedRoute: ActivatedRoute, private bookingService: BookingService,
-    private userService: PatientService) {
+    private userService: PatientService, public alertController: AlertController) {
     if (this.activatedRoute.snapshot.params['id']) {
       this.doctorId = this.activatedRoute.snapshot.params['id'];
     }
@@ -49,18 +49,18 @@ export class BookingComponent implements OnInit {
 
   initTime() {
     var today = new Date();
+    console.log(today);
     this.monthValue = new Array();
     this.yearValue = new Array();
-    this.monthValue.push(today.getMonth());
     this.monthValue.push(today.getMonth() + 1);
+    this.monthValue.push(today.getMonth() + 2);
     this.yearValue.push(today.getFullYear());
-
   }
 
   setDate() {
     this.dateBooking = this.datePipe.transform(this.myDate, 'yyyy-MM');
-    this.maxDateTemp.setMonth(this.maxDateTemp.getMonth() + 1);
-    this.maxDate = this.datePipe.transform(this.maxDateTemp, 'yyyy-MM');
+    var today = new Date();
+    this.minDate = this.datePipe.transform(today, 'yyyy-MM-dd');
   }
 
   btnBack_click() {
@@ -82,6 +82,14 @@ export class BookingComponent implements OnInit {
       });
   }
 
+  timeToMinutes(time) {
+    var hours = (new Date(time)).getHours() * 60;
+    var minutes = (new Date(time)).getMinutes() ;
+    time = hours + minutes;
+    console.log(time);
+    return time;
+}
+
   btnBooking_click() {
     this.newBooking.doctorId = this.doctor.userId;
     this.newBooking.patientId = this.userBooking.userId;
@@ -93,15 +101,19 @@ export class BookingComponent implements OnInit {
     this.newBooking.dateTime = this.dateBooking + ' ' + this.timeBooking;
 
     var tempDate = new Date(this.myDate);
-    var tempTime = new Date(this.bookingTime);
+    var tempTime = this.timeToMinutes(this.bookingTime);
     var today = new Date();
+    var minuteNow = this.timeToMinutes(today);
+    
     if(tempDate.getDate() < today.getDate()){
-      alert("Xin quí khách không chọn ngày quá khứ")
+      this.pastDateAlert();
     }
     else{
       if(tempDate.getDate() === today.getDate()){
-        if(tempTime.getHours() < (today.getHours() + 4)){
-          alert("Xin quí khách đặt thời gian cách hiện tại ít nhất 4 giờ")
+        if(tempTime < minuteNow + 30){
+          console.log(tempTime);
+          console.log(minuteNow);
+          this.minuteAlert();
         }
         else{
           this.createBooking();
@@ -119,18 +131,52 @@ export class BookingComponent implements OnInit {
     this.bookingService.getListBookingAtTime(this.newBooking.dateTime + ":00")
     .subscribe(result => {
       if (result.length != 0) {
-        alert("Bạn đã có lịch hẹn vào thời gian này, vui lòng chọn thời gian khác")
-        console.log(this.myDate);
+        this.sameDateAlert();
       }
       else {
         this.bookingService.createBooking(this.newBooking)
           .subscribe(result => {
-            alert("Bạn đã đặt lịch thành công")
+            this.successAlert();
             this.router.navigate(['/main/list-booking']);
           });
       }
     });
   }
 
+  async successAlert() {
+    const alert = await this.alertController.create({
+      header: 'Đặt lịch thành công',
+      message: 'Vui lòng đến trước thời gian hẹn 5p để việc khám bệnh diễn ra thuận lợi. Xin cảm ơn!',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async sameDateAlert() {
+    const alert = await this.alertController.create({
+      header: 'Đặt lịch không thành công',
+      message: 'Bạn đã có lịch hẹn vào thời gian này, vui lòng chọn thời gian khác. Xin cảm ơn!',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async pastDateAlert() {
+    const alert = await this.alertController.create({
+      header: 'Đặt lịch không thành công',
+      message: 'Xin quí khách không chọn ngày quá khứ. Xin cảm ơn!',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async minuteAlert() {
+    const alert = await this.alertController.create({
+      header: 'Đặt lịch không thành công',
+      message: 'Xin quí khách chọn thời gian cách hiện tại ít nhất 30 phút Xin cảm ơn!',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 }
 

@@ -45,12 +45,14 @@
     </ion-row>
   </ion-grid>
   <ion-card class="cards-pk">
-    <ion-card-header>
-      <strong>
-        PHÒNG KHÁM
-      </strong>
-    </ion-card-header>
-    <ion-item lines="none" color="white">
+    <ion-item>
+      <ion-label class="headerLabel">
+        <strong>
+          PHÒNG KHÁM
+        </strong>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none" color="white" class="cdDetail">
       <ion-label color="black">
         <p>{{doctor.addressTitle}}</p>
         <p>{{doctor.address}}</p>
@@ -64,13 +66,14 @@
     </div>
   </ion-card>
   <ion-card class="cards-pk">
-    <ion-card-header>
-      <strong>
-        NƠI LÀM VIỆC HIỆN TẠI
-      </strong>
-    </ion-card-header>
-
-    <ion-item lines="none" color="white">
+      <ion-item>
+          <ion-label class="headerLabel">
+            <strong>
+              NƠI LÀM VIỆC HIỆN TẠI
+            </strong>
+          </ion-label>
+        </ion-item>
+    <ion-item lines="none" color="white" class="cdDetail">
       <ion-thumbnail slot="end">
         <img src="http://minhthanh.com/wp-content/uploads/2017/12/logo-cho-ray.png">
       </ion-thumbnail>
@@ -81,15 +84,17 @@
     </ion-item>
   </ion-card>
   <ion-card class="cards-pk">
-    <ion-card-header>
-      <strong>
-        NHẬN XÉT
-      </strong>
-    </ion-card-header>
-    <ion-item lines="none" *ngFor="let comment of doctor.comments">
+      <ion-item>
+          <ion-label class="headerLabel">
+            <strong>
+              NHẬN XÉT
+            </strong>
+          </ion-label>
+        </ion-item>
+    <ion-item class="cdDetail" lines="none" *ngFor="let comment of doctor.comments">
       <ion-thumbnail slot="start" class="avatarComment">
         <img src="{{comment.avatarImg}}">
-      </ion-thumbnail >
+      </ion-thumbnail>
       <ion-label>
         <p><strong>{{comment.patientName}}</strong></p>
         <p>

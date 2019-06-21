@@ -5,6 +5,9 @@ import { SearchService } from 'src/app/services/search/search.service';
 import { LocateService } from 'src/app/services/locate/locate.service';
 import { SearchResult } from 'src/app/model/searchresult';
 import { Address } from 'src/app/model/address';
+import { AlertController } from '@ionic/angular';
+import {FormGroup, Validators, FormControl } from '@angular/forms'
+import { CompleteService } from 'src/app/services/auto-complete/auto-complete.service';
 
 @Component({
   selector: 'app-search',
@@ -13,7 +16,9 @@ import { Address } from 'src/app/model/address';
 })
 export class SearchComponent implements OnInit {
 
+  myForm: FormGroup;
   symptom: any;
+  listSymptom:any[];
   currentLat: any;
   currentLong: any;
   searchResult: SearchResult[];
@@ -27,22 +32,29 @@ export class SearchComponent implements OnInit {
   isShow = false;
 
   ngOnInit() {
+    this.myForm = new FormGroup({
+      symptomF: new FormControl('', [
+        Validators.required
+      ])
+    })
     if (this.currentAddress == null) {
       this.locateLocation();
     }
-    if(this.currentAddress == null){
-    this.currentAddress = "484 Lê Văn Việt, phường Tăng Nhơn Phú A, Quận 9, Hồ Chí Minh";
-  }
   //  this.partOfDay = "MORNING";
+  }
+  submit(): void {
+    let symptom = this.myForm.value.symptom
   }
 
   constructor(private router: Router, private searchService: SearchService,
-    private locateService: LocateService, private activatedRoute: ActivatedRoute) {
+    private locateService: LocateService, private activatedRoute: ActivatedRoute,
+     public alertController: AlertController, public completeTestService: CompleteService) {
     if (this.activatedRoute.snapshot.params['id']) {
       this.currentAddress = this.activatedRoute.snapshot.params['id'];
       this.changeAddress = true;
     }
   }
+
 
   // btnMorn_click() {
   //   this.isMorn = true;
@@ -82,7 +94,7 @@ export class SearchComponent implements OnInit {
         this.getAddress(this.currentLat, this.currentLong);
       });
     } else {
-      alert("Geolocation is not supported by this browser.");
+      this.geocordingAlert();
     }
   }
 
@@ -112,6 +124,16 @@ export class SearchComponent implements OnInit {
   btnMap_click() {
     this.router.navigate(['/map/address', "search", this.currentAddress]);
     //this.router.navigate(['/map'],{ queryParams: { address: this.currentAddress } });
+  }
+
+  async geocordingAlert() {
+    const alert = await this.alertController.create({
+      header: 'Thông báo',
+      message: 'Định vị không hỗ trợ cho trình duyệt này.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

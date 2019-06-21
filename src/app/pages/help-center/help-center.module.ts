@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-import { IonicModule, NavParams } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 
-import { ImageModalComponent } from './image-modal.component';
+import { HelpCenterComponent } from './help-center.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: ImageModalComponent,
+        component: HelpCenterComponent,
+        
     }
 ];
 
@@ -21,7 +22,6 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
-    providers: [NavParams],
-    declarations: [ImageModalComponent]
+    declarations: [HelpCenterComponent]
 })
-export class ImageModalModule { }
+export class HelpCenterModule { }

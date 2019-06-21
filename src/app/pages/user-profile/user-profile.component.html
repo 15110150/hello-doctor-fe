@@ -37,11 +37,14 @@
     </ion-item>
     <ion-item class="datepicker">
       <ion-label class="labelInfo" position="stacked"><strong>Ngày sinh</strong></ion-label>
-      <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YY" [(ngModel)]="userProfile.dateOfBirth"></ion-datetime>
+      <ion-datetime [readonly]="isEdit" pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YY" [(ngModel)]="userProfile.dateOfBirth"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label class="labelInfo" position="stacked"><strong>Giới tính</strong></ion-label>
-      <ion-input [readonly]="isEdit" [(ngModel)]="userProfile.gender"></ion-input>
+      <ion-select [(ngModel)]="userProfile.gender">
+        <ion-select-option [disabled]="isEdit" value="FEMALE">Nam</ion-select-option>
+        <ion-select-option [disabled]="isEdit" value="MALE">Nữ</ion-select-option>
+      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label class="labelInfo" position="stacked"><strong>Cân nặng</strong></ion-label>

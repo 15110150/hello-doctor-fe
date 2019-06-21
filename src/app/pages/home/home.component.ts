@@ -33,8 +33,14 @@ export class HomeComponent implements OnInit {
   }
 
   // go to result page
-  searchDoctors() {
-    this.router.navigateByUrl('/search/search');
+  cdSearch_click() {
+    this.router.navigateByUrl('/main/search/search');
+  }
+  cdListBooking_click(){
+    this.router.navigateByUrl('/main/list-booking');
+  }
+  cdAccount_click(){
+    this.router.navigateByUrl('/test');
   }
 
 }

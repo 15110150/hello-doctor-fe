@@ -7,6 +7,7 @@ import { BookingService } from 'src/app/services/booking/booking.service';
 import { Feedback } from 'src/app/model/feedback';
 import { Auth2Service } from 'src/app/services/auth/auth.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-feedback',
@@ -28,7 +29,8 @@ export class FeedbackComponent implements OnInit {
 
   constructor(private router: Router, private doctorService: DoctorService,
     private activatedRoute: ActivatedRoute, private _location: Location, 
-    private bookingService: BookingService, private patientService: PatientService) {
+    private bookingService: BookingService, private patientService: PatientService,
+    public alertController: AlertController) {
     if (this.activatedRoute.snapshot.params['doctorid']) {
       this.doctorId = this.activatedRoute.snapshot.params['doctorid'];
     }
@@ -100,8 +102,18 @@ export class FeedbackComponent implements OnInit {
     this.feedback.rate = this.rateSumary;
     this.bookingService.createdFeedback(this.feedback)
     .subscribe(result=>{
-      alert("Cảm ơn bạn đã phản hồi")
+      this.thanksAlert();
       this._location.back();
     });
   }
+
+  async thanksAlert() {
+    const alert = await this.alertController.create({
+      header: 'Cảm ơn quí khách đã phản hổi.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 }

@@ -1,51 +1,38 @@
-<ion-content class="bg-class">
-  <ion-header no-border>
-    <ion-toolbar class="trans">
-      <ion-buttons slot="start">
-        <ion-button>
-          <ion-icon slot="icon-only" name="contact" class="light"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <!-- <ion-buttons slot="primary">
-                <ion-button>
-                    <ion-icon slot="icon-only" name="search"></ion-icon>
-                  </ion-button>
-            </ion-buttons> -->
-      <ion-title class="white">Chào buổi sáng, <br />
-        <strong>{{user.name}}!</strong></ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-row>
-    <ion-col col-12>
-      <ion-card class="op0">
-        <img src="../../../assets/img/bia.png" />
-      </ion-card>
-    </ion-col>
-  </ion-row>
+<ion-content>
+<ion-header no-border>
+  <ion-toolbar class="trans">
+    <ion-title class="label">Chào buổi sáng,<br />
+      <strong>{{user.name}}!</strong></ion-title>
+    <br /><br />
+    <ion-row>
+      <ion-col col-12>
+        <ion-card class="op0" (click)="cdSearch_click()">
+          <ion-row>
+            <ion-col size="4">
+            </ion-col>
+            <ion-col size="4">
+              <img src="../../../assets/img/search.png" />
+            </ion-col>
+            <ion-col size="4">
+
+            </ion-col>
+          </ion-row>
+          <h3 class="labelSearch"><strong>Tìm bác sĩ</strong></h3>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
   <ion-row>
     <ion-col size="6">
-      <ion-card text-center padding class="op1" tappable (click)="searchDoctors()">
-        <ion-icon name="search"></ion-icon>
-        <h3>Tìm bác sĩ</h3>
+      <ion-card text-center padding class="op1" tappable (click)="cdListBooking_click()">
+          <ion-icon name="list"></ion-icon>
+        <h3>Lịch khám</h3>
       </ion-card>
     </ion-col>
     <ion-col size="6">
-      <ion-card text-center padding class="op2">
-        <ion-icon name="help"></ion-icon>
-        <h3>Hỏi bác sĩ</h3>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col col-6>
-      <ion-card text-center padding class="op3">
-        <ion-icon name="bowtie"></ion-icon>
-        <h3>Ưu đãi</h3>
-      </ion-card>
-    </ion-col>
-    <ion-col col-6>
-      <ion-card text-center padding class="op4">
-        <ion-icon name="filing"></ion-icon>
+      <ion-card text-center padding class="op2" (click)="cdAccount_click()">
+          <ion-icon name="briefcase"></ion-icon>
         <h3>Hồ sơ</h3>
       </ion-card>
     </ion-col>
@@ -115,12 +102,7 @@
         <ion-thumbnail slot="start">
           <img src="https://upload.wikimedia.org/wikipedia/vi/thumb/1/17/G%E1%BA%A1o_l%E1%BB%A3n.jpg/220px-G%E1%BA%A1o_l%E1%BB%A3n.jpg">
         </ion-thumbnail>
-        <ion-label>Dịch sán lợn</ion-label>
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon slot="icon-only" name="log-in"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+        <ion-label><strong>Dịch sán lợn</strong></ion-label>
       </ion-item>
       <ion-card-content class="cardcontent">
         Vừa qua dịch sán lợn đã bùng phát ở nhiều tỉnh thành trong cả nước, đã có hơn 100 ca mắc bệnh
@@ -133,12 +115,7 @@
         <ion-thumbnail slot="start">
           <img src="https://upload.wikimedia.org/wikipedia/vi/thumb/1/17/G%E1%BA%A1o_l%E1%BB%A3n.jpg/220px-G%E1%BA%A1o_l%E1%BB%A3n.jpg">
         </ion-thumbnail>
-        <ion-label>Dịch sán lợn</ion-label>
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon slot="icon-only" name="log-in"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+        <ion-label><strong>Dịch sán lợn</strong></ion-label>
       </ion-item>
       <ion-card-content class="cardcontent">
         Vừa qua dịch sán lợn đã bùng phát ở nhiều tỉnh thành trong cả nước, đã có hơn 100 ca mắc bệnh

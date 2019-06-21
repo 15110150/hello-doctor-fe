@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { Location } from '@angular/common';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,7 +14,8 @@ export class UserProfileComponent implements OnInit {
   public userProfile : Patient;
   isEdit = true;
 
-  constructor(private patientService: PatientService, private _location: Location) { }
+  constructor(private patientService: PatientService, private _location: Location,
+    public alertController: AlertController) { }
 
   ngOnInit() {
     this.getProfile();
@@ -39,9 +41,19 @@ export class UserProfileComponent implements OnInit {
   btnSave_click(userProfile: Patient){
     this.patientService.updateUser(userProfile)
     .subscribe(result=> {
-      alert("Cập nhật hồ sơ thành công")
+      this.successAlert();
       this.getProfile(); 
     })
     this.isEdit = true;
   }
+
+  async successAlert() {
+    const alert = await this.alertController.create({
+      header: 'Cập nhật hồ sơ thành công',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 }

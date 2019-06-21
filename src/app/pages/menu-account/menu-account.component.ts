@@ -3,6 +3,7 @@ import { Patient } from 'src/app/model/patient';
 import { Router } from '@angular/router';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { Auth2Service } from 'src/app/services/auth/auth.service';
+import { FcmService } from 'src/app/services/fcm/fcm.service';
 
 @Component({
   selector: 'app-menu-account',
@@ -13,7 +14,7 @@ export class MenuAccountComponent implements OnInit {
 
   public userProfile: Patient;
   constructor(private accountService: PatientService, private authService: Auth2Service,
-    private router: Router) { }
+    private router: Router, private fcmSerVice: FcmService) { }
 
   ngOnInit() {
     this.userProfile = new Patient();
@@ -29,8 +30,9 @@ export class MenuAccountComponent implements OnInit {
   }
 
   btnLogout_click(){
-    this.authService.logout();
+    this.fcmSerVice.logout();
     this.router.navigateByUrl('/login');
+   
   }
 
 }

@@ -35,8 +35,8 @@
   <ion-list>
     <ion-item class="datepicker">
       <ion-label class="titletext"><strong>Ngày khám</strong></ion-label>
-      <ion-datetime displayFormat="DD/MM/YY" [(ngModel)]="myDate" doneText="Chọn"
-        cancelText="Hủy" monthValues="{{monthValue}}" yearValues="{{yearValue}}"></ion-datetime>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="myDate" doneText="Chọn"
+        cancelText="Hủy" monthValues="{{monthValue}}" yearValues="{{yearValue}}" min="{{minDate}}"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label class="titletext"><strong>Giờ khám</strong></ion-label>

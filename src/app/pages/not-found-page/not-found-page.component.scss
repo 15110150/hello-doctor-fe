@@ -1,0 +1,72 @@
+ion-content{
+    --background:#000000;
+}
+ion-toolbar{
+    --background:#000000;
+}
+ion-item{
+    --background:#000000;
+}
+ion-row{
+    padding-top: 50%;
+}
+.detail{
+    text-align: center !important;
+    color: white;
+}
+.shin{
+    padding-top: 20%;
+    -webkit-animation: left_to_right 7s infinite; /* Safari 4.0 - 8.0 */
+    animation: left_to_right 7s infinite;
+  }
+@keyframes left_to_right {
+    from {margin-left: -50%;}
+    to {margin-left: 90%;}
+  }
+$t: 1s;
+$d: 0.08em;
+$n: 3;
+$e: cubic-bezier(0.860, 0.000, 0.070, 1.000); 
+$front: #09548E;
+$back: lightblue;
+html{
+	background: white;
+}
+
+.popout{
+	font-family: Futura, sans-serif;
+	font-weight: 900;
+	font-size: 50px;
+    text-align: center;
+	@keyframes ani{
+		0%{
+			transform: translate3d(0,0,0);
+			text-shadow: 0em 0em 0 $back;
+			color: $front;
+		}
+		30%{
+			transform: translate3d(0,0,0);
+			text-shadow: 0em 0em 0 $back;
+			color: $front;
+		}
+		70%{
+			transform: translate3d($d,-$d,0);
+			text-shadow: -$d $d $back;
+			color: $front;
+		}
+		100%{
+			transform: translate3d($d,-$d,0);
+			text-shadow: -$d $d $back;
+			color: $front;
+		}
+	}
+	span{
+		position: relative;
+		display: inline-block;
+		animation: ani $t infinite alternate $e;
+		@for $i from 1 through $n{
+			&:nth-last-child(#{$i}n){ animation-delay: -$t*$i/$n/2;}
+		}
+	}
+	
+}

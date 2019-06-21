@@ -30,22 +30,28 @@
 
   }
   ion-button.btn1{
-    --background:	#075698;
+    --background:	#09548E;
     --color: white;
   }
 
   ion-button.btn2{
     --background:	white;
-    --color: #075698;
+    --color: #09548E;
   }
 
   ion-card.cards-pk ion-card-header {
-    color: #075698;
+    color: #09548E;
     --min-height:10px;
   }
 
   ion-avatar.avatarComment{
     width: 45px ;  
     height: 45px; 
+  }
+  ion-item.cdDetail{
+    margin-top: 0px;
+  }
+  ion-card.cards-pk ion-label.headerLabel{
+    color: #09548E;
   }
 }
