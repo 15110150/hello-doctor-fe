@@ -84,12 +84,41 @@ export class BookingService {
         }));
   }
 
+  getDetailFeedback(id: any): Observable<Feedback> {
+    let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+    let url = this.urlBooking + "/comment/detail/" + id;
+    const headers = new HttpHeaders()
+      .set('Authorization', 'Bearer ' + accessToken.token);
+    return this.http.get<Feedback>(url, { headers: headers })
+      .pipe(
+        map(response => {
+          const data = response;
+          console.log(data);
+          return data;
+        }));
+  }
+
   getListBookingAtTime(time: any): Observable<ListBooking[]> {
     let accessToken = JSON.parse(localStorage.getItem('currentUser'));
     let header = new HttpHeaders()
       .set('Authorization', 'Bearer ' + accessToken.token);
     let url = this.urlBooking;
     url = url + '/book/list-booked-at-time?dateTime=' + time;
+    return this.http.get<any>(url, {
+      headers: header
+    }).pipe(
+      map(response => {
+        const data = response;
+        return data;
+      }));
+  }
+
+  getDetailBooking(id: any): Observable<ListBooking> {
+    let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+    let header = new HttpHeaders()
+      .set('Authorization', 'Bearer ' + accessToken.token);
+    let url = this.urlBooking;
+    url = url + '/book/detail/' + id;
     return this.http.get<any>(url, {
       headers: header
     }).pipe(

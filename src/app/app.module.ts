@@ -16,6 +16,7 @@ import { ImageModalComponent } from './pages/image-modal/image-modal.component';
 import { AngularFireModule } from '@angular/fire'
 import * as firebase from 'firebase';
 import { AutoCompleteModule } from 'ionic4-auto-complete';
+import { IonicStorageModule } from '@ionic/storage';
 // import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 // import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 

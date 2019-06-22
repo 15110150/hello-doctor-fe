@@ -33,14 +33,7 @@ export class CompleteService implements AutoCompleteService {
       }).pipe(
         map(
           (result) => {
-            return result.filter(
-              (item) => {
-                console.log(item);
-                return item.toLowerCase().startsWith(
-                  keyword.toLowerCase()
-                );
-              }
-            );
+            return result
           }
         )
       )

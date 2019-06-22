@@ -5,6 +5,8 @@ import { ActivatedRoute, Router, NavigationEnd  } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Booking } from 'src/app/model/booking';
 import { MappingModelService } from 'src/app/services/mapping-model/mapping-model.service';
+import { IdbService } from 'src/app/services/index-DB/index-db.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-list-booking',
@@ -20,9 +22,11 @@ export class ListBookingComponent implements OnInit, OnDestroy {
   public status: any;
   public listBoooking: ListBooking[];
   navigationSubscription;
+  //networkMode = 'online';
 
   constructor(private bookingService: BookingService, private router: Router,
-    public alertController: AlertController, private mappingService: MappingModelService) { 
+    public alertController: AlertController, private mappingService: MappingModelService,
+    private idbService: IdbService) { 
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd && this.status != null) {
         console.log("reload");
@@ -32,6 +36,29 @@ export class ListBookingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // navigator.onLine === true ? this.networkMode = 'online' : this.networkMode = 'offline';
+    //   this.idbService.connectToIDB();
+    //   let onlineDataLength;
+    //   this.idbService.getAllData('ListBookings').then((items: any) => {
+    //     onlineDataLength = items.length;
+    //     if (this.networkMode === 'online' && onlineDataLength === 0) {
+    //       this.navigationSubscription = this.router.events.subscribe((e: any) => {
+    //         if (e instanceof NavigationEnd && this.status != null) {
+    //           console.log("reload");
+    //           this.getListBooking(this.status);
+    //         }
+    //       });
+    //       this.listBoooking.forEach(x=>{
+    //         this.idbService.addItems('Sync-ListBookings', x);
+    //       })
+    //     } else {
+    //         this.listBoooking = items;
+    //       }
+
+    //       this.idbService.dataChanged().subscribe((data: any) => {
+    //         this.listBoooking = data;
+    //       });
+    //     });
   }
 
   ngOnDestroy() {
@@ -94,6 +121,10 @@ export class ListBookingComponent implements OnInit, OnDestroy {
 
   btnDoctor_click(id: number) {
     this.router.navigate(['/doctor-profile/doctor', id]);
+  }
+
+  btnDetailBooking_click(id: number){
+    this.router.navigate(['/detail-booking/detail-booking', id]);
   }
 
   getDay(date: string) {

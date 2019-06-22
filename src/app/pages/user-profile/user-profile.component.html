@@ -12,9 +12,10 @@
         <ion-col size=4>
         </ion-col>
         <ion-col size=4>
-          <ion-avatar>
+          <ion-avatar (click)="getImage()">
             <img src="{{userProfile.avatarImg}}" style="text-align: center">
           </ion-avatar>
+          <input type="file" #myFile accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
         </ion-col>
         <ion-col size=4>
         </ion-col>

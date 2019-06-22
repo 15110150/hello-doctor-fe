@@ -8,7 +8,7 @@ import { DetailBookingComponent } from './detail-booking.component';
 
 const routes: Routes = [
   {
-    path: '/detail-booking/:id',
+    path: 'detail-booking/:id',
     component: DetailBookingComponent
   }
 ];
