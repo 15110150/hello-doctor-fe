@@ -31,11 +31,19 @@
     --background:	#09548E;
     --color: white;
   }
+  ion-button.btnImg{
+    --background:	#989aa2;
+    --color: white;
+  }
   ion-button.btn2{
     --background:	white;
     --color: #09548E;
   }
   ion-item.iteTool{
     --background: transparent;
+  }
+  ion-avatar.ava{
+    width: 70px ;  
+    height: 70px;  
   }
 }

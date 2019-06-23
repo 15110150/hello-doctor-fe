@@ -33,7 +33,7 @@
   <form [formGroup]="myForm" (ngSubmit)="submit()" novalidate>
   <div class="ion-form-group">
     <ion-auto-complete [dataProvider]="completeTestService"
-    (itemSelected)="searchDoctors()" (keyup.enter)="searchDoctors()" [options]="{ placeholder : 'Nhập triệu chứng' }"></ion-auto-complete>
+    (itemSelected)="symptomChange($event)" ngDefaultControl formControlName="symptomS" (keyup.enter)="submit()" [options]="{ placeholder : 'Nhập triệu chứng' }"></ion-auto-complete>
   </div>
 </form>
 </ion-header>

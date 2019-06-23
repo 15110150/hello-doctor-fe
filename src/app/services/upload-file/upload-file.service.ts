@@ -21,7 +21,7 @@ export class UploadFileService {
     console.log(formData);
     let accessToken = JSON.parse(localStorage.getItem('currentUser'));
     const headers = new HttpHeaders()
-      .set('Content-Type', 'multipart/form-data')
+      .set('enctype', 'multipart/form-data')
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + accessToken.token);
     return this.http.post<any>(this.url, formData, {
@@ -29,10 +29,9 @@ export class UploadFileService {
     })
       .pipe(
         map(res => {
-          const data = res.json();
-          return data;
-        }
+            return res;
+          }
         )
-      )
+      );
   }
 }

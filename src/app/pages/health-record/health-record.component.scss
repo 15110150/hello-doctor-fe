@@ -16,7 +16,9 @@
       ion-button.btn1{
         --background:	#09548E;
         --color: white;
-        margin-left: 55px;
-        margin-right: 55px;
+      }
+      ion-button.btn2{
+        --background:	white;
+        --color: #09548E;
       }
 }

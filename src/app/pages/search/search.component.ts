@@ -6,7 +6,7 @@ import { LocateService } from 'src/app/services/locate/locate.service';
 import { SearchResult } from 'src/app/model/searchresult';
 import { Address } from 'src/app/model/address';
 import { AlertController } from '@ionic/angular';
-import {FormGroup, Validators, FormControl } from '@angular/forms'
+import { FormGroup, Validators, FormControl } from '@angular/forms'
 import { CompleteService } from 'src/app/services/auto-complete/auto-complete.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
 
   myForm: FormGroup;
   symptom: any;
-  listSymptom:any[];
+  listSymptom: any[];
   currentLat: any;
   currentLong: any;
   searchResult: SearchResult[];
@@ -33,22 +33,22 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      symptomF: new FormControl('', [
-        Validators.required
-      ])
-    })
+      symptomS: new FormControl()
+    });
     if (this.currentAddress == null) {
       this.locateLocation();
     }
-  //  this.partOfDay = "MORNING";
+
   }
+
   submit(): void {
-    let symptom = this.myForm.value.symptom
+    this.symptom = this.myForm.value.symptomS;
+    this.searchDoctors();
   }
 
   constructor(private router: Router, private searchService: SearchService,
     private locateService: LocateService, private activatedRoute: ActivatedRoute,
-     public alertController: AlertController, public completeTestService: CompleteService) {
+    public alertController: AlertController, public completeTestService: CompleteService) {
     if (this.activatedRoute.snapshot.params['id']) {
       this.currentAddress = this.activatedRoute.snapshot.params['id'];
       this.changeAddress = true;
@@ -98,7 +98,13 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  symptomChange(event){
+    this.symptom = event;
+    this.searchDoctors();
+  }
+
   searchDoctors() {
+    console.log(this.symptom);
     this.isShow = true;
     //this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
     this.searchService.getListDoctorByAddress(this.currentAddress, this.symptom)
@@ -111,10 +117,6 @@ export class SearchComponent implements OnInit {
     // this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)
     //   .subscribe(result => {
     //     this.searchResult = result;
-  }
-
-  btnSearch_click() {
-    this.searchDoctors();
   }
 
   btnDoctor_click(id: number) {

@@ -22,6 +22,7 @@ export class DoctorProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.doctor = new Doctor();
     this.getDoctor();
   }
 

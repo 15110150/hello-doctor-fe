@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Booking } from 'src/app/model/booking';
 import { ListBooking } from 'src/app/model/list-booking';
 import { Feedback } from 'src/app/model/feedback';
+import { HealthRecord } from 'src/app/model/health-record';
 
 @Injectable({
   providedIn: 'root'
@@ -124,8 +125,41 @@ export class BookingService {
     }).pipe(
       map(response => {
         const data = response;
+        console.log("dta form service " + data);
         return data;
       }));
   }
 
+  createHealthRecord(healthRecord: HealthRecord): Observable<HealthRecord> {
+    let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+    let url = this.urlBooking + '/record';
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json; charset=utf-8')
+      .set('Authorization', 'Bearer ' + accessToken.token);
+    return this.http.post<HealthRecord>(url, JSON.stringify(healthRecord), {
+      headers: headers
+    })
+      .pipe(
+        map(response => {
+          const data = response;
+          console.log(data);
+          return data;
+        }));
+  }
+
+  getHealthRecord(id: any): Observable<any> {
+    let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+    let header = new HttpHeaders()
+      .set('Authorization', 'Bearer ' + accessToken.token);
+    let url = this.urlBooking;
+    url = url + '/record/' + id;
+    return this.http.get<any>(url, {
+      headers: header
+    }).pipe(
+      map(response => {
+        const data = response;
+        console.log(data);
+        return data;
+      }));
+  }
 }

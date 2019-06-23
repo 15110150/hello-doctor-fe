@@ -4,6 +4,10 @@ import { Patient } from 'src/app/model/patient';
 import { Location } from '@angular/common';
 import { AlertController } from '@ionic/angular';
 import { UploadFileService } from 'src/app/services/upload-file/upload-file.service';
+import { IdbService } from 'src/app/services/index-DB/index-db.service';
+import { Observable, fromEvent, merge, of } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
+import { NgxIndexedDB } from 'ngx-indexed-db';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,22 +21,48 @@ export class UserProfileComponent implements OnInit {
   selectedFile = null;
   public message: string;
   public imagePath;
+  online$;
 
   @ViewChild('myFile', { read: ElementRef }) fileElementRef: ElementRef;
 
   constructor(private patientService: PatientService, private _location: Location,
-    public alertController: AlertController, private uploadFileService: UploadFileService) { }
+    public alertController: AlertController, private uploadFileService: UploadFileService,
+    private indexDBService: IdbService) {
+    this.online$ = merge(
+      of(navigator.onLine),
+      fromEvent(window, 'online').pipe(mapTo(true)),
+      fromEvent(window, 'offline').pipe(mapTo(false))
+    );
+  }
+
 
   ngOnInit() {
-    this.getProfile();
+    this.userProfile = new Patient();
+    if (!navigator.onLine){
+      console.log(navigator.onLine);
+      this.userProfile = this.indexDBService.getUser();
+    }
+    else{
+      console.log(navigator.onLine);
+      this.getProfile();
+    }
   }
 
   getProfile() {
     this.patientService.getUser()
       .subscribe(result => {
-        this.userProfile = result;
-        console.log(this.userProfile);
-      });
+        if (result != null) {
+          this.userProfile = result;
+          console.log(this.userProfile);
+          this.indexDBService.connecttoDBUser(this.userProfile);
+        }
+
+      },
+        error => {
+          this.userProfile = this.indexDBService.getUser();
+        }
+
+      );
   }
 
   btnBack_click() {
@@ -69,26 +99,26 @@ export class UserProfileComponent implements OnInit {
       return;
 
     var mimeType = event.target.files[0].type;
+    console.log(event.target.files[0]);
     if (mimeType.match(/image\/*/) == null) {
       this.message = "Only images are supported.";
       return;
     }
     let file: File = event.target.files[0];
-    let formData:FormData = new FormData();
-    formData.append('uploadFile', file, file.name);
+    let formData: FormData = new FormData();
+    formData.append('file', file, file.name);
     let headers = new Headers();
-    
-    this.uploadFileService.updateFile(formData)
-    .subscribe(result => {
-      if (result != null) {
-       this.userProfile.avatarImg = result;
-      }
-      error => {
-        this.errorAlert();
-      }
-    })
-  }
 
+    this.uploadFileService.updateFile(formData)
+      .subscribe(result => {
+        if (result != null) {
+          this.userProfile.avatarImg = result.url;
+        }
+        error => {
+          this.errorAlert();
+        }
+      })
+  }
   // uploadFile(){
   //   this.uploadFileService.updateFile(formData)
   //   .subscribe(result => {
@@ -119,5 +149,6 @@ export class UserProfileComponent implements OnInit {
 
     await alert.present();
   }
+
 
 }
