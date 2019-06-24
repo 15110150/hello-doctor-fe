@@ -15,7 +15,7 @@
   </ion-toolbar>
   <ion-item class="itemCode">
     <ion-label color="light">Mã khám bệnh</ion-label>
-    <ion-input class="text-right-code" [(ngModel)]="booking.id" readonly></ion-input>
+    <ion-input class="text-right-code" [(ngModel)]="booking.code" readonly></ion-input>
   </ion-item>
 </ion-header>
 <ion-content>
@@ -32,11 +32,34 @@
   </ion-row>
   <div text-center><strong>{{booking.doctor.name}}</strong></div>
   <div text-center>Chuyên khoa: {{booking.doctor.department}}</div>
-  <div text-center>
+  <ion-row>
+    <ion-col size="2">
+    </ion-col>
+    <ion-col size="4">
+      <div text-center>
+        <ion-button class="btn1" size="small" (click)="btnDoctorDetail_click(booking.doctor.userId)">
+          Hồ sơ
+        </ion-button>
+      </div>
+    </ion-col>
+    <ion-col size="4">
+      <div text-center>
+        <ion-button class="btn1" size="small" (click)="btnMap_click(booking.doctor.address)">
+          Bản đồ
+        </ion-button>
+      </div>
+    </ion-col>
+    <ion-col size="2">
+    </ion-col>
+  </ion-row>
+  <!-- <div text-center>
     <ion-button class="btn1" size="small" (click)="btnDoctorDetail_click(booking.doctor.userId)">
-      Xem hồ sơ
+      Hồ sơ
     </ion-button>
-  </div>
+    <ion-button class="btn1" size="small" (click)="btnDoctorDetail_click(booking.doctor.userId)">
+      Bản đồ
+    </ion-button>
+  </div> -->
   <br />
   <ion-item>
     <ion-label>Ngày khám</ion-label>
@@ -44,7 +67,7 @@
   </ion-item>
   <ion-item>
     <ion-label>Tình trạng</ion-label>
-    <ion-input class="text-right" [(ngModel)]="booking.status" readonly></ion-input>
+    <ion-input class="text-right" [(ngModel)]="booking.statusVI" readonly></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Giá khám (VND)</ion-label>

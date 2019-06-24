@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
 
   myForm: FormGroup;
   symptom: any;
-  listSymptom: any[];
+  listSymptom;
   currentLat: any;
   currentLong: any;
   searchResult: SearchResult[];
@@ -30,6 +30,8 @@ export class SearchComponent implements OnInit {
   // isAfter = false;
   // isEven = false;
   isShow = false;
+  status = "off";
+  showList = false;
 
   ngOnInit() {
     this.myForm = new FormGroup({
@@ -42,7 +44,7 @@ export class SearchComponent implements OnInit {
   }
 
   submit(): void {
-    this.symptom = this.myForm.value.symptomS;
+    this.showList = false;
     this.searchDoctors();
   }
 
@@ -55,6 +57,19 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  search(event){
+    this.showList = true;
+    this.completeTestService.getResults(event.target.value)
+      .subscribe(result => {
+        console.log(result);
+        this.listSymptom = result;
+      });
+  }
+
+  addNote(symptom){
+    this.symptom = symptom;
+    this.submit();
+  }
 
   // btnMorn_click() {
   //   this.isMorn = true;
@@ -101,15 +116,17 @@ export class SearchComponent implements OnInit {
   symptomChange(event){
     this.symptom = event;
     this.searchDoctors();
+    this.completeTestService = null;
   }
 
   searchDoctors() {
-    console.log(this.symptom);
     this.isShow = true;
+    this.searchResult = null;
     //this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
     this.searchService.getListDoctorByAddress(this.currentAddress, this.symptom)
       .subscribe(result => {
         this.searchResult = result;
+        this.isShow = false;
         // this.searchResult.forEach(x=>
         //   x.basePrice = parseFloat(x.basePrice).toFixed(3));
       }

@@ -6,6 +6,7 @@ import { ListBooking } from 'src/app/model/list-booking';
 import { Booking } from 'src/app/model/booking';
 import { Status } from 'src/app/model/status';
 import { Feedback } from 'src/app/model/feedback';
+import { StatusVI } from 'src/app/model/statusVI';
 
 @Component({
   selector: 'app-detail-booking',
@@ -35,10 +36,35 @@ export class DetailBookingComponent implements OnInit {
     this._location.back();
   }
 
+  btnMap_click(address: string){
+    this.router.navigate(['/map/address', "doctor", address]);
+  }
+
   getBooking() {
     this.bookingService.getDetailBooking(this.bookId)
       .subscribe(result => {
         this.booking = result;
+        if(this.booking.status === Status.ACCEPTED){
+          this.booking.statusVI = StatusVI.ACCEPTED;
+        }
+        else if(this.booking.status === Status.DOCTOR_CANCEL){
+          this.booking.statusVI = StatusVI.DOCTOR_CANCEL;
+        }
+        else if(this.booking.status === Status.DOCTOR_CANCEL){
+          this.booking.statusVI = StatusVI.DOCTOR_CANCEL;
+        }
+        else if(this.booking.status === Status.EXPIRED){
+          this.booking.statusVI = StatusVI.EXPIRED;
+        }
+        else if(this.booking.status === Status.FINISHED){
+          this.booking.statusVI = StatusVI.FINISHED;
+        }
+        else if(this.booking.status === Status.PATIENT_CANCEL){
+          this.booking.statusVI = StatusVI.PATIENT_CANCEL;
+        }
+        else if(this.booking.status === Status.WAITING){
+          this.booking.statusVI = StatusVI.WAITING;
+        }
         if (this.booking.status == Status.FINISHED && this.booking.commentable == false) {
           this.bookingService.getDetailFeedback(this.bookId)
             .subscribe(result => {

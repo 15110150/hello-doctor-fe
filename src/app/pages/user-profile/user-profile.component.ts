@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { Location } from '@angular/common';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { UploadFileService } from 'src/app/services/upload-file/upload-file.service';
 import { IdbService } from 'src/app/services/index-DB/index-db.service';
 import { Observable, fromEvent, merge, of } from 'rxjs';
@@ -22,12 +22,13 @@ export class UserProfileComponent implements OnInit {
   public message: string;
   public imagePath;
   online$;
+  loading;
 
   @ViewChild('myFile', { read: ElementRef }) fileElementRef: ElementRef;
 
   constructor(private patientService: PatientService, private _location: Location,
     public alertController: AlertController, private uploadFileService: UploadFileService,
-    private indexDBService: IdbService) {
+    private indexDBService: IdbService, private loadingController: LoadingController) {
     this.online$ = merge(
       of(navigator.onLine),
       fromEvent(window, 'online').pipe(mapTo(true)),
@@ -55,6 +56,9 @@ export class UserProfileComponent implements OnInit {
           this.userProfile = result;
           console.log(this.userProfile);
           this.indexDBService.connecttoDBUser(this.userProfile);
+          if(this.indexDBService.getUser()!=null){
+            this.indexDBService.updateUser(this.userProfile);
+          }
         }
 
       },
@@ -109,8 +113,11 @@ export class UserProfileComponent implements OnInit {
     formData.append('file', file, file.name);
     let headers = new Headers();
 
+    this.presentLoading();
+
     this.uploadFileService.updateFile(formData)
       .subscribe(result => {
+        this.loading.dismiss();
         if (result != null) {
           this.userProfile.avatarImg = result.url;
         }
@@ -150,5 +157,11 @@ export class UserProfileComponent implements OnInit {
     await alert.present();
   }
 
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Đang tải hình'
+    });
+    await this.loading.present();
+  }
 
 }

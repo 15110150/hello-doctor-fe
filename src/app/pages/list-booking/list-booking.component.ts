@@ -23,6 +23,7 @@ export class ListBookingComponent implements OnInit, OnDestroy {
   public listBoooking: ListBooking[];
   navigationSubscription;
   //networkMode = 'online';
+  refesh;
 
   constructor(private bookingService: BookingService, private router: Router,
     public alertController: AlertController, private mappingService: MappingModelService,
@@ -70,6 +71,41 @@ export class ListBookingComponent implements OnInit, OnDestroy {
     }
   }
 
+  doRefresh(event){
+    this.bookingService.getListBooking(this.status)
+    .subscribe(
+      result => {
+        event.target.complete();
+        this.listBoooking = result;
+        this.listBoooking.forEach(x=>{
+          x.dateFormat = this.getDay(x.dateTime);
+          if(x.status === Status.ACCEPTED){
+            x.statusVI = StatusTX.ACCEPTED;
+          }
+          else if(x.status === Status.DOCTOR_CANCEL){
+            x.statusVI = StatusTX.DOCTOR_CANCEL;
+          }
+          else if(x.status === Status.DOCTOR_CANCEL){
+            x.statusVI = StatusTX.DOCTOR_CANCEL;
+          }
+          else if(x.status === Status.EXPIRED){
+            x.statusVI = StatusTX.EXPIRED;
+          }
+          else if(x.status === Status.FINISHED){
+            x.statusVI = StatusTX.FINISHED;
+          }
+          else if(x.status === Status.PATIENT_CANCEL){
+            x.statusVI = StatusTX.PATIENT_CANCEL;
+          }
+          else if(x.status === Status.WAITING){
+            x.statusVI = StatusTX.WAITING;
+          }
+        })
+      }
+    )
+    
+  }
+
   segmentChanged(ev: any) {
     this.isShow = true;
     this.listBoooking = null;
@@ -101,10 +137,30 @@ export class ListBookingComponent implements OnInit, OnDestroy {
           this.listBoooking = result;
           this.listBoooking.forEach(x=>{
             x.dateFormat = this.getDay(x.dateTime);
+            if(x.status === Status.ACCEPTED){
+              x.statusVI = StatusTX.ACCEPTED;
+            }
+            else if(x.status === Status.DOCTOR_CANCEL){
+              x.statusVI = StatusTX.DOCTOR_CANCEL;
+            }
+            else if(x.status === Status.DOCTOR_CANCEL){
+              x.statusVI = StatusTX.DOCTOR_CANCEL;
+            }
+            else if(x.status === Status.EXPIRED){
+              x.statusVI = StatusTX.EXPIRED;
+            }
+            else if(x.status === Status.FINISHED){
+              x.statusVI = StatusTX.FINISHED;
+            }
+            else if(x.status === Status.PATIENT_CANCEL){
+              x.statusVI = StatusTX.PATIENT_CANCEL;
+            }
+            else if(x.status === Status.WAITING){
+              x.statusVI = StatusTX.WAITING;
+            }
           })
         }
       )
-      
   }
 
   btnFeedback_click(doctorid: number, bookid: number){
@@ -129,7 +185,7 @@ export class ListBookingComponent implements OnInit, OnDestroy {
 
   getDay(date: string) {
     var weekday = new Array(7);
-    weekday[0] = "Chủ nhật";
+    weekday[0] = "CN";
     weekday[1] = "Thứ 2";
     weekday[2] = "Thứ 3";
     weekday[3] = "Thứ 4";
@@ -237,4 +293,12 @@ export enum Status {
   EXPIRED = "EXPIRED",
   ACCEPTED = "ACCEPTED",
   FINISHED = "FINISHED",
+}
+export enum StatusTX {
+  WAITING = "Đang chờ",
+  PATIENT_CANCEL = "Bệnh nhân hủy",
+  DOCTOR_CANCEL = "Bác sĩ hủy",
+  EXPIRED = "Quá hạn",
+  ACCEPTED = "Đã chấp nhận",
+  FINISHED = "Hoàn thành",
 }

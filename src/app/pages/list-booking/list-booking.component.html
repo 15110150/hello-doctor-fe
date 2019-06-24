@@ -13,15 +13,18 @@
 </ion-toolbar>
 
 <ion-content color="light">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div *ngIf="listBoooking">
     <ion-list *ngIf="listwaiting">
       <ion-card *ngFor="let element of listBoooking" class="info">
         <ion-item>
-          <ion-button fill="outline" slot="end" [color]="(element.status === 'ACCEPTED') ? 'success' : 'primary'" >{{element.status}}</ion-button>
+          <ion-button fill="outline" slot="end" [color]="(element.status === 'ACCEPTED') ? 'success' : 'primary'">{{element.statusVI}}</ion-button>
           <ion-label><strong>{{element.dateFormat}}</strong></ion-label>
         </ion-item>
         <!-- <ion-item (click)="btnDoctor_click(element.doctor.userId)"> -->
-          <ion-item (click)="btnDetailBooking_click(element.id)">
+        <ion-item (click)="btnDetailBooking_click(element.id)">
           <ion-thumbnail slot="start">
             <img src="{{element.doctor.avatarImg}}">
           </ion-thumbnail>
@@ -31,14 +34,14 @@
           </ion-label>
         </ion-item>
         <ion-item>
-            <ion-button slot="end" [disabled]="(element.status === 'ACCEPTED')" size="small" color="medium" (click)="btnCancel_click(element)">Hủy</ion-button>
-         </ion-item>
+          <ion-button slot="end" [disabled]="(element.status === 'ACCEPTED')" size="small" color="medium" (click)="btnCancel_click(element)">Hủy</ion-button>
+        </ion-item>
       </ion-card>
     </ion-list>
     <ion-list *ngIf="listdone">
       <ion-card *ngFor="let element of listBoooking" class="info">
         <ion-item>
-          <ion-button fill="clear" slot="end">{{element.status}}</ion-button>
+          <ion-button fill="clear" slot="end">{{element.statusVI}}</ion-button>
           <ion-label><strong>{{element.dateFormat}}</strong></ion-label>
         </ion-item>
         <ion-item (click)="btnDetailBooking_click(element.id)">
@@ -51,7 +54,8 @@
           </ion-label>
         </ion-item>
         <ion-card-content>
-          <ion-button [disabled]="(!element.commentable)" size="small" color="medium" (click)="btnFeedback_click(element.doctor.userId, element.id)">Đánh giá</ion-button>
+          <ion-button [disabled]="(!element.commentable)" size="small" color="medium" (click)="btnFeedback_click(element.doctor.userId, element.id)">Đánh
+            giá</ion-button>
           <ion-button size="small" color="medium" (click)="btnDetail_click(element.id)">Xem thông tin</ion-button>
         </ion-card-content>
       </ion-card>
@@ -59,10 +63,10 @@
     <ion-list *ngIf="listcancel">
       <ion-card *ngFor="let element of listBoooking" class="info">
         <ion-item>
-          <ion-button color="danger" fill="clear" slot="end">{{element.status}}</ion-button>
+          <ion-button color="danger" fill="clear" slot="end">{{element.statusVI}}</ion-button>
           <ion-label><strong>{{element.dateFormat}}</strong></ion-label>
         </ion-item>
-        <ion-item (click)="btnDetailBooking_click(element.id)"> 
+        <ion-item (click)="btnDetailBooking_click(element.id)">
           <ion-thumbnail slot="start">
             <img src="{{element.doctor.avatarImg}}">
           </ion-thumbnail>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController, PopoverController, IonTabs, DomController } from "@ionic/angular";
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { IdbService } from 'src/app/services/index-DB/index-db.service';
@@ -19,9 +19,15 @@ export class HomeComponent implements OnInit {
   user: Patient;
   partOfDay;
   
+  navigationSubscription
   constructor(public nav: NavController, public popoverCtrl: PopoverController,
     public router: Router, private domCtrl: DomController, private route: ActivatedRoute, 
     private patientService: PatientService, private indexDBService: IdbService) {
+      this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        if (e instanceof NavigationEnd) {
+          this.getProfile();
+        }
+      });
   }
 
   ngOnInit(): void {
@@ -47,7 +53,7 @@ export class HomeComponent implements OnInit {
       this.partOfDay = "Chúc buổi trưa mát mẻ"
     }
     else if(hour >= 14 && hour < 18){
-      this.partOfDay = "Chúc buổi chiều bui khỏe"
+      this.partOfDay = "Chúc buổi chiều vui khỏe"
     }
     else if(hour >= 18 && hour < 24){
       this.partOfDay = "Chúc buổi tối tốt lành"

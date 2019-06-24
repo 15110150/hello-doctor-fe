@@ -120,12 +120,11 @@ export class BookingService {
       .set('Authorization', 'Bearer ' + accessToken.token);
     let url = this.urlBooking;
     url = url + '/book/detail/' + id;
-    return this.http.get<any>(url, {
+    return this.http.get<ListBooking>(url, {
       headers: header
     }).pipe(
       map(response => {
         const data = response;
-        console.log("dta form service " + data);
         return data;
       }));
   }

@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { MapComponent } from './map.component';
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction'; 
 import {} from 'googlemaps';
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDUwcvAMpIYOfTG0ubGL4vgSutoMllyYdA',
       libraries: ['geometry', 'places']
-    })
+    }),
+    AgmDirectionModule,
   ],
   declarations: [ MapComponent ]
 })

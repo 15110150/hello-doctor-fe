@@ -22,15 +22,15 @@
       </strong>
     </ion-card-header>
     <ion-item lines="none">
-      <ion-label>Bác sĩ</ion-label>
+      <ion-label class="labelInfo" position="stacked">Bác sĩ</ion-label>
       <ion-input readonly [(ngModel)]="healthRecord.doctor.name"></ion-input>
     </ion-item>
     <ion-item lines="none">
-      <ion-label>Thời gian</ion-label>
+      <ion-label class="labelInfo" position="stacked">Thời gian</ion-label>
       <ion-input readonly [(ngModel)]="healthRecord.booking.dateTime"></ion-input>
     </ion-item>
     <ion-item lines="none">
-      <ion-label>Chẩn đoán</ion-label>
+      <ion-label class="labelInfo" position="stacked">Chẩn đoán</ion-label>
       <ion-input [readonly]="!isEdit" [(ngModel)]="healthRecord.content"></ion-input>
     </ion-item>
   </ion-card>

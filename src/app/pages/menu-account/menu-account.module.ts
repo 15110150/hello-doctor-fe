@@ -9,7 +9,8 @@ import { MenuAccountComponent } from './menu-account.component';
 const routes: Routes = [
   {
     path: '',
-    component: MenuAccountComponent
+    component: MenuAccountComponent,
+    runGuardsAndResolvers: 'always',
   }
 ];
 

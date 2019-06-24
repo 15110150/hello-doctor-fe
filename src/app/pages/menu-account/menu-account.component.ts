@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/model/patient';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { Auth2Service } from 'src/app/services/auth/auth.service';
 import { FcmService } from 'src/app/services/fcm/fcm.service';
@@ -12,9 +12,17 @@ import { FcmService } from 'src/app/services/fcm/fcm.service';
 })
 export class MenuAccountComponent implements OnInit {
 
+  navigationSubscription
   public userProfile: Patient;
+
   constructor(private accountService: PatientService, private authService: Auth2Service,
-    private router: Router, private fcmSerVice: FcmService) { }
+    private router: Router, private fcmSerVice: FcmService) {
+      this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        if (e instanceof NavigationEnd) {
+          this.getProfile();
+        }
+      });
+     }
 
   ngOnInit() {
     this.userProfile = new Patient();

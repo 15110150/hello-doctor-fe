@@ -10,9 +10,14 @@
     </ion-item>
   </ion-toolbar>
 </ion-header>
-<div class="container">
+<ion-content>
   <agm-map [latitude]="currentLat" [longitude]="currentLong" [zoom]="15" [disableDefaultUI]="false" [zoomControl]="false">
     <agm-marker [latitude]="currentLat" [longitude]="currentLong">
     </agm-marker>
   </agm-map>
-</div>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" color="light" (click)="direction()">
+    <ion-fab-button>
+      <ion-icon name="return-right"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

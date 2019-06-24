@@ -45,4 +45,18 @@
     from {margin-left: 0px;}
     to {margin-left: -150px;}
   }
+
+  .autocomplete {
+    width: 100%;
+  
+    ion-searchbar {
+      padding: 1px !important;
+      border: none;
+    }
+  
+    ion-list {
+      position: absolute;
+      width: inherit;
+    }
+  }
 }

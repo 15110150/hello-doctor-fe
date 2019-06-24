@@ -30,12 +30,21 @@
       </ion-button>
     </ion-buttons>
   </ion-item> -->
-  <form [formGroup]="myForm" (ngSubmit)="submit()" novalidate>
-  <div class="ion-form-group">
+  <!-- <form [formGroup]="myForm" (ngSubmit)="submit()" novalidate>
+  <div>
     <ion-auto-complete [dataProvider]="completeTestService"
-    (itemSelected)="symptomChange($event)" ngDefaultControl formControlName="symptomS" (keyup.enter)="submit()" [options]="{ placeholder : 'Nhập triệu chứng' }"></ion-auto-complete>
+    (itemSelected)="symptomChange($event)" ngDefaultControl formControlName="symptomS" (keyup.enter)="submit()"
+     [options]="{ placeholder : 'Nhập triệu chứng'}"></ion-auto-complete>
   </div>
-</form>
+</form> -->
+<div class="autocomplete">
+  <ion-searchbar [(ngModel)]="symptom" (ionInput)="search($event)" (ngSubmit)="submit()" (keyup.enter)="submit()"></ion-searchbar>
+	<ion-list *ngIf="showList">
+		<ion-item *ngFor="let res of listSymptom" (click)="addNote(res)">
+			{{res}}
+		</ion-item>
+	</ion-list>
+</div>
 </ion-header>
 
 <ion-content color="light">

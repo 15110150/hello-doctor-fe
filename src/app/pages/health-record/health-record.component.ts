@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { ImageModalComponent } from '../image-modal/image-modal.component';
 import { UploadFileService } from 'src/app/services/upload-file/upload-file.service';
 import { HealthRecord } from 'src/app/model/health-record';
 import { ActivatedRoute } from '@angular/router';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { ListBooking } from 'src/app/model/list-booking';
+import { HealthRecordDTO } from 'src/app/model/health-record-DTO';
 
 @Component({
   selector: 'app-health-record',
@@ -18,23 +19,25 @@ export class HealthRecordComponent implements OnInit {
   selectedFile = null;
   message: string;
   imagePath;
-  healthRecord;
+  healthRecord : HealthRecordDTO;
   bookId;
-  booking: ListBooking;
+  // booking: ListBooking;
   isEdit = false;
   healthRecordSave: HealthRecord;
+  loading;
 
   constructor(private _location: Location, private modalController: ModalController,
     private uploadFileService: UploadFileService, private alertController: AlertController,
-    private activatedRoute: ActivatedRoute, private bookingService: BookingService) {
+    private activatedRoute: ActivatedRoute, private bookingService: BookingService,
+    private loadingController: LoadingController) {
     if (this.activatedRoute.snapshot.params['bookId']) {
       this.bookId = this.activatedRoute.snapshot.params['bookId'];
     }
   }
 
   ngOnInit() {
-    this.healthRecord = new HealthRecord();
-    this.getBooking();
+    this.healthRecord = new HealthRecordDTO();
+    this.getHealthRecord();
   }
 
   btnBack_click() {
@@ -59,6 +62,7 @@ export class HealthRecordComponent implements OnInit {
 
     this.uploadFileService.updateFile(formData)
       .subscribe(result => {
+        this.loading.dismiss();
         if (result != null) {
           this.selectedFile = result.url;
         }
@@ -80,29 +84,23 @@ export class HealthRecordComponent implements OnInit {
   }
 
   btnSave_click(healthRecord: any) {
-    this.healthRecordSave.bookId = healthRecord.bookId;
-    this.healthRecordSave.userId = healthRecord.patient.userId;
+    this.healthRecordSave = new HealthRecord();
+    this.healthRecordSave.bookId =  healthRecord.bookId;
+    this.healthRecordSave.userId =  healthRecord.patient.userId;
     this.healthRecordSave.content = healthRecord.content;
     this.healthRecordSave.prescriptionImage = this.selectedFile;
+    console.log(this.healthRecordSave);
     this.bookingService.createHealthRecord(this.healthRecordSave)
       .subscribe(result => {
         if (result != null) {
           this.successAlert();
           this.getHealthRecord();
         }
-        error => {
-          this.errorAlert();
-        }
+      },
+      error => {
+        this.errorAlert();
       })
     this.isEdit = false;
-  }
-
-  getBooking() {
-    this.bookingService.getDetailBooking(this.bookId)
-      .subscribe(data => {
-        this.booking = data;
-        console.log("booking" +this.booking);
-        });
   }
 
   btnEdit_click() {
@@ -113,11 +111,7 @@ export class HealthRecordComponent implements OnInit {
     this.bookingService.getHealthRecord(this.bookId)
       .subscribe(result => {
         this.healthRecord = result;
-        console.log(this.healthRecord);
-        if (this.healthRecord === null) {
-          console.log("null nè");
-          this.getBooking();
-        }
+        this.selectedFile = this.healthRecord.prescriptionImage;
       });
   }
 
@@ -149,5 +143,13 @@ export class HealthRecordComponent implements OnInit {
 
     await alert.present();
   }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Đang tải hình'
+    });
+    await this.loading.present();
+  }
+
 
 }

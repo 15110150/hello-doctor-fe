@@ -27,10 +27,14 @@ export class MapComponent implements OnInit {
   currentLong: any;
   address: any;
   marker: google.maps.Marker;
-  currentAddress: string;
   public isReadOnly = false;
 
   lastComponent: string;
+
+  currentAddress: string;
+  userAddress: string;
+  userAddressLat: any;
+  userAddressLng: any;
 
   @ViewChild("searchInput")
   public searchElementRef: ElementRef;
@@ -61,6 +65,27 @@ export class MapComponent implements OnInit {
     else {
       this.marker.setPosition(location);
     }
+
+  }
+
+  direction() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.userAddressLat = position.coords.latitude;
+        this.userAddressLng = position.coords.longitude;
+        this.locateService.getAddress(this.userAddressLat, this.userAddressLng)
+          .subscribe(result => {
+            this.userAddress = result.resultAddress;
+            window.open(
+              "https://www.google.com/maps/dir/?api=1&origin=" + this.userAddress + "&destination=" + this.currentAddress + "&travelmode=driving",
+              '_blank' // <- This is what makes it open in a new window.
+            );
+            //window.location.href = "https://www.google.com/maps/dir/?api=1&origin=" + this.userAddress + "&destination=" + this.currentAddress + "&travelmode=bicycling"
+          });
+      });
+    } else {
+
+    }
   }
 
   locateLocation() {
@@ -83,7 +108,7 @@ export class MapComponent implements OnInit {
 
   btnBack_click() {
     if (this.lastComponent.includes("search")) {
-      this.router.navigate(['/main/search/search', this.currentAddress]);     
+      this.router.navigate(['/main/search/search', this.currentAddress]);
     }
     else {
       this._location.back();

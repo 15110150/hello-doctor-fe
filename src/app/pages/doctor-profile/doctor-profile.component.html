@@ -104,7 +104,9 @@
           <ion-icon [ngStyle]="{'color': (comment.rate >= 4)? '#ffce00' : 'grey'}" name="star"></ion-icon>
           <ion-icon [ngStyle]="{'color': (comment.rate >= 5)? '#ffce00' : 'grey'}" name="star"></ion-icon>
         </p>
+        <div style="white-space: pre-wrap;">
         <p>{{comment.content}}</p>
+      </div>
       </ion-label>
     </ion-item>
   </ion-card>
