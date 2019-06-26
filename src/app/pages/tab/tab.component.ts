@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonTabs } from '@ionic/angular';
+import { MailBoxService } from 'src/app/services/mail-box/mail-box.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-tab',
@@ -9,8 +11,10 @@ import { IonTabs } from '@ionic/angular';
 export class TabComponent implements OnInit {
 
   @ViewChild('myTabs') tabs: IonTabs;
+
+  numberMail;
   
-  constructor() { }
+  constructor(private mailboxService: MailBoxService, private patientService: PatientService) { }
 
   ngOnInit() {
     //var list = document.querySelectorAll('.icon-tab1');
@@ -18,16 +22,28 @@ export class TabComponent implements OnInit {
   }
 
   chang1(event){
-    // var list = document.querySelectorAll('.icon-tab1');
-    // for(var i = 0 ; i < list.length; i++)
-    // {
-    //   list[i].classList.remove("clicked1");  
-    // }
-    // event.target.parentElement.classList.add("clicked1");
-    // event.srcElement.classList.add("clicked1");
    }
 
    ionChange(myTabs) {
-    console.log(this.tabs.getSelected());
-}
+    // console.log(this.tabs.getSelected());
+  }
+
+  // countMail(){
+  //   this.patientService.getUser()
+  //   .subscribe(result => {
+  //     if (result != null) {
+  //       this.mailboxService.getAllMail(result.userId)
+  //       .subscribe(result =>{
+  //         this.numberMail = result.filter(x=>{
+  //           x.read = false;
+  //         })
+  //       })
+  //     }
+  //   },
+  //     error => {
+       
+  //     }
+
+  //   );
+  // }
 }

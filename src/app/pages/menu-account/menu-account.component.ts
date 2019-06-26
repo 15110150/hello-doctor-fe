@@ -33,7 +33,6 @@ export class MenuAccountComponent implements OnInit {
     this.accountService.getUser()
     .subscribe(result => {
       this.userProfile = result;
-      console.log(this.userProfile);
     });
   }
 

@@ -90,6 +90,6 @@ export class FcmService {
         localStorage.removeItem('currentDevice');
         localStorage.removeItem('currentUser');
         return data;
-      }));
+      })).toPromise();
   }
 }

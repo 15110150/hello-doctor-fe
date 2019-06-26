@@ -19,7 +19,7 @@ export class HealthRecordComponent implements OnInit {
   selectedFile = null;
   message: string;
   imagePath;
-  healthRecord : HealthRecordDTO;
+  healthRecord: HealthRecordDTO;
   bookId;
   // booking: ListBooking;
   isEdit = false;
@@ -60,16 +60,17 @@ export class HealthRecordComponent implements OnInit {
     formData.append('file', file, file.name);
     let headers = new Headers();
 
+    this.presentLoading();
+
     this.uploadFileService.updateFile(formData)
       .subscribe(result => {
         this.loading.dismiss();
-        if (result != null) {
-          this.selectedFile = result.url;
-        }
+        this.selectedFile = result.url;
+      },
         error => {
           this.errorImgAlert();
         }
-      })
+      )
   }
 
   openPreview(img) {
@@ -85,8 +86,8 @@ export class HealthRecordComponent implements OnInit {
 
   btnSave_click(healthRecord: any) {
     this.healthRecordSave = new HealthRecord();
-    this.healthRecordSave.bookId =  healthRecord.bookId;
-    this.healthRecordSave.userId =  healthRecord.patient.userId;
+    this.healthRecordSave.bookId = healthRecord.bookId;
+    this.healthRecordSave.userId = healthRecord.patient.userId;
     this.healthRecordSave.content = healthRecord.content;
     this.healthRecordSave.prescriptionImage = this.selectedFile;
     console.log(this.healthRecordSave);
@@ -97,9 +98,9 @@ export class HealthRecordComponent implements OnInit {
           this.getHealthRecord();
         }
       },
-      error => {
-        this.errorAlert();
-      })
+        error => {
+          this.errorAlert();
+        })
     this.isEdit = false;
   }
 
