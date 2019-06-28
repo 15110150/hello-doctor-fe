@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { ListBooking } from 'src/app/model/list-booking';
-import { ActivatedRoute, Router, NavigationEnd  } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Booking } from 'src/app/model/booking';
 import { MappingModelService } from 'src/app/services/mapping-model/mapping-model.service';
@@ -27,7 +27,7 @@ export class ListBookingComponent implements OnInit, OnDestroy {
 
   constructor(private bookingService: BookingService, private router: Router,
     public alertController: AlertController, private mappingService: MappingModelService,
-    private idbService: IdbService) { 
+    private idbService: IdbService) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd && this.status != null) {
         console.log("reload");
@@ -66,44 +66,14 @@ export class ListBookingComponent implements OnInit, OnDestroy {
     // avoid memory leaks here by cleaning up after ourselves. If we  
     // don't then we will continue to run our initialiseInvites()   
     // method on every navigationEnd event.
-    if (this.navigationSubscription) {  
-       this.navigationSubscription.unsubscribe();
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
     }
   }
 
-  doRefresh(event){
-    this.bookingService.getListBooking(this.status)
-    .subscribe(
-      result => {
-        event.target.complete();
-        this.listBoooking = result;
-        this.listBoooking.forEach(x=>{
-          x.dateFormat = this.getDay(x.dateTime);
-          if(x.status === Status.ACCEPTED){
-            x.statusVI = StatusTX.ACCEPTED;
-          }
-          else if(x.status === Status.DOCTOR_CANCEL){
-            x.statusVI = StatusTX.DOCTOR_CANCEL;
-          }
-          else if(x.status === Status.DOCTOR_CANCEL){
-            x.statusVI = StatusTX.DOCTOR_CANCEL;
-          }
-          else if(x.status === Status.EXPIRED){
-            x.statusVI = StatusTX.EXPIRED;
-          }
-          else if(x.status === Status.FINISHED){
-            x.statusVI = StatusTX.FINISHED;
-          }
-          else if(x.status === Status.PATIENT_CANCEL){
-            x.statusVI = StatusTX.PATIENT_CANCEL;
-          }
-          else if(x.status === Status.WAITING){
-            x.statusVI = StatusTX.WAITING;
-          }
-        })
-      }
-    )
-    
+  doRefresh(event) {
+    this.refesh = event;
+    this.getListBooking(this.status);
   }
 
   segmentChanged(ev: any) {
@@ -134,28 +104,31 @@ export class ListBookingComponent implements OnInit, OnDestroy {
     this.bookingService.getListBooking(status)
       .subscribe(
         result => {
+          if (this.refesh != undefined) {
+            this.refesh.target.complete();
+          }
           this.listBoooking = result;
-          this.listBoooking.forEach(x=>{
+          this.listBoooking.forEach(x => {
             x.dateFormat = this.getDay(x.dateTime);
-            if(x.status === Status.ACCEPTED){
+            if (x.status === Status.ACCEPTED) {
               x.statusVI = StatusTX.ACCEPTED;
             }
-            else if(x.status === Status.DOCTOR_CANCEL){
+            else if (x.status === Status.DOCTOR_CANCEL) {
               x.statusVI = StatusTX.DOCTOR_CANCEL;
             }
-            else if(x.status === Status.DOCTOR_CANCEL){
+            else if (x.status === Status.DOCTOR_CANCEL) {
               x.statusVI = StatusTX.DOCTOR_CANCEL;
             }
-            else if(x.status === Status.EXPIRED){
+            else if (x.status === Status.EXPIRED) {
               x.statusVI = StatusTX.EXPIRED;
             }
-            else if(x.status === Status.FINISHED){
+            else if (x.status === Status.FINISHED) {
               x.statusVI = StatusTX.FINISHED;
             }
-            else if(x.status === Status.PATIENT_CANCEL){
+            else if (x.status === Status.PATIENT_CANCEL) {
               x.statusVI = StatusTX.PATIENT_CANCEL;
             }
-            else if(x.status === Status.WAITING){
+            else if (x.status === Status.WAITING) {
               x.statusVI = StatusTX.WAITING;
             }
           })
@@ -163,23 +136,23 @@ export class ListBookingComponent implements OnInit, OnDestroy {
       )
   }
 
-  btnFeedback_click(doctorid: number, bookid: number){
+  btnFeedback_click(doctorid: number, bookid: number) {
     this.router.navigate(['/feedback/feedback', doctorid, bookid]);
   }
 
-  btnDetail_click(bookId: number){
+  btnDetail_click(bookId: number) {
     this.router.navigate(['/health-record/record/', bookId]);
   }
 
-  btnCancel_click(booking: any){
-   this.confirmAlert(booking);
+  btnCancel_click(booking: any) {
+    this.confirmAlert(booking);
   }
 
   btnDoctor_click(id: number) {
     this.router.navigate(['/doctor-profile/doctor', id]);
   }
 
-  btnDetailBooking_click(id: number){
+  btnDetailBooking_click(id: number) {
     this.router.navigate(['/detail-booking/detail-booking', id]);
   }
 
@@ -225,7 +198,7 @@ export class ListBookingComponent implements OnInit, OnDestroy {
         }, {
           text: 'Xác nhận',
           handler: () => {
-          this.reasonAlert(booking);
+            this.reasonAlert(booking);
           }
         }
       ]
@@ -268,15 +241,15 @@ export class ListBookingComponent implements OnInit, OnDestroy {
         }, {
           text: 'Xác nhận',
           handler: (data: string) => {
-              booking.status = Status.PATIENT_CANCEL;
-              booking.statusReason = data;
-              var bookingDTO = new Booking();
-              this.mappingService.mapingBooking(bookingDTO, booking);
-              this.bookingService.updateBooking(bookingDTO)
-            .subscribe(result=> {
-              this.cancelBookingAlert();
-              this.getListBooking(Status.WAITING + ',' + Status.ACCEPTED);
-            })
+            booking.status = Status.PATIENT_CANCEL;
+            booking.statusReason = data;
+            var bookingDTO = new Booking();
+            this.mappingService.mapingBooking(bookingDTO, booking);
+            this.bookingService.updateBooking(bookingDTO)
+              .subscribe(result => {
+                this.cancelBookingAlert();
+                this.getListBooking(Status.WAITING + ',' + Status.ACCEPTED);
+              })
           }
         }
       ]

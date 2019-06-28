@@ -9,7 +9,8 @@ import { DetailBookingComponent } from './detail-booking.component';
 const routes: Routes = [
   {
     path: 'detail-booking/:id',
-    component: DetailBookingComponent
+    component: DetailBookingComponent,
+    runGuardsAndResolvers: 'always',
   }
 ];
 

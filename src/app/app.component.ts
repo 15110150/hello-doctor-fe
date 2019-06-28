@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
+import { ConnectionService } from 'ng-connection-service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { SwUpdate } from '@angular/service-worker';
 export class AppComponent implements OnInit {
   title = 'hello-doctor';
 
-  constructor(private swUpdate: SwUpdate) {
+  constructor(private swUpdate: SwUpdate, private connectionService: ConnectionService ) {
 
   }
   ngOnInit() {

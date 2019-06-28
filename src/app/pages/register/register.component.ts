@@ -4,6 +4,7 @@ import { LoginComponent } from "../login/login.component";
 import { Router } from '@angular/router';
 import { Account } from 'src/app/model/account';
 import { Auth2Service } from 'src/app/services/auth/auth.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
   public password2: any;
 
   constructor(public authService: Auth2Service, private router: Router,
-    public alertController: AlertController) {
+    public alertController: AlertController, private accountService: PatientService) {
   }
 
   ngOnInit(){
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
       this.notSamePassAlert();
     }
     else {
-      this.authService.register(this.account)
+      this.accountService.register(this.account)
         .subscribe(data => {
           this.okAlert();
           this.router.navigateByUrl('/login');

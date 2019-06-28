@@ -17,19 +17,20 @@ import { AngularFireModule } from '@angular/fire'
 import * as firebase from 'firebase';
 import { AutoCompleteModule } from 'ionic4-auto-complete';
 import { IonicStorageModule } from '@ionic/storage';
-// import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-// import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
-// let config = new AuthServiceConfig([
-//   {
-//     id: GoogleLoginProvider.PROVIDER_ID,
-//     provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
-//   },
-//   {
-//     id: FacebookLoginProvider.PROVIDER_ID,
-//     provider: new FacebookLoginProvider("2261774144141733")
-//   }
-// ]);
+let config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("")
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
+
 
 export const fireBaseConfig = {
   apiKey: "AIzaSyDldhs5JYFQgNxi5CesHRIpDDi9Qc78n68",
@@ -45,9 +46,6 @@ export function tokenGetter() {
   return localStorage.getItem('currentUser');
 }
 
-// export function provideConfig() {
-//   return config;
-// }
 
 @NgModule({
   declarations: [
@@ -60,7 +58,7 @@ export function tokenGetter() {
     BrowserModule,
     AngularFireModule.initializeApp(fireBaseConfig), 
     AutoCompleteModule,
-    // SocialLoginModule,
+    SocialLoginModule,
     IonicModule.forRoot(),
     JwtModule.forRoot({
       config: {
@@ -73,7 +71,7 @@ export function tokenGetter() {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,
-    // { provide: AuthServiceConfig, useFactory: provideConfig}
+    { provide: AuthServiceConfig, useFactory: provideConfig}
   ],
   bootstrap: [AppComponent]
 })

@@ -39,14 +39,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.userProfile = new Patient();
-    if (!navigator.onLine){
-      console.log(navigator.onLine);
-      this.userProfile = this.indexDBService.getUser();
-    }
-    else{
-      console.log(navigator.onLine);
-      this.getProfile();
-    }
+    this.getProfile();
   }
 
   getProfile() {
@@ -55,18 +48,23 @@ export class UserProfileComponent implements OnInit {
         if (result != null) {
           this.userProfile = result;
           console.log(this.userProfile);
-          this.indexDBService.connecttoDBUser(this.userProfile);
-          if(this.indexDBService.getUser()!=null){
-            this.indexDBService.updateUser(this.userProfile);
-          }
+          this.indexDBService.getUser().subscribe(data => {
+            if (data === undefined || data.length <= 0) {
+              this.indexDBService.connecttoDBUser(this.userProfile);
+            }
+            else {
+              this.indexDBService.updateUser(this.userProfile);
+            }
+          })
         }
-
       },
         error => {
-          this.userProfile = this.indexDBService.getUser();
-        }
-
-      );
+          this.indexDBService.getUser()
+            .subscribe(result => {
+              this.userProfile = result[0];
+              console.log(this.userProfile)
+            });
+        });
   }
 
   btnBack_click() {
@@ -126,17 +124,6 @@ export class UserProfileComponent implements OnInit {
         }
       })
   }
-  // uploadFile(){
-  //   this.uploadFileService.updateFile(formData)
-  //   .subscribe(result => {
-  //     if (result != null) {
-  //      this.userProfile.avatarImg = result;
-  //     }
-  //     error => {
-  //       this.errorAlert();
-  //     }
-  //   })
-  // }
 
   async successAlert() {
     const alert = await this.alertController.create({

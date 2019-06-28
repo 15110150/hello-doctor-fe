@@ -34,6 +34,7 @@
     "firebase": "^6.2.0",
     "idb": "^4.0.3",
     "ionic4-auto-complete": "^1.7.4",
+    "ng-connection-service": "^1.0.4",
     "ngx-indexed-db": "^2.2.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",

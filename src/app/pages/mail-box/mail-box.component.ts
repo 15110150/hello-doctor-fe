@@ -14,6 +14,7 @@ export class MailBoxComponent implements OnInit {
 
   listMail: MailBox[];
   userId: number;
+  refesh;
 
   navigationSubscription
   constructor(private mailBoxService: MailBoxService, private patientService: PatientService,
@@ -30,29 +31,16 @@ export class MailBoxComponent implements OnInit {
   }
 
   doRefresh(event) {
-    this.patientService.getUser()
-      .subscribe(result => {
-        event.target.complete();
-        this.userId = result.userId;
-        this.mailBoxService.getAllMail(this.userId)
-          .subscribe(result => {
-            this.listMail = result;
-            console.log(this.listMail);
-          },
-            error => {
-
-            })
-      },
-        error => {
-
-        }
-      );
-
+    this.refesh = event;
+    this.getAllMail();
   }
 
   getAllMail() {
     this.patientService.getUser()
       .subscribe(result => {
+        if(this.refesh != undefined){
+          this.refesh.target.complete();
+        }
         this.userId = result.userId;
         this.mailBoxService.getAllMail(this.userId)
           .subscribe(result => {
@@ -65,7 +53,9 @@ export class MailBoxComponent implements OnInit {
             })
       },
         error => {
-
+          if(this.refesh != undefined){
+            this.refesh.target.complete();
+          }
         }
       );
   }

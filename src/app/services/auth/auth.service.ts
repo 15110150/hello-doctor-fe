@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Account } from 'src/app/model/account';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import { FBAccount } from 'src/app/model/FBUser';
 
 @Injectable({
   providedIn: 'root'
@@ -33,20 +34,6 @@ export class Auth2Service {
         }));
   }
 
-  register(account: any): Observable<any> {
-    let urlRegis = "http://35.240.201.202:8080/api/account/user/register"
-    account.id = 0;
-    return this.http.post<any>( urlRegis, JSON.stringify(account), {
-      headers: this.header
-    })
-      .pipe(
-        map(response => {
-          const data = response;
-          return data;
-        }));
-  }
-
-
   checkToken() {
     return this.jwtHeader.isTokenExpired(localStorage.getItem('currentUser'));
   }
@@ -55,6 +42,20 @@ export class Auth2Service {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentDevice');
+  }
+
+  loginWithFB(account: FBAccount) : Observable<any> {
+    let url = this.urlLogin + "/patient/fa";
+    return this.http.post<FBAccount>(url, JSON.stringify(account), {
+      headers: this.header
+    })
+      .pipe(
+        map(response => {
+          const data = response;
+          localStorage.setItem('currentUser', JSON.stringify(data));
+          console.log(localStorage.getItem('currentUser'));
+          return data;
+        }));
   }
 
 }
