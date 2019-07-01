@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MailBoxService } from 'src/app/services/mail-box/mail-box.service';
 import { MailBox } from 'src/app/model/mail-box';
 import { PatientService } from 'src/app/services/patient/patient.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { PopoverController, AlertController } from '@ionic/angular';
 
 @Component({
@@ -10,7 +10,7 @@ import { PopoverController, AlertController } from '@ionic/angular';
   templateUrl: './mail-box.component.html',
   styleUrls: ['./mail-box.component.scss']
 })
-export class MailBoxComponent implements OnInit {
+export class MailBoxComponent implements OnInit, OnDestroy {
 
   listMail: MailBox[];
   userId: number;
@@ -35,17 +35,28 @@ export class MailBoxComponent implements OnInit {
     this.getAllMail();
   }
 
+
+  ngOnDestroy() {
+    console.log(this.navigationSubscription)
+    // avoid memory leaks here by cleaning up after ourselves. If we  
+    // don't then we will continue to run our initialiseInvites()   
+    // method on every navigationEnd event.
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
+  }
+
   getAllMail() {
     this.patientService.getUser()
       .subscribe(result => {
-        if(this.refesh != undefined){
+        if (this.refesh != undefined) {
           this.refesh.target.complete();
         }
         this.userId = result.userId;
         this.mailBoxService.getAllMail(this.userId)
           .subscribe(result => {
             this.listMail = result;
-            this.listMail.sort((a,b) => b.id - a.id);
+            this.listMail.sort((a, b) => b.id - a.id);
             console.log(this.listMail);
           },
             error => {
@@ -53,7 +64,7 @@ export class MailBoxComponent implements OnInit {
             })
       },
         error => {
-          if(this.refesh != undefined){
+          if (this.refesh != undefined) {
             this.refesh.target.complete();
           }
         }

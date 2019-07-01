@@ -1,6 +1,6 @@
 <!-- -->
 <ion-header no-border>
-  <ion-toolbar class="toolBar">
+  <ion-toolbar class="toolBar" (click)="btnMap_click()">
     <ion-buttons slot="start">
       <ion-button>
         <ion-icon slot="icon-only" name="pin" color="danger"></ion-icon>
@@ -16,11 +16,6 @@
         {{currentAddress}}
       </strong>
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="btnMap_click()">
-        <ion-icon slot="icon-only" name="map" class="ion-map"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
   <!-- <ion-item lines="none">
     <ion-input color="dark" placeholder="Tìm kiếm triệu chứng" [(ngModel)]="symptom"></ion-input>
@@ -38,7 +33,7 @@
   </div>
 </form> -->
 <div class="autocomplete">
-  <ion-searchbar [(ngModel)]="symptom" (ionInput)="search($event)" (ngSubmit)="submit()" (keyup.enter)="submit()"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="symptom" (ionInput)="search($event)" (ngSubmit)="submit()" (keyup.enter)="submit()" placeholder = "Nhập triệu chứng"></ion-searchbar>
 	<ion-list *ngIf="showList">
 		<ion-item *ngFor="let res of listSymptom" (click)="addNote(res)">
 			{{res}}

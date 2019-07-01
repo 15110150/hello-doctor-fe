@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { ListBooking } from 'src/app/model/list-booking';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Booking } from 'src/app/model/booking';
 import { MappingModelService } from 'src/app/services/mapping-model/mapping-model.service';
 import { IdbService } from 'src/app/services/index-DB/index-db.service';
 import { of } from 'rxjs';
+import { Status } from 'src/app/model/status';
+import { StatusVI } from 'src/app/model/statusVI';
 
 @Component({
   selector: 'app-list-booking',
@@ -24,12 +26,13 @@ export class ListBookingComponent implements OnInit, OnDestroy {
   navigationSubscription;
   //networkMode = 'online';
   refesh;
+  checked = true;
 
   constructor(private bookingService: BookingService, private router: Router,
     public alertController: AlertController, private mappingService: MappingModelService,
-    private idbService: IdbService) {
+    private idbService: IdbService, private indexDBService: IdbService) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationEnd && this.status != null) {
+      if (e instanceof NavigationStart && this.status != null) {
         console.log("reload");
         this.getListBooking(this.status);
       }
@@ -108,31 +111,77 @@ export class ListBookingComponent implements OnInit, OnDestroy {
             this.refesh.target.complete();
           }
           this.listBoooking = result;
+          if(this.status === Status.FINISHED){
+            this.indexDBService.getListBooking().subscribe(data => {
+              console.log(data);
+              if (data === undefined || data.length <= 0) {
+                this.indexDBService.addListBooking(this.listBoooking);
+              }
+            });
+          }
           this.listBoooking.forEach(x => {
             x.dateFormat = this.getDay(x.dateTime);
             if (x.status === Status.ACCEPTED) {
-              x.statusVI = StatusTX.ACCEPTED;
+              x.statusVI = StatusVI.ACCEPTED;
             }
             else if (x.status === Status.DOCTOR_CANCEL) {
-              x.statusVI = StatusTX.DOCTOR_CANCEL;
+              x.statusVI = StatusVI.DOCTOR_CANCEL;
             }
             else if (x.status === Status.DOCTOR_CANCEL) {
-              x.statusVI = StatusTX.DOCTOR_CANCEL;
+              x.statusVI = StatusVI.DOCTOR_CANCEL;
             }
             else if (x.status === Status.EXPIRED) {
-              x.statusVI = StatusTX.EXPIRED;
+              x.statusVI = StatusVI.EXPIRED;
             }
             else if (x.status === Status.FINISHED) {
-              x.statusVI = StatusTX.FINISHED;
+              x.statusVI = StatusVI.FINISHED;
             }
             else if (x.status === Status.PATIENT_CANCEL) {
-              x.statusVI = StatusTX.PATIENT_CANCEL;
+              x.statusVI = StatusVI.PATIENT_CANCEL;
             }
             else if (x.status === Status.WAITING) {
-              x.statusVI = StatusTX.WAITING;
+              x.statusVI = StatusVI.WAITING;
             }
           })
-        }
+        },
+        error => {
+          this.checked = false;
+          console.log('offine');
+          this.listwaiting = false;
+          this.listdone = true;
+          this.listcancel = false;
+          this.indexDBService.getListBooking()
+            .subscribe(result => {
+              this.isShow = false;
+              this.listBoooking = result;
+              this.listBoooking.forEach(x => {
+                x.dateFormat = this.getDay(x.dateTime);
+                if (x.status === Status.ACCEPTED) {
+                  x.statusVI = StatusVI.ACCEPTED;
+                }
+                else if (x.status === Status.DOCTOR_CANCEL) {
+                  x.statusVI = StatusVI.DOCTOR_CANCEL;
+                }
+                else if (x.status === Status.DOCTOR_CANCEL) {
+                  x.statusVI = StatusVI.DOCTOR_CANCEL;
+                }
+                else if (x.status === Status.EXPIRED) {
+                  x.statusVI = StatusVI.EXPIRED;
+                }
+                else if (x.status === Status.FINISHED) {
+                  x.statusVI = StatusVI.FINISHED;
+                }
+                else if (x.status === Status.PATIENT_CANCEL) {
+                  x.statusVI = StatusVI.PATIENT_CANCEL;
+                }
+                else if (x.status === Status.WAITING) {
+                  x.statusVI = StatusVI.WAITING;
+                }
+              })
+              console.log('vô rồi');
+              console.log(result);
+            });
+        },
       )
   }
 
@@ -258,20 +307,4 @@ export class ListBookingComponent implements OnInit, OnDestroy {
     await alert.present();
   }
 
-}
-export enum Status {
-  WAITING = "WAITING",
-  PATIENT_CANCEL = "PATIENT_CANCEL",
-  DOCTOR_CANCEL = "DOCTOR_CANCEL",
-  EXPIRED = "EXPIRED",
-  ACCEPTED = "ACCEPTED",
-  FINISHED = "FINISHED",
-}
-export enum StatusTX {
-  WAITING = "Đang chờ",
-  PATIENT_CANCEL = "Bệnh nhân hủy",
-  DOCTOR_CANCEL = "Bác sĩ hủy",
-  EXPIRED = "Quá hạn",
-  ACCEPTED = "Đã chấp nhận",
-  FINISHED = "Hoàn thành",
 }

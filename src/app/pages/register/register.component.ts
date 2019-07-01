@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Account } from 'src/app/model/account';
 import { Auth2Service } from 'src/app/services/auth/auth.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -16,12 +17,29 @@ export class RegisterComponent implements OnInit {
   public account: Account;
   public password2: any;
 
-  constructor(public authService: Auth2Service, private router: Router,
+  isValidFormSubmitted = false;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  userForm = this.formBuilder.group({
+    Offemail: ['', Validators.email]
+  });
+  submitted = false;
+
+  constructor(public authService: Auth2Service, private router: Router,private formBuilder: FormBuilder,
     public alertController: AlertController, private accountService: PatientService) {
   }
 
   ngOnInit(){
     this.account = new Account();
+  }
+
+  onFormSubmit(userForm) {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (userForm.invalid) {
+      return;
+    }
+    this.isValidFormSubmitted = true;
+    this.btnRegister_click();
   }
 
   // register and go to home page

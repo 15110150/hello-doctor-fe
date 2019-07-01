@@ -8,6 +8,8 @@ import { AuthService } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
 import { FBAccount } from 'src/app/model/FBUser';
+import { FormControl, FormBuilder, Validators } from '@angular/forms';
+import { IdbService } from 'src/app/services/index-DB/index-db.service';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +20,19 @@ export class LoginComponent implements OnInit {
 
   account: Account;
   private user: FBAccount;
+  prmEmail;
+
+
+  isValidFormSubmitted = false;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  userForm = this.formBuilder.group({
+    Offemail: ['', Validators.email]
+  });
+  submitted = false;
 
   constructor(private router: Router, private auth2Service: Auth2Service,
-    public alertController: AlertController, private fcmService: FcmService, private authService: AuthService) {
+    public alertController: AlertController, private fcmService: FcmService,
+    private authService: AuthService, private formBuilder: FormBuilder, private indexDBService: IdbService) {
 
   }
 
@@ -40,17 +52,12 @@ export class LoginComponent implements OnInit {
       this.auth2Service.loginWithFB(this.user)
         .subscribe(data => {
           if (data != null) {
-            console.log("gogo");
             this.router.navigateByUrl('/main/home');
             this.fcmService.request_permission_for_notifications()
           }
         },
           error => {
-            if (error.status == 404) {
-              this.notExistAlert();
-            }
-            else
-              this.incorrectAlert();
+            this.errorFBAlert();
           });
     });
   }
@@ -64,17 +71,33 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/register');
   }
 
+  get f() { return this.userForm.controls; }
+
+  onFormSubmit(userForm) {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (userForm.invalid) {
+      return;
+    }
+    this.isValidFormSubmitted = true;
+    this.login();
+  }
+
   // login and go to home page
   login() {
     this.auth2Service.login(this.account)
       .subscribe(data => {
         if (data != null) {
+          this.indexDBService = new IdbService();
           this.router.navigateByUrl('/main/home');
           this.fcmService.request_permission_for_notifications()
         }
       },
         error => {
-          if (error.status == 404) {
+          if (error.error.message === "Please fill in username and password") {
+            this.fillAlert();
+          }
+          else if (error.error.message === "User not found") {
             this.notExistAlert();
           }
           else
@@ -83,7 +106,7 @@ export class LoginComponent implements OnInit {
   }
 
   btnLoginFB_click() {
-     this.signInWithFB();
+    this.signInWithFB();
     // console.log(this.user.authToken);
   }
 
@@ -99,7 +122,25 @@ export class LoginComponent implements OnInit {
   async incorrectAlert() {
     const alert = await this.alertController.create({
       header: 'Đăng nhập không thành công',
-      message: 'Tên đăng nhập hoặc mật khẩu không đúng. Xin quí khách kiểm tra lại thông tin',
+      message: 'Đăng nhập không thành công. Xin quí khách kiểm tra lại thông tin',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async errorFBAlert() {
+    const alert = await this.alertController.create({
+      header: 'Đăng nhập không thành công',
+      message: 'Đăng nhập băng Facebook thất bại, vui lòng liên hệ với quản trị viên',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async fillAlert() {
+    const alert = await this.alertController.create({
+      header: 'Đăng nhập không thành công',
+      message: 'Vui lòng điển đủ thông tin email và mật khẩu',
       buttons: ['OK']
     });
     await alert.present();

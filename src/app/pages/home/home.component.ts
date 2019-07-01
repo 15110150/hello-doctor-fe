@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { NavController, PopoverController, IonTabs, DomController } from "@ionic/angular";
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { NavController, PopoverController, IonTabs, DomController, AlertController } from "@ionic/angular";
+import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { IdbService } from 'src/app/services/index-DB/index-db.service';
@@ -19,22 +19,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   };
   user: Patient;
   partOfDay;
-  status = 'ONLINE';
-  isConnected = true;
   refesh;
+  isReload;
+  isShow = true;
 
   navigationSubscription
   constructor(public nav: NavController, public popoverCtrl: PopoverController,
     public router: Router, private domCtrl: DomController, private route: ActivatedRoute,
-    private patientService: PatientService, private indexDBService: IdbService) {
+    private patientService: PatientService, private indexDBService: IdbService,
+    public alertController: AlertController) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationEnd) {
+      if (e instanceof NavigationStart) {
         this.getProfile();
       }
     });
   }
 
   ngOnInit(): void {
+    this.isReload = true;
     this.getPartOfDate();
     this.user = new Patient();
     this.getProfile();
@@ -66,13 +68,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   getProfile() {
     this.patientService.getUser()
       .subscribe(result => {
-        if(this.refesh != undefined){
+        if (this.refesh != undefined) {
           this.refesh.target.complete();
         }
         this.user = result;
       },
         error => {
-          if(this.refesh != undefined){
+          if(this.isShow === true){
+            this.mesageAlert();
+          }
+          this.isShow = false;
+          if (this.refesh != undefined) {
             this.refesh.target.complete();
           }
           this.indexDBService.getUser()
@@ -92,7 +98,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/main/list-booking');
   }
   cdAccount_click() {
-    this.router.navigateByUrl('/test');
+    this.router.navigateByUrl('/profile');
+  }
+
+  btnPromotion_click(){
+    this.router.navigateByUrl('/promotion');
   }
 
   ngOnDestroy() {
@@ -102,5 +112,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.navigationSubscription) {
       this.navigationSubscription.unsubscribe();
     }
+  }
+
+  async mesageAlert() {
+    const alert = await this.alertController.create({
+      header: 'Thông báo',
+      message: 'Có vẻ như bạn đang offline, vui lòng kết nối internet để cập nhật thông tin mới nhất. Trong trường hợp bạn không thể online ngay lúc này, chúng tối sẽ hiển thị thông tin cá nhân của bạn và danh sach các lịch khám mà bạn đã hoàn thành để bạn có thể coi lại sổ khám của mình',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

@@ -1,12 +1,12 @@
 <ion-toolbar>
   <ion-segment color="primary" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="waiting" checked>
+    <ion-segment-button value="waiting" [checked]="checked" [disabled]="!checked">
       <ion-label>Chưa khám</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="done">
+    <ion-segment-button value="done" [checked]="!checked">
       <ion-label>Đã khám</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="cancel">
+    <ion-segment-button value="cancel" [disabled]="!checked">
       <ion-label>Đã hủy</ion-label>
     </ion-segment-button>
   </ion-segment>

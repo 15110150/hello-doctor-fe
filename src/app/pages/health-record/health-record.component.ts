@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BookingService } from 'src/app/services/booking/booking.service';
 import { ListBooking } from 'src/app/model/list-booking';
 import { HealthRecordDTO } from 'src/app/model/health-record-DTO';
+import { IdbService } from 'src/app/services/index-DB/index-db.service';
 
 @Component({
   selector: 'app-health-record',
@@ -29,7 +30,7 @@ export class HealthRecordComponent implements OnInit {
   constructor(private _location: Location, private modalController: ModalController,
     private uploadFileService: UploadFileService, private alertController: AlertController,
     private activatedRoute: ActivatedRoute, private bookingService: BookingService,
-    private loadingController: LoadingController) {
+    private loadingController: LoadingController, private indexDBService: IdbService) {
     if (this.activatedRoute.snapshot.params['bookId']) {
       this.bookId = this.activatedRoute.snapshot.params['bookId'];
     }
@@ -112,7 +113,24 @@ export class HealthRecordComponent implements OnInit {
     this.bookingService.getHealthRecord(this.bookId)
       .subscribe(result => {
         this.healthRecord = result;
+        this.indexDBService.getHealthRecord(this.bookId).subscribe(data => {
+          var result = data.filter(item => item.bookId === this.bookId)
+          if (result[0] === undefined || result.length <= 0) {
+            this.indexDBService.addHealthRecord(this.healthRecord);
+          }
+          else {
+            this.indexDBService.updateHealthRecord(this.healthRecord);
+          }
+        })
         this.selectedFile = this.healthRecord.prescriptionImage;
+      },
+      error => {
+        this.indexDBService.getHealthRecord(this.bookId)
+          .subscribe(result => {
+            this.healthRecord = result.filter(item => item.bookId == this.bookId)[0];
+            this.selectedFile = this.healthRecord.prescriptionImage;
+            console.log(this.healthRecord)
+          });
       });
   }
 
