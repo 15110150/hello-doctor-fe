@@ -57,7 +57,7 @@
       <ion-input [readonly]="isEdit" [(ngModel)]="userProfile.weight"></ion-input>
     </ion-item>
   </ion-card>
-  <ion-grid>
+  <ion-grid *ngIf="isOnline">
     <ion-row>
       <ion-col size="6">
         <ion-button expand="full" shape="round" class="btn1" (click)="btnEdit_click()" [disabled]="!isEdit">

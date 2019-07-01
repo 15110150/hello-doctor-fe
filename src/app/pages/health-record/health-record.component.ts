@@ -27,6 +27,8 @@ export class HealthRecordComponent implements OnInit {
   healthRecordSave: HealthRecord;
   loading;
 
+  isOnline;
+
   constructor(private _location: Location, private modalController: ModalController,
     private uploadFileService: UploadFileService, private alertController: AlertController,
     private activatedRoute: ActivatedRoute, private bookingService: BookingService,
@@ -112,6 +114,7 @@ export class HealthRecordComponent implements OnInit {
   getHealthRecord() {
     this.bookingService.getHealthRecord(this.bookId)
       .subscribe(result => {
+        this.isOnline = true;
         this.healthRecord = result;
         this.indexDBService.getHealthRecord(this.bookId).subscribe(data => {
           var result = data.filter(item => item.bookId === this.bookId)
@@ -125,6 +128,7 @@ export class HealthRecordComponent implements OnInit {
         this.selectedFile = this.healthRecord.prescriptionImage;
       },
       error => {
+        this.isOnline = false;
         this.indexDBService.getHealthRecord(this.bookId)
           .subscribe(result => {
             this.healthRecord = result.filter(item => item.bookId == this.bookId)[0];

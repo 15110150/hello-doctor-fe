@@ -13,7 +13,7 @@ export class TabComponent implements OnInit {
   @ViewChild('myTabs') tabs: IonTabs;
 
   numberMail;
-  
+
   constructor(private mailboxService: MailBoxService, private patientService: PatientService) { }
 
   ngOnInit() {
@@ -21,10 +21,10 @@ export class TabComponent implements OnInit {
     //list[0].classList.add("clicked1");  
   }
 
-  chang1(event){
-   }
+  chang1(event) {
+  }
 
-   ionChange(myTabs) {
+  ionChange(myTabs) {
     // console.log(this.tabs.getSelected());
   }
 
@@ -41,7 +41,7 @@ export class TabComponent implements OnInit {
   //     }
   //   },
   //     error => {
-       
+
   //     }
 
   //   );

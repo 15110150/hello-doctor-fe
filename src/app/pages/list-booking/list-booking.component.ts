@@ -26,7 +26,11 @@ export class ListBookingComponent implements OnInit, OnDestroy {
   navigationSubscription;
   //networkMode = 'online';
   refesh;
-  checked = true;
+  checked = false;
+
+  isDisable = false;
+
+  isOnline;
 
   constructor(private bookingService: BookingService, private router: Router,
     public alertController: AlertController, private mappingService: MappingModelService,
@@ -107,11 +111,15 @@ export class ListBookingComponent implements OnInit, OnDestroy {
     this.bookingService.getListBooking(status)
       .subscribe(
         result => {
+          this.isOnline = true;
+          //this.checked = true;
+          this.isDisable = false;
+          //kết thúc refesh
           if (this.refesh != undefined) {
             this.refesh.target.complete();
           }
           this.listBoooking = result;
-          if(this.status === Status.FINISHED){
+          if (this.status === Status.FINISHED) {
             this.indexDBService.getListBooking().subscribe(data => {
               console.log(data);
               if (data === undefined || data.length <= 0) {
@@ -145,8 +153,13 @@ export class ListBookingComponent implements OnInit, OnDestroy {
           })
         },
         error => {
-          this.checked = false;
-          console.log('offine');
+          this.isOnline = false;
+          this.checked = true;
+          this.isDisable = true;
+          //kết thúc refesh
+          if (this.refesh != undefined) {
+            this.refesh.target.complete();
+          }
           this.listwaiting = false;
           this.listdone = true;
           this.listcancel = false;
@@ -202,7 +215,9 @@ export class ListBookingComponent implements OnInit, OnDestroy {
   }
 
   btnDetailBooking_click(id: number) {
+    if(this.isOnline){
     this.router.navigate(['/detail-booking/detail-booking', id]);
+    }
   }
 
   getDay(date: string) {

@@ -24,6 +24,9 @@ export class UserProfileComponent implements OnInit {
   online$;
   loading;
 
+  //kiểm tra có đang kết nối internet
+  isOnline;
+
   @ViewChild('myFile', { read: ElementRef }) fileElementRef: ElementRef;
 
   constructor(private patientService: PatientService, private _location: Location,
@@ -45,7 +48,8 @@ export class UserProfileComponent implements OnInit {
   getProfile() {
     this.patientService.getUser()
       .subscribe(result => {
-        if (result != null) {
+        if (result != undefined) {
+          this.isOnline = true;
           this.userProfile = result;
           console.log(this.userProfile);
           this.indexDBService.getUser().subscribe(data => {
@@ -59,6 +63,7 @@ export class UserProfileComponent implements OnInit {
         }
       },
         error => {
+          this.isOnline = false;
           this.indexDBService.getUser()
             .subscribe(result => {
               this.userProfile = result[0];

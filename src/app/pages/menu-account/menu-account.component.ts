@@ -34,6 +34,13 @@ export class MenuAccountComponent implements OnInit, OnDestroy {
     this.accountService.getUser()
       .subscribe(result => {
         this.userProfile = result;
+      },
+      error=>{
+        this.indexDBService.getUser()
+        .subscribe(result => {
+          this.userProfile = result[0];
+          console.log(this.userProfile)
+        });
       });
   }
 

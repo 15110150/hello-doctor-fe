@@ -40,13 +40,13 @@
         Toa thuốc
       </strong>
     </ion-card-header>
-    <ion-input type="file" accept="image/*" (change)="onFileSelected($event)" [disabled]="!isEdit"></ion-input>
+    <ion-input *ngIf="isOnline" type="file" accept="image/*" (change)="onFileSelected($event)" [disabled]="!isEdit"></ion-input>
     <span style="color:red;" *ngIf="message">{{message}}</span>
     <ion-card>
         <img src="{{selectedFile}}" style="text-align: center" (click)="openPreview(selectedFile)">
     </ion-card>
   </ion-card>
-  <ion-grid>
+  <ion-grid *ngIf="isOnline">
     <ion-row>
       <ion-col size="6">
         <ion-button expand="full" shape="round" class="btn1" (click)="btnEdit_click()" [disabled]="isEdit">

@@ -1,12 +1,12 @@
 <ion-toolbar>
   <ion-segment color="primary" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="waiting" [checked]="checked" [disabled]="!checked">
+    <ion-segment-button value="waiting" checked [disabled]="isDisable">
       <ion-label>Chưa khám</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="done" [checked]="!checked">
+    <ion-segment-button value="done" [checked]="checked">
       <ion-label>Đã khám</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="cancel" [disabled]="!checked">
+    <ion-segment-button value="cancel" [disabled]="isDisable">
       <ion-label>Đã hủy</ion-label>
     </ion-segment-button>
   </ion-segment>
@@ -54,7 +54,7 @@
           </ion-label>
         </ion-item>
         <ion-card-content>
-          <ion-button [disabled]="(!element.commentable)" size="small" color="medium" (click)="btnFeedback_click(element.doctor.userId, element.id)">Đánh
+          <ion-button *ngIf="isOnline" [disabled]="(!element.commentable)" size="small" color="medium" (click)="btnFeedback_click(element.doctor.userId, element.id)">Đánh
             giá</ion-button>
           <ion-button size="small" color="medium" (click)="btnDetail_click(element.id)">Xem thông tin</ion-button>
         </ion-card-content>

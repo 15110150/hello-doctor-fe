@@ -68,19 +68,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   getProfile() {
     this.patientService.getUser()
       .subscribe(result => {
+        //kết thúc refesh
         if (this.refesh != undefined) {
           this.refesh.target.complete();
         }
         this.user = result;
       },
         error => {
+          //show thông báo offline trong lần đầu tiên 
           if(this.isShow === true){
             this.mesageAlert();
           }
+          //sau đó không show nữa
           this.isShow = false;
+          //kết thúc reshe
           if (this.refesh != undefined) {
             this.refesh.target.complete();
           }
+          //sau đó lấy thông tin người dùng từ indexDB
           this.indexDBService.getUser()
             .subscribe(result => {
               this.user = result[0];
