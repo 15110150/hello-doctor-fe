@@ -129,6 +129,10 @@ export class SearchComponent implements OnInit {
         this.isShow = false;
         // this.searchResult.forEach(x=>
         //   x.basePrice = parseFloat(x.basePrice).toFixed(3));
+      }, 
+      error=>{
+        this.isShow = false;
+        this.errorAlert();
       }
       )
     // this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)
@@ -149,6 +153,16 @@ export class SearchComponent implements OnInit {
     const alert = await this.alertController.create({
       header: 'Thông báo',
       message: 'Định vị không hỗ trợ cho trình duyệt này.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async errorAlert() {
+    const alert = await this.alertController.create({
+      header: 'Lỗi',
+      message: 'Vui lòng kiểm tra kết nối internet. Nếu đã kết nối mà không tìm kiếm được, vui lòng liên hệ quản trị viên.',
       buttons: ['OK']
     });
 

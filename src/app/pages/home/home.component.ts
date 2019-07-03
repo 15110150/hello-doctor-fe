@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private patientService: PatientService, private indexDBService: IdbService,
     public alertController: AlertController) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationStart) {
+      if (e instanceof NavigationEnd) {
         this.getProfile();
       }
     });

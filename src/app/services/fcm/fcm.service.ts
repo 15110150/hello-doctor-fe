@@ -88,8 +88,6 @@ export class FcmService {
     }).pipe(
       map(response => {
         const data = response.toString();
-        localStorage.removeItem('currentDevice');
-        localStorage.removeItem('currentUser');
         return data;
       })).toPromise();
   }

@@ -36,7 +36,7 @@ export class ListBookingComponent implements OnInit, OnDestroy {
     public alertController: AlertController, private mappingService: MappingModelService,
     private idbService: IdbService, private indexDBService: IdbService) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationStart && this.status != null) {
+      if (e instanceof NavigationEnd && this.status != null) {
         console.log("reload");
         this.getListBooking(this.status);
       }

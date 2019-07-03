@@ -19,7 +19,7 @@ export class MenuAccountComponent implements OnInit, OnDestroy {
   constructor(private accountService: PatientService, private authService: Auth2Service,
     private router: Router, private fcmSerVice: FcmService, private indexDBService: IdbService) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationStart) {
+      if (e instanceof NavigationEnd) {
         this.getProfile();
       }
     });
@@ -34,26 +34,34 @@ export class MenuAccountComponent implements OnInit, OnDestroy {
     this.accountService.getUser()
       .subscribe(result => {
         this.userProfile = result;
-      },
-      error=>{
-        this.indexDBService.getUser()
-        .subscribe(result => {
-          this.userProfile = result[0];
-          console.log(this.userProfile)
-        });
-      });
+      }
+      )
   }
 
   btnLogout_click() {
-    this.fcmSerVice.logout().then(result => {
-      console.log(result);
+    let token = localStorage.getItem('currentDevice');
+    if (token === null) {
       this.indexDBService.deleteDatabase()
-      .subscribe(result => {
-        console.log(result);
-        this.router.navigateByUrl('/login');
-      });
+        .subscribe(result => {
+          console.log(result);
+          localStorage.removeItem('currentDevice');
+          localStorage.removeItem('currentUser');
+          this.router.navigateByUrl('/login').then(() => window.location.reload());
+        })
     }
-    )
+    else {
+      this.fcmSerVice.logout().then(result => {
+        console.log(result);
+        this.indexDBService.deleteDatabase()
+          .subscribe(result => {
+            console.log(result);
+            localStorage.removeItem('currentDevice');
+            localStorage.removeItem('currentUser');
+            this.router.navigateByUrl('/login').then(() => window.location.reload());
+          });
+      }
+      )
+    }
   }
 
   ngOnDestroy() {
