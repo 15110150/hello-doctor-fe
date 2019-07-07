@@ -125,6 +125,7 @@ export class UserProfileComponent implements OnInit {
           this.userProfile.avatarImg = result.url;
         }
         error => {
+          this.loading.dismiss();
           this.errorAlert();
         }
       })

@@ -71,6 +71,7 @@ export class HealthRecordComponent implements OnInit {
         this.selectedFile = result.url;
       },
         error => {
+          this.loading.dismiss();
           this.errorImgAlert();
         }
       )

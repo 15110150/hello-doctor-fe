@@ -34,29 +34,29 @@ export class FcmService {
 
 
   request_permission_for_notifications() {
-    if (Notification.permission !== "granted") {
+    if (Notification.permission === "granted") {
+      return firebase.messaging().getToken().then(
+        token => {
+          let accessToken = JSON.parse(localStorage.getItem('currentUser'));
+          let urlSub = this.url + '/subscribe'
+          const headers = new HttpHeaders()
+            .set('Authorization', 'Bearer ' + accessToken.token);
+          return this.http.post(urlSub, token, {
+            headers: headers
+          }).pipe(
+            map(response => {
+              const data = response;
+              localStorage.setItem('currentDevice', token);
+              console.log(localStorage.getItem('currentDevice'))
+              return data;
+            })).toPromise();
+        }
+      )
+    }
+    else {
       this.messaging.requestPermission().then(() => {
         return firebase.messaging().getToken();
       }).then(token => {
-        let accessToken = JSON.parse(localStorage.getItem('currentUser'));
-        let urlSub = this.url + '/subscribe'
-        const headers = new HttpHeaders()
-          .set('Authorization', 'Bearer ' + accessToken.token);
-        return this.http.post(urlSub, token, {
-          headers: headers
-        }).pipe(
-          map(response => {
-            const data = response;
-            localStorage.setItem('currentDevice', token);
-            console.log(localStorage.getItem('currentDevice'))
-            return data;
-          })).toPromise();
-      }
-      )
-    }
-    else{
-      return firebase.messaging().getToken().then(
-      token => {
         let accessToken = JSON.parse(localStorage.getItem('currentUser'));
         let urlSub = this.url + '/subscribe'
         const headers = new HttpHeaders()
