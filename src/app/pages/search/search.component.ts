@@ -131,15 +131,15 @@ export class SearchComponent implements OnInit {
               break;
           }
         });
-        if (this.refesh != undefined) {
-          this.refesh.target.complete();
-        }
+      if (this.refesh != undefined) {
+        this.refesh.target.complete();
+      }
     } else {
       this.isSearch = false;
       this.geocordingAlert();
-       if (this.refesh != undefined) {
-            this.refesh.target.complete();
-          }
+      if (this.refesh != undefined) {
+        this.refesh.target.complete();
+      }
     }
   }
 
@@ -150,7 +150,7 @@ export class SearchComponent implements OnInit {
   }
 
   searchDoctors() {
-    if (this.isSearch) {
+    if (this.currentAddress != null || this.currentAddress != undefined) {
       this.isShow = true;
       this.searchResult = null;
       //this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
@@ -180,9 +180,10 @@ export class SearchComponent implements OnInit {
   }
 
   btnMap_click() {
-    if (this.currentAddress != undefined || this.currentAddress != null) {
-      this.router.navigate(['/map/address', "search", this.currentAddress]);
+    if (this.currentAddress === undefined || this.currentAddress === null) {
+      this.router.navigate(['/map/address', "search", "center"]);
     }
+    this.router.navigate(['/map/address', "search", this.currentAddress]);
     //this.router.navigate(['/map'],{ queryParams: { address: this.currentAddress } });
   }
 
@@ -208,7 +209,7 @@ export class SearchComponent implements OnInit {
 
   async errorDeniedAlert() {
     const alert = await this.alertController.create({
-      message: 'Vui lòng bật định vị để sử dụng dịch vụ.',
+      message: 'Vui lòng bật định vị hoặc chọn vị trí để sử dụng dịch vụ.',
       buttons: [
         {
           text: 'OK',
@@ -235,7 +236,7 @@ export class SearchComponent implements OnInit {
   async checkGeoAlert() {
     const alert = await this.alertController.create({
       header: 'Lỗi',
-      message: 'Vui lòng kiểm tra định vị để sử dụng dịch vụ.',
+      message: 'Vui lòng kiểm tra định vị hoặc chọn vị trí để sử dụng dịch vụ.',
       buttons: ['OK']
     });
 

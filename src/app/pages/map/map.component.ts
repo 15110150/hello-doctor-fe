@@ -45,6 +45,9 @@ export class MapComponent implements OnInit {
     if (this.activatedRoute.snapshot.params['id']) {
       this.currentAddress = this.activatedRoute.snapshot.params['id'];
     }
+    if (this.currentAddress === "center") {
+      this.currentAddress = '125 Công xã Paris, Bến Nghé, Quận 1, Hồ Chí Minh'
+    }
     if (this.activatedRoute.snapshot.params['c']) {
       this.lastComponent = this.activatedRoute.snapshot.params['c'];
     }
