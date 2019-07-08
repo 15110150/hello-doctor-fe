@@ -21,7 +21,7 @@ export class HealthRecordComponent implements OnInit {
   message: string;
   imagePath;
   healthRecord: HealthRecordDTO;
-  bookId;
+  bookId: number;
   // booking: ListBooking;
   isEdit = false;
   healthRecordSave: HealthRecord;
@@ -118,11 +118,16 @@ export class HealthRecordComponent implements OnInit {
         this.isOnline = true;
         this.healthRecord = result;
         this.indexDBService.getHealthRecord(this.bookId).subscribe(data => {
-          var result = data.filter(item => item.bookId === this.bookId)
-          if (result[0] === undefined || result.length <= 0) {
+          console.log(data);
+          console.log(this.bookId);
+          var result = data.find((item) => item.bookId.toString() === this.bookId.toString())
+          console.log(result);
+          if (result === undefined) {
+            console.log("add");
             this.indexDBService.addHealthRecord(this.healthRecord);
           }
           else {
+            console.log("update");
             this.indexDBService.updateHealthRecord(this.healthRecord);
           }
         })
@@ -132,7 +137,7 @@ export class HealthRecordComponent implements OnInit {
         this.isOnline = false;
         this.indexDBService.getHealthRecord(this.bookId)
           .subscribe(result => {
-            this.healthRecord = result.filter(item => item.bookId == this.bookId)[0];
+            this.healthRecord = result.find((item) => item.bookId.toString() === this.bookId.toString())
             this.selectedFile = this.healthRecord.prescriptionImage;
             console.log(this.healthRecord)
           });

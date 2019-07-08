@@ -54,4 +54,8 @@
   ion-card.cards-pk ion-label.headerLabel{
     color: #09548E;
   }
+  ion-icon.star-half{
+    color: linear-gradient(to left, grey 50%, #ffce00 100%); 
+    //display: inline;
+  }
 }

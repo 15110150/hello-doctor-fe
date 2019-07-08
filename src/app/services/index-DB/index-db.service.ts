@@ -20,7 +20,7 @@ export class IdbService {
       var p = evt.currentTarget.result;
       let objectStore = p.createObjectStore('user', { keyPath: 'userId', autoIncrement: true });
       let listBookingStore = p.createObjectStore('list-booking', { keyPath: 'id', autoIncrement: true });
-      let healthRecordStore = p.createObjectStore('health-record', { keyPath: 'id', autoIncrement: true });
+      let healthRecordStore = p.createObjectStore('health-record', { keyPath: 'bookId', autoIncrement: true });
       objectStore.createIndex('name', 'name', { unique: false });
       objectStore.createIndex('personIdNumber', 'personIdNumber', { unique: false });
       objectStore.createIndex('phoneNumber', 'phoneNumber', { unique: false });
@@ -39,7 +39,6 @@ export class IdbService {
       listBookingStore.createIndex('statusReason', 'statusReason', { unique: false });
       listBookingStore.createIndex('doctor', 'doctor', { unique: false });
 
-      healthRecordStore.createIndex('bookId', 'bookId', { unique: false });
       healthRecordStore.createIndex('booking', 'booking', { unique: false });
       healthRecordStore.createIndex('content', 'content', { unique: false });
       healthRecordStore.createIndex('doctor', 'doctor', { unique: false });

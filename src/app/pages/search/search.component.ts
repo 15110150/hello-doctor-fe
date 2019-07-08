@@ -32,6 +32,8 @@ export class SearchComponent implements OnInit {
   isShow = false;
   status = "off";
   showList = false;
+  isSearch: boolean;
+  refesh;
 
   ngOnInit() {
     this.myForm = new FormGroup({
@@ -40,7 +42,11 @@ export class SearchComponent implements OnInit {
     if (this.currentAddress == null) {
       this.locateLocation();
     }
+  }
 
+  doRefresh(event) {
+    this.refesh = event;
+    this.locateLocation();
   }
 
   submit(): void {
@@ -57,7 +63,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  search(event){
+  search(event) {
     this.showList = true;
     this.completeTestService.getResults(event.target.value)
       .subscribe(result => {
@@ -66,7 +72,7 @@ export class SearchComponent implements OnInit {
       });
   }
 
-  addNote(symptom){
+  addNote(symptom) {
     this.symptom = symptom;
     this.submit();
   }
@@ -104,40 +110,69 @@ export class SearchComponent implements OnInit {
   locateLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
+        this.isSearch = true;
         this.currentLat = position.coords.latitude;
         this.currentLong = position.coords.longitude;
         this.getAddress(this.currentLat, this.currentLong);
-      });
+      },
+        error => {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              this.errorDeniedAlert();
+              this.isSearch = false;
+              break;
+            case error.POSITION_UNAVAILABLE:
+              this.unvailAlert();
+              this.isSearch = false;
+              break;
+            case error.TIMEOUT:
+              this.timeoutAlert();
+              this.isSearch = false;
+              break;
+          }
+        });
+        if (this.refesh != undefined) {
+          this.refesh.target.complete();
+        }
     } else {
+      this.isSearch = false;
       this.geocordingAlert();
+       if (this.refesh != undefined) {
+            this.refesh.target.complete();
+          }
     }
   }
 
-  symptomChange(event){
+  symptomChange(event) {
     this.symptom = event;
     this.searchDoctors();
     this.completeTestService = null;
   }
 
   searchDoctors() {
-    this.isShow = true;
-    this.searchResult = null;
-    //this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
-    this.searchService.getListDoctorByAddress(this.currentAddress, this.symptom)
-      .subscribe(result => {
-        this.searchResult = result;
-        this.isShow = false;
-        // this.searchResult.forEach(x=>
-        //   x.basePrice = parseFloat(x.basePrice).toFixed(3));
-      }, 
-      error=>{
-        this.isShow = false;
-        this.errorAlert();
-      }
-      )
-    // this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)
-    //   .subscribe(result => {
-    //     this.searchResult = result;
+    if (this.isSearch) {
+      this.isShow = true;
+      this.searchResult = null;
+      //this.searchService.getListDoctorByAddress(this.currentAddress, this.partOfDay, this.symptom)
+      this.searchService.getListDoctorByAddress(this.currentAddress, this.symptom)
+        .subscribe(result => {
+          this.searchResult = result;
+          this.isShow = false;
+          // this.searchResult.forEach(x=>
+          //   x.basePrice = parseFloat(x.basePrice).toFixed(3));
+        },
+          error => {
+            this.errorAlert();
+            this.isShow = false;
+          }
+        )
+      // this.searchService.getListDoctor(this.symptom, this.currentLat, this.currentLong, this.partOfDay)
+      //   .subscribe(result => {
+      //     this.searchResult = result;
+    }
+    else {
+      this.checkGeoAlert();
+    }
   }
 
   btnDoctor_click(id: number) {
@@ -145,7 +180,9 @@ export class SearchComponent implements OnInit {
   }
 
   btnMap_click() {
-    this.router.navigate(['/map/address', "search", this.currentAddress]);
+    if (this.currentAddress != undefined || this.currentAddress != null) {
+      this.router.navigate(['/map/address', "search", this.currentAddress]);
+    }
     //this.router.navigate(['/map'],{ queryParams: { address: this.currentAddress } });
   }
 
@@ -169,4 +206,49 @@ export class SearchComponent implements OnInit {
     await alert.present();
   }
 
+  async errorDeniedAlert() {
+    const alert = await this.alertController.create({
+      message: 'Vui lòng bật định vị để sử dụng dịch vụ.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            //this.locateLocation();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async unvailAlert() {
+    const alert = await this.alertController.create({
+      header: 'Lỗi',
+      message: 'Thông tin vị trí không có sẵn.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async checkGeoAlert() {
+    const alert = await this.alertController.create({
+      header: 'Lỗi',
+      message: 'Vui lòng kiểm tra định vị để sử dụng dịch vụ.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async timeoutAlert() {
+    const alert = await this.alertController.create({
+      header: 'Lỗi',
+      message: 'Yêu cầu nhận được vị trí người dùng đã hết thời gian. Vui lòng thử lại',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 }

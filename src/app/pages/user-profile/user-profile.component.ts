@@ -53,10 +53,13 @@ export class UserProfileComponent implements OnInit {
           this.userProfile = result;
           console.log(this.userProfile);
           this.indexDBService.getUser().subscribe(data => {
+            console.log(data);
             if (data === undefined || data.length <= 0) {
+              console.log("add");
               this.indexDBService.connecttoDBUser(this.userProfile);
             }
             else {
+              console.log("update");
               this.indexDBService.updateUser(this.userProfile);
             }
           })

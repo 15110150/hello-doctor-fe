@@ -22,11 +22,16 @@
       <div text-center style="color: #ffffff"><strong>{{doctor.name}}</strong></div>
       <div text-center style="color: #ffffff">Chuyên khoa: {{doctor.department}}</div>
       <div text-center>
-        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 1)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 2)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 3)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 4)? '#ffce00' : 'grey'}" name="star"></ion-icon>
-        <ion-icon [ngStyle]="{'color': (doctor.rateSummary >= 5)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary < 0.2 || doctor.rateSummary >= 0.8" [ngStyle]="{'color': (doctor.rateSummary >= 0.8)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary >= 0.2 && doctor.rateSummary < 0.8" [ngStyle]="{'color': '#ffce00'}" name="star-half"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary < 1.2 || doctor.rateSummary >= 1.8" [ngStyle]="{'color': (doctor.rateSummary >= 1.8)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary >= 1.2 && doctor.rateSummary < 1.8" [ngStyle]="{'color': '#ffce00'}" name="star-half"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary < 2.2 || doctor.rateSummary >= 2.8" [ngStyle]="{'color': (doctor.rateSummary >= 2.8)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary >= 2.2 && doctor.rateSummary < 2.8" [ngStyle]="{'color': '#ffce00'}" name="star-half"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary < 3.2 || doctor.rateSummary >= 3.8" [ngStyle]="{'color': (doctor.rateSummary >= 3.8)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary >= 3.2 && doctor.rateSummary < 3.8" [ngStyle]="{'color': '#ffce00'}" name="star-half"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary < 4.2 || doctor.rateSummary >= 4.8" [ngStyle]="{'color': (doctor.rateSummary >= 4.8)? '#ffce00' : 'grey'}" name="star"></ion-icon>
+        <ion-icon *ngIf="doctor.rateSummary >= 4.2 && doctor.rateSummary < 4.8" [ngStyle]="{'color': '#ffce00'}" name="star-half"></ion-icon>
       </div>
     </ion-toolbar>
   </ion-header>
